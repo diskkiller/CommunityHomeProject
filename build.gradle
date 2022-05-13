@@ -1,0 +1,93 @@
+// 导入配置文件
+apply from : 'configs.gradle'
+
+buildscript {
+    // 导入通用的 Maven 库配置
+    apply from : 'maven.gradle'
+    repositories {
+        // 阿里云云效仓库（Gradle 插件）：https://maven.aliyun.com/mvn/guide
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        addCommonMaven(repositories)
+    }
+
+    // Studio 插件推荐：https://github.com/getActivity/StudioPlugins
+    dependencies {
+        // Gradle 插件版本说明：https://developer.android.google.cn/studio/releases/gradle-plugin.html#updating-plugin
+        // noinspection GradleDependency
+        classpath 'com.android.tools.build:gradle:4.1.2'
+        // AOP 配置插件：https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
+
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.3'
+    }
+}
+
+allprojects {
+    repositories {
+        // 友盟远程仓库：https://info.umeng.com/detail?id=443&cateId=1
+        maven { url 'https://repo1.maven.org/maven2' }
+        addCommonMaven(repositories)
+    }
+
+    tasks.withType(JavaCompile) {
+        // 设置全局编码
+        options.encoding = 'UTF-8'
+    }
+    tasks.withType(Javadoc) {
+        // 设置文档编码
+        options {
+            encoding 'UTF-8'
+            charSet 'UTF-8'
+            links 'http://docs.oracle.com/javase/7/docs/api'
+        }
+    }
+
+    // 将构建文件统一输出到项目根目录下的 build 文件夹
+    setBuildDir(new File(rootDir, "build/${path.replaceAll(':', '/')}"))
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext{
+    // 版本号相关
+    versionCode = 1;
+    versionName = '1.0.0'
+
+    // 相关依赖库版本
+    supportVersion = '1.0.0'
+    butterknifeVersion = '9.0.0'
+    geniusVersion = '2.0.0'
+    glideVersion = '4.11.0'
+    circleimageviewVersion = '2.1.0'
+    ucropVersion = "2.2.0-native"
+    easyPMVersion = "0.3.0"
+    ossVersion = '2.3.0'
+
+    gsonVersion = '2.8.0'
+    retrofitVersion = '2.1.0'
+    getuiVersion = '2.9.3.0'
+    dbflowVersion = "4.2.3"
+    airpanelVersion = "1.1.0"
+    lameVersion = "1.0.0"
+
+    camerax_version = "1.0.0-alpha10"
+    camera_core_version = "1.0.0-alpha10"
+
+    futures_version= "1.0.0"
+
+    camerax_view ="1.0.0-alpha10"
+
+    // okio
+    okio_version= "2.6.0"
+
+    localbroadcastmanager= "1.0.0"
+
+    // glide
+    glide_version= "4.11.0"
+
+    // picasso
+    picasso_version= "2.71828"
+}
+

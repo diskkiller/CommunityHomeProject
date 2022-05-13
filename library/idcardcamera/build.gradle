@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+apply from : '../../common.gradle'
+
+android {
+
+    defaultConfig {
+        // 模块混淆配置
+        consumerProguardFiles 'proguard-base.pro'
+    }
+}
+
+dependencies {
+    api 'com.github.getActivity:XXPermissions:13.5'
+}

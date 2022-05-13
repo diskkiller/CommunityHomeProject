@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints"
+    style="@style/lmhm"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/lmhm"
+        android:paddingBottom="@dimen/dp_20">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/sb_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="居民认证"
+            />
+
+        <View
+            android:id="@+id/view_head_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@color/color_fff8f8f8"
+            app:layout_constraintTop_toBottomOf="@+id/sb_title"/>
+
+
+        <TextView
+            android:id="@+id/current_city"
+            style="@style/lwhw"
+            android:text="当前定位：北京"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_13"
+            android:paddingStart="@dimen/dp_15"
+            app:layout_constraintTop_toTopOf="@+id/view_head_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/view_head_bg"/>
+
+        <!--    社区    -->
+        <TextView
+            android:id="@+id/community_key"
+            style="@style/resident_type_key"
+            android:text="社区"
+            app:layout_constraintTop_toBottomOf="@+id/view_head_bg"/>
+
+        <TextView
+            android:id="@+id/community_value"
+            style="@style/resident_type_value"
+            android:text="请选择社区"
+            app:layout_constraintTop_toTopOf="@+id/community_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_one"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/community_key"/>
+
+        <!--    小区    -->
+        <TextView
+            android:id="@+id/quarters_key"
+            style="@style/resident_type_key"
+            android:text="小区"
+            app:layout_constraintTop_toBottomOf="@+id/divide_one"/>
+
+        <TextView
+            android:id="@+id/quarters_value"
+            style="@style/resident_type_value"
+            android:text="请选择小区"
+            app:layout_constraintTop_toTopOf="@+id/quarters_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_two"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/quarters_key"/>
+
+        <!--    楼号    -->
+        <TextView
+            android:id="@+id/number_key"
+            style="@style/resident_type_key"
+            android:text="楼号"
+            app:layout_constraintTop_toBottomOf="@+id/divide_two"/>
+
+        <TextView
+            android:id="@+id/number_value"
+            style="@style/resident_type_value"
+            android:text="请选择楼号"
+            app:layout_constraintTop_toTopOf="@+id/number_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_three"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/number_key"/>
+
+        <!--    单元    -->
+        <TextView
+            android:id="@+id/unit_key"
+            style="@style/resident_type_key"
+            android:text="单元"
+            app:layout_constraintTop_toBottomOf="@+id/divide_three"/>
+
+        <TextView
+            android:id="@+id/unit_value"
+            style="@style/resident_type_value"
+            android:text="请选择单元"
+            app:layout_constraintTop_toTopOf="@+id/unit_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_four"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/unit_key"/>
+
+        <!--    楼层    -->
+        <TextView
+            android:id="@+id/floor_key"
+            style="@style/resident_type_key"
+            android:text="楼层"
+            app:layout_constraintTop_toBottomOf="@+id/divide_four"/>
+
+        <TextView
+            android:id="@+id/floor_value"
+            style="@style/resident_type_value"
+            android:text="请选择楼层"
+            app:layout_constraintTop_toTopOf="@+id/floor_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_five"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/floor_key"/>
+
+        <!--    房屋门牌号    -->
+        <TextView
+            android:id="@+id/room_num_key"
+            style="@style/resident_type_key"
+            android:text="房屋门牌号"
+            app:layout_constraintTop_toBottomOf="@+id/divide_five"/>
+
+        <TextView
+            android:id="@+id/room_num_value"
+            style="@style/resident_type_value"
+            android:text="请选择房屋门牌号"
+            app:layout_constraintTop_toTopOf="@+id/room_num_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_six"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/room_num_key"/>
+
+
+        <TextView
+            android:id="@+id/person_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:paddingStart="@dimen/dp_15"
+            android:gravity="center_vertical"
+            android:text="产权人校验信息"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_13"
+            android:background="@color/color_fff8f8f8"
+            app:layout_constraintTop_toBottomOf="@+id/divide_six"/>
+
+
+
+        <!--    产权人姓名    -->
+        <TextView
+            android:id="@+id/room_name_key"
+            style="@style/resident_type_key"
+            android:text="产权人姓名"
+            app:layout_constraintTop_toBottomOf="@+id/person_title"/>
+
+
+        <EditText
+            android:id="@+id/room_name_value"
+            style="@style/resident_type_value"
+            android:inputType="text"
+            android:background="@color/transparent"
+            android:hint="请输入产权人姓名"
+            android:textColorHint="@color/color_FFBBBBBB"
+            android:textColor="@color/color_ff333333"
+            app:layout_constraintTop_toTopOf="@+id/room_name_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_seven"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/room_name_key"/>
+
+
+
+        <!--    产权人身份证号    -->
+        <TextView
+            android:id="@+id/room_phone_key"
+            style="@style/resident_type_key"
+            android:text="产权人身份证号"
+            app:layout_constraintTop_toBottomOf="@+id/divide_seven"/>
+
+
+        <EditText
+            android:id="@+id/room_code_value"
+            style="@style/resident_type_value"
+            android:inputType="text"
+            android:background="@color/transparent"
+            android:hint="请输入产权人身份证号"
+            android:textColorHint="@color/color_FFBBBBBB"
+            android:textColor="@color/color_ff333333"
+            app:layout_constraintTop_toTopOf="@+id/room_phone_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/divide_eight"
+            style="@style/resident_type_divide"
+            app:layout_constraintTop_toBottomOf="@+id/room_phone_key"/>
+
+
+        <TextView
+            android:id="@+id/findings_audit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:paddingStart="@dimen/dp_15"
+            android:gravity="center_vertical"
+            android:text="审核结果"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_13"
+            android:background="@color/color_fff8f8f8"
+            app:layout_constraintTop_toBottomOf="@+id/divide_eight"/>
+
+
+        <!--    审核状态    -->
+        <TextView
+            android:id="@+id/room_check_state_key"
+            style="@style/resident_type_key"
+            android:text="审核状态"
+            app:layout_constraintTop_toBottomOf="@+id/findings_audit"/>
+
+
+        <TextView
+            android:id="@+id/room_check_state_value"
+            style="@style/resident_type_value"
+            app:layout_constraintTop_toTopOf="@+id/room_check_state_key"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+
+        <View
+            android:id="@+id/empty_divide"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/color_fff8f8f8"
+            app:layout_constraintTop_toBottomOf="@+id/room_check_state_key"/>
+
+
+        <TextView
+            android:id="@+id/reasons_key"
+            android:text="被拒原因"
+            style="@style/resident_type_key"
+            app:layout_constraintTop_toBottomOf="@+id/empty_divide"/>
+
+        <TextView
+            android:id="@+id/reasons_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_ff666666"
+            android:paddingStart="@dimen/dp_18"
+            android:paddingEnd="@dimen/dp_18"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_12"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_15"
+            app:layout_constraintTop_toBottomOf="@+id/reasons_key"/>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/resident_gruop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="findings_audit,
+            room_check_state_key,
+            room_check_state_value,
+            empty_divide,
+            reasons_key,
+            reasons_value"/>
+
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:gravity="center"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_17"
+            android:background="@drawable/resident_submit_bg"
+            app:layout_constraintTop_toBottomOf="@+id/reasons_value"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

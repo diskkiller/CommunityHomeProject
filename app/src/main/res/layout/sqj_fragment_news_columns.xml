@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_refresh"
+    style="@style/lmhm">
+
+    <com.diskkiller.widget.layout.WrapRecyclerView
+        android:id="@+id/rv_list"
+        style="@style/lmhm" />
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>

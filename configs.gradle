@@ -1,0 +1,97 @@
+ext {
+    // 测试服
+    def SERVER_TYPE_TEST = "test"
+    // 预发布服
+    def SERVER_TYPE_PREVIEW = "pre"
+    // 正式服
+    def SERVER_TYPE_PRODUCT = "product"
+
+    def taskName = project.gradle.startParameter.taskNames[0]
+    if (taskName == null) {
+        taskName = ""
+    }
+    // 打印当前执行的任务名称
+    println "GradleLog TaskNameOutput " + taskName
+
+    def serverType = SERVER_TYPE_PRODUCT
+
+    if (taskName.endsWith("Debug")) {
+        serverType = SERVER_TYPE_TEST
+    } else if (taskName.endsWith("Preview")) {
+        serverType = SERVER_TYPE_PREVIEW
+    }
+
+    // 从 Gradle 命令中读取参数配置，例如：./gradlew assembleRelease -P ServerType="test"
+    if (project.hasProperty("ServerType")) {
+        serverType = project.properties["ServerType"]
+    }
+
+    // 打印当前服务器配置
+    println "GradleLog ServerTypeOutput " + serverType
+
+    // 友盟 AppKey
+    UMENG_APP_KEY = "5cb16d93570df399fd0014e2"
+    // QQ AppId
+    QQ_APP_ID = "101828096"
+    // QQ Secret
+    QQ_APP_SECRET = "9dfd3300c3aa3c4596a07796c64914b2"
+    // 微信 AppId
+    WX_APP_ID = "wxd35706cc9f46114c"
+    // 微信 Secret
+    WX_APP_SECRET = "0c8c7cf831dd135a32b3e395ea459b5a"
+
+    switch(serverType) {
+        case SERVER_TYPE_TEST:
+        case SERVER_TYPE_PREVIEW:
+            LOG_ENABLE = true
+            BUGLY_ID = "请自行替换 Bugly 上面的 AppID"
+            if (serverType == SERVER_TYPE_PREVIEW) {
+                HOST_URL = "http://192.168.36.230:10085/"
+            } else {
+                HOST_URL = "http://192.168.36.230:10085/"
+            }
+            break
+        case SERVER_TYPE_PRODUCT:
+            LOG_ENABLE = false
+            BUGLY_ID = "请自行替换 Bugly 上面的 AppID"
+            HOST_URL = "https://www.baidu.com/"
+            break
+    }
+
+    cfgs = [
+            compileSdkVersion             : 29,
+            buildToolsVersion             : "28.0.3",
+            minSdkVersion                 : 23,
+            targetSdkVersion              : 29,
+            versionCode                   : 24,
+            versionName                   : "2.5.4",
+            ucropVersionCode              : 22,
+            ucropVersionName              : "2.2.0-native",
+
+            //open version control
+            androidSupportVersion         : "27.0.2",
+            version_recyclerview          : "1.0.0",
+            version_appcompat             : "1.1.0",
+            localbroadcastmanager         : "1.0.0",
+
+            camerax_view                  : "1.0.0-alpha10",
+            camerax_version               : "1.0.0-beta03",
+            camera_core_version           : "1.0.0-beta03",
+            futures_version               : "1.0.0",
+
+            // ucrop
+            androidx_appcompat_version    : "1.1.0",
+            androidx_exifinterface_version: "1.3.0-alpha01",
+            androidx_transition_version   : "1.3.1",
+
+            // okio
+            okio_version                  : "2.6.0",
+
+            // glide
+            glide_version                 : "4.11.0",
+
+            // picasso
+            picasso_version               : "2.71828"
+
+    ]
+}

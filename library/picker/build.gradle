@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+apply from : '../../common.gradle'
+
+android {
+
+    defaultConfig {
+        // 模块混淆配置
+        consumerProguardFiles 'proguard-base.pro'
+    }
+}
+dependencies {
+    compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+    api project(path: ':library:wheelview')
+}
+
+

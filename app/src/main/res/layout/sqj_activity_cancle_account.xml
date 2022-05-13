@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F7F7F7"
+    >
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightTitle="完成"
+        app:rightTitleColor="#EC3937"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="注销账号：13312341234"
+        android:background="@color/white"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:text="账号注销协议"
+        android:textColor="#A4A4A4"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="25dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_xieyi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:button="@drawable/btn_check" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="我已阅读并同意"
+            android:textColor="#ff999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_yinsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="《隐私政策》"
+            android:textColor="@color/main"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="和"
+            android:textColor="#ff999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_yonghu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="《用户协议》"
+            android:textColor="@color/main"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp"
+        android:layout_marginHorizontal="19dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_request"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_r5_white_bg"
+            android:backgroundTint="#EC3937"
+            android:textColor="@color/white"
+            android:text="申请注销"
+            android:layout_marginRight="10dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_r5_white_bg"
+            android:backgroundTint="#DFDFDF"
+            android:textColor="@color/white"
+            android:text="取消" />
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+<RelativeLayout
+    android:id="@+id/rl_dialog_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_transparent_black"
+    android:visibility="gone"
+    >
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_deconfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="15dp"
+        tools:context=".dialog.CommonDialog"
+        android:visibility="visible"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_ui_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <com.diskkiller.widget.view.SmartTextView
+                android:id="@+id/tv_ui_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="安全验证" />
+
+            <LinearLayout
+                android:id="@+id/ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp"
+                tools:background="@color/white"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_safe_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="15dp"
+                    android:hint="@string/common_phone_input_hint"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:singleLine="true"
+                    android:textSize="14sp"
+                    tools:text="12345678910" />
+
+                <View
+                    style="@style/HorizontalLineStyle"
+                    android:layout_marginHorizontal="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <com.diskkiller.widget.view.ClearEditText
+                            android:id="@+id/et_safe_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:hint="@string/common_code_input_hint"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLength="6"
+                            android:paddingHorizontal="20dp"
+                            android:paddingVertical="18dp"
+                            android:textSize="15sp"
+                            android:singleLine="true"
+                            />
+
+                        <!--<View
+                            style="@style/HorizontalLineStyle"
+                            android:layout_gravity="bottom"
+                            android:layout_marginHorizontal="10dp" />-->
+
+                    </FrameLayout>
+
+                    <com.diskkiller.widget.view.CountdownView
+                        android:id="@+id/cv_safe_countdown"
+                        style="@style/CountdownViewStyle" />
+
+                </LinearLayout>
+
+                <View
+                    style="@style/HorizontalLineStyle"
+                    android:layout_gravity="bottom"
+                    android:layout_marginHorizontal="10dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/common_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.diskkiller.widget.view.SmartTextView
+                    android:id="@+id/tv_ui_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent_selector"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingVertical="15dp"
+                    android:text="取消"
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/v_ui_line"
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/common_line_color" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_ui_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent_selector"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingVertical="15dp"
+                    android:text="确定"
+                    android:textColor="#007AFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="15dp"
+        tools:context=".dialog.CommonDialog"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_ui_container_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <com.diskkiller.widget.view.SmartTextView
+                android:id="@+id/tv_ui_title_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="确认注销" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/common_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.diskkiller.widget.view.SmartTextView
+                    android:id="@+id/tv_ui_cancel_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent_selector"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingVertical="15dp"
+                    android:text="取消"
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/v_ui_line_confirm"
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/common_line_color" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_ui_confirm_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent_selector"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingVertical="15dp"
+                    android:text="确定"
+                    android:textColor="#007AFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ic_icon"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginVertical="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:background="@drawable/avatar_placeholder_ic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+         />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:text="昵称"
+        android:textColor="#333333"
+        android:textSize="17sp"
+        app:layout_constraintLeft_toRightOf="@id/ic_icon"
+        app:layout_constraintTop_toTopOf="@id/ic_icon"
+        />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:text="手机号码：13312341234"
+        android:textColor="#999999"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_icon"
+        app:layout_constraintLeft_toRightOf="@id/ic_icon"
+        />
+
+    <TextView
+        android:id="@+id/tv_fam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:padding="2dp"
+        android:background="@drawable/shape_r2_white_bg"
+        android:backgroundTint="#EC3937"
+        android:gravity="center"
+        android:text="家庭代表"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintLeft_toRightOf="@id/tv_name"
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_name"
+        android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+

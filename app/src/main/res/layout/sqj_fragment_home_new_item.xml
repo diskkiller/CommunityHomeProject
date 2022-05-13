@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/lmhw"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints">
+
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_68"
+        android:layout_marginTop="@dimen/dp_11"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_68"
+        android:ellipsize="end"
+        android:lineSpacingMultiplier="1.3"
+        android:paddingEnd="@dimen/dp_110"
+        android:textColor="@color/color_de000000"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintTop_toTopOf="@+id/item_img"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/item_type"
+        style="@style/lwhw"
+        android:text="社区动态"
+        android:textColor="@color/color_ffec3937"
+        android:textSize="@dimen/sp_10"
+        android:paddingEnd="@dimen/dp_4"
+        android:paddingStart="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_2"
+        android:paddingBottom="@dimen/dp_2"
+        android:background="@drawable/fragment_item_type_bg"
+        android:layout_marginTop="@dimen/dp_8"
+        app:layout_constraintTop_toBottomOf="@+id/item_img"/>
+
+    <TextView
+        android:id="@+id/item_time"
+        style="@style/lwhw"
+        android:text="04-21 11:52"
+        android:textColor="@color/color_61000000"
+        android:textSize="@dimen/sp_12"
+        android:layout_marginStart="@dimen/dp_14"
+        app:layout_constraintTop_toTopOf="@+id/item_type"
+        app:layout_constraintBottom_toBottomOf="@+id/item_type"
+        app:layout_constraintLeft_toRightOf="@+id/item_type"/>
+
+    <View
+        android:id="@+id/item_divide"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_17"
+        android:background="@color/color_21000000"
+        app:layout_constraintTop_toBottomOf="@+id/item_type"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

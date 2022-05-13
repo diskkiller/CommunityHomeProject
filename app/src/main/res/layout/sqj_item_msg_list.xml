@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp">
+
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/niv_avater"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/icon_logo"
+                app:corner_radius="4dp" />
+
+            <TextView
+                android:id="@+id/tv_unread"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/sqj_bg_white_shap_30"
+                android:backgroundTint="@color/red"
+                android:gravity="center"
+                android:textColor="@color/color_ffffff"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:text="好友昵称/备注"
+                android:textColor="#ff333333"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="12dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="显示与该用户的最新聊天消息内容显示与该用户的最新聊天消息内容显示与该用户的最新聊天消息内容显示与该用户的最新聊天消息内容显示与该用户的最新聊天消息内容显示与该用户的最新聊天消息内容"
+                android:textColor="#ff999999"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:text="1月1日"
+                android:textColor="#ffbdbdbd"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="70dp"
+        android:background="#f2f2f2" />
+
+
+</LinearLayout>

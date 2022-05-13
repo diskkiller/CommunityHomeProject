@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="个人信息"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="130dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:text="账号信息"
+                android:textColor="#666666"
+                android:textSize="13sp"
+                android:background="#F8F8F8" />
+
+            <LinearLayout
+                android:id="@+id/ll_setting_header"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/ic_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/avatar_placeholder_ic"
+                    app:is_circle="true"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/tv_user_date"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:text="设置头像"
+                    android:textColor="#BBBBBB"
+                    android:textSize="15sp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/arrows_right_ic"
+                    />
+
+
+            </LinearLayout>
+
+
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="昵称"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="输入昵称"
+                app:bar_rightTextColor="#BBBBBB"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="性别"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="请选择性别"
+                app:bar_rightTextColor="#BBBBBB"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="出生日期"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="请选择出生日期"
+                app:bar_rightTextColor="#BBBBBB"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_minzu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="民族"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="请选择所属民族"
+                app:bar_rightTextColor="#BBBBBB"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_nike_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="个性签名"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="这家伙什么也没留"
+                app:bar_rightTextColor="#BBBBBB"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_mianmao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="政治面貌"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="去选择"
+                app:bar_rightTextColor="#BBBBBB"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="职业信息"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="去输入"
+                app:bar_rightTextColor="#BBBBBB"
+                app:bar_lineVisible="false"
+
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="实名信息"
+                android:textColor="#666666"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:textSize="13sp"
+                />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_real_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="实名认证"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="请尽快完成实名认证"
+                app:bar_rightTextColor="#EC3937"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_adress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="居住信息"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="请完成实名认证后操作"
+                app:bar_rightTextColor="#EC3937"
+                app:bar_lineVisible="false"
+                />
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="账户绑定"
+                android:textColor="#666666"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:textSize="13sp"
+                android:background="#F8F8F8"
+                />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_personal_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="手机号"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_rightText="请完成实名认证后操作"
+                app:bar_rightTextColor="#EC3937"
+                app:bar_lineVisible="false"
+                />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
