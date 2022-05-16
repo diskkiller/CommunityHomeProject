@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F7F7F7"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.hjq.bar.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="通信录"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/sqj_bg_white_shap_7"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="10dp"
+                android:background="@mipmap/icon_search" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="搜索"
+                android:maxLines="1"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_maillist"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@color/color_ffffff" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/tv_creat_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_r5_white_bg"
+                android:backgroundTint="#34C759"
+                android:textColor="@color/white"
+                android:text="创建群聊"
+                android:paddingVertical="7dp"
+                android:paddingHorizontal="18dp"
+                android:layout_marginVertical="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_overlay"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_r5_white_bg"
+        android:backgroundTint="#5A5A5A"
+        android:gravity="center"
+        android:textColor="@color/color_ffffff"
+        android:textSize="28sp"
+        android:visibility="gone" />
+
+    <com.huaxixingfu.sqj.widget.SideIndexBar
+        android:id="@+id/sib_maillist"
+        android:layout_width="15dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="120dp" />
+
+</RelativeLayout>

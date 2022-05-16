@@ -80,6 +80,7 @@ public class ForgetPwdActivity extends AppActivity implements View.OnClickListen
             }
             reset(account, code, pwd, confirmPwd);
         } else if (id == R.id.tv_get_code) {
+            account = etAccount.getText().toString();
             //判断参数情况
             if (TextUtils.isEmpty(account)) {
                 ToastUtils.show(R.string.account_error);

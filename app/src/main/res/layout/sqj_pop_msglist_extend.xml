@@ -30,6 +30,29 @@
             android:textSize="16sp" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_creat_group"
+        android:layout_width="129dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="10dp"
+            android:background="@mipmap/icon_add_friend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="创建群聊"
+            android:textColor="#ffffffff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

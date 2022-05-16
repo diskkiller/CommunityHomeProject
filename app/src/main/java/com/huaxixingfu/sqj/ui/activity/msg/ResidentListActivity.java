@@ -11,21 +11,18 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
-import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
+import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.AppActivity;
-import com.huaxixingfu.sqj.bean.VNotes;
-import com.huaxixingfu.sqj.bean.VNotiesData;
-import com.huaxixingfu.sqj.databinding.SqjActivityResidentListBinding;
-import com.huaxixingfu.sqj.databinding.SqjActivitySystemNotesListBinding;
-import com.huaxixingfu.sqj.http.api.SysNotesListApi;
+import com.huaxixingfu.sqj.http.api.msg.CreatGroutApi;
 import com.huaxixingfu.sqj.http.api.msg.ResidentListApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.adapter.ResidentListAdapter;
-import com.huaxixingfu.sqj.ui.adapter.SystemNotesAdapter;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
+import com.huaxixingfu.sqj.utils.GsonUtil;
+import com.huaxixingfu.sqj.utils.LogUtil;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,6 +38,9 @@ public class ResidentListActivity extends AppActivity implements
     ResidentListAdapter mAdapter;
 
     RecyclerView recycler;
+
+    List<ResidentListApi.Bean> model;
+    private ArrayList<String> selMemberIdList = new ArrayList<>();
 
     @SuppressLint("NewApi")
     @Override
@@ -77,7 +77,7 @@ public class ResidentListActivity extends AppActivity implements
                     @Override
                     public void onSucceed(HttpData<List<ResidentListApi.Bean>> data) {
                         if(data.getData() != null){
-                            List<ResidentListApi.Bean> model = data.getData();
+                            model = data.getData();
                             if(null != model && model.size() > 0) {
                                 mAdapter.setList(model);
                             }
@@ -93,16 +93,22 @@ public class ResidentListActivity extends AppActivity implements
     }
 
 
+    private String memberId = "";
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-        MsgActivity.start(ResidentListActivity.this, mAdapter.getData().get(position).getUserId(),
-                mAdapter.getData().get(position).getUserId()+"",
-                mAdapter.getData().get(position).getResidentNickName(),new MsgActivity.OnFinishResultListener() {
-            @Override
-            public void onSucceed(String data) {
 
-            }
-        });
+
+        ChatSettingActivity.start(ResidentListActivity.this,mAdapter.getData().get(position).getUserId(),
+                mAdapter.getData().get(position).getResidentNickName(),null);
+
     }
+
+    @SingleClick
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+    }
+
 
 }

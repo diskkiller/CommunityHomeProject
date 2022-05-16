@@ -1,4 +1,4 @@
-<com.longbei.im_push_service_sdk.common.app.widget.MessageLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.huaxixingfu.sqj.widget.tuita.MessageLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lay_content"
@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.longbei.im_push_service_sdk.app.fragment.message.ChatUserFragment">
-    <RelativeLayout
-        android:id="@+id/rl_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/len_48"
-        android:background="@color/amber_600"
-        android:orientation="horizontal"
-        android:paddingBottom="2dip" >
-    </RelativeLayout>
+    tools:context="com.huaxixingfu.sqj.ui.activity.msg.TempChatUserFragment">
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightIcon="@mipmap/icon_more"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
@@ -22,8 +20,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/len_8"
-        android:paddingTop="@dimen/len_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_8"
         android:transcriptMode="normal"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -40,51 +38,50 @@
         >
 
         <ImageView
-            android:layout_width="@dimen/len_44"
-            android:layout_height="@dimen/len_44"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="@dimen/dp_44"
             android:contentDescription="@string/app_name"
             android:enabled="true"
             android:foreground="@drawable/ic_touch_fg"
-            android:padding="@dimen/len_8"
+            android:padding="@dimen/dp_8"
             android:src="@drawable/ic_emoji"
-            app:tint="@color/textPrimary" />
+            />
 
         <ImageView
-            android:layout_width="@dimen/len_44"
-            android:layout_height="@dimen/len_44"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="@dimen/dp_44"
             android:contentDescription="@string/app_name"
             android:enabled="true"
             android:foreground="@drawable/ic_touch_fg"
-            android:padding="@dimen/len_8"
+            android:padding="@dimen/dp_8"
             android:src="@drawable/ic_record"
-            app:tint="@color/textPrimary" />
+             />
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="@string/label_chat_edit_hint"
             android:lineSpacingExtra="0dp"
             android:lineSpacingMultiplier="1"
-            android:maxHeight="@dimen/len_68"
-            android:minHeight="@dimen/len_44"
-            android:padding="@dimen/len_4"
+            android:maxHeight="@dimen/dp_48"
+            android:minHeight="@dimen/dp_44"
+            android:padding="@dimen/dp_4"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textSecond"
+            android:textColor="@color/common_text_color"
+            android:textColorHint="@color/common_text_hint_color"
             android:textCursorDrawable="@drawable/ic_cursor" />
 
         <ImageView
             android:id="@+id/iv_butotn"
-            android:layout_width="@dimen/len_44"
-            android:layout_height="@dimen/len_44"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="@dimen/dp_44"
             android:contentDescription="@string/app_name"
             android:enabled="true"
             android:foreground="@drawable/ic_touch_fg"
-            android:padding="@dimen/len_8"
+            android:padding="@dimen/dp_8"
             android:src="@drawable/ic_submit"
-            app:tint="@color/textPrimary" />
+             />
     </LinearLayout>
 
 
@@ -106,7 +103,8 @@
             style="@style/Im.ImageButton.Borderless"
             android:layout_width="25dip"
             android:layout_height="25dip"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="9dp"
             android:layout_marginLeft="12dip"
             android:scaleType="fitXY"
             android:src="@drawable/chatting_setmode_voice_btn" />
@@ -116,7 +114,7 @@
 
 
     <!--id是固定的airPanelSubLayout-->
-    <com.longbei.im_push_service_sdk.common.app.kit.airpanel.AirPanelFrameLayout
+    <com.huaxixingfu.sqj.widget.tuita.airpanel.AirPanelFrameLayout
         android:id="@+id/airPanelSubLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,8 +123,8 @@
 
         <fragment
             android:id="@+id/frag_panel"
-            class="com.longbei.im_push_service_sdk.app.fragment.panel.PanelFragment"
+            class="com.huaxixingfu.sqj.widget.tuita.PanelFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.longbei.im_push_service_sdk.common.app.kit.airpanel.AirPanelFrameLayout>
-</com.longbei.im_push_service_sdk.common.app.widget.MessageLayout>
+    </com.huaxixingfu.sqj.widget.tuita.airpanel.AirPanelFrameLayout>
+</com.huaxixingfu.sqj.widget.tuita.MessageLayout>

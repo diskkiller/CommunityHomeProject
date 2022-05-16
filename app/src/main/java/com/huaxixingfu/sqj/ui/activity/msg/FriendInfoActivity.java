@@ -87,8 +87,10 @@ public class FriendInfoActivity extends AppActivity {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_chat) {
-            MsgActivity.start(FriendInfoActivity.this,targetUid,
-                    targetUid+"",nickName,null);
+            /*MsgActivity.start(FriendInfoActivity.this,targetUid,
+                    targetUid+"",nickName,null);*/
+            TempMessageActivity.show(getContext(),targetUid,
+                    targetUid+"",nickName,false);
             finish();
         }else if(id == R.id.sb_edite_friend_rename){
             String name = StringUtils.isEmpty(nickName) ? "":nickName;

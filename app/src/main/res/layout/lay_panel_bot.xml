@@ -30,8 +30,8 @@
 
                 <TextView
                     android:id="@+id/im_add_pic"
-                    android:layout_width="@dimen/len_60"
-                    android:layout_height="@dimen/len_60"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
                     android:background="@drawable/btn_im_select_photo"
                     android:clickable="true" />
 
@@ -51,8 +51,8 @@
 
                 <TextView
                     android:id="@+id/im_take_photo"
-                    android:layout_width="@dimen/len_60"
-                    android:layout_height="@dimen/len_60"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
                     android:background="@drawable/btn_im_take_photo"
                     android:clickable="true" />
 
@@ -73,8 +73,8 @@
 
                 <TextView
                     android:id="@+id/im_add_location"
-                    android:layout_width="@dimen/len_60"
-                    android:layout_height="@dimen/len_60"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
                     android:background="@drawable/btn_im_select_location"
                     android:clickable="true" />
 

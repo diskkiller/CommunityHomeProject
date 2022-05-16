@@ -14,7 +14,10 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppFragment;
+import com.huaxixingfu.sqj.widget.tuita.airpanel.UiTool;
+import com.huaxixingfu.sqj.widget.tuita.recycler.RecyclerAdapter;
 
 import java.io.File;
 import java.util.List;
@@ -33,21 +36,24 @@ public class PanelFragment extends AppFragment {
 
 
     @Override
-    protected int getContentLayoutId() {
+    protected int getLayoutId() {
         return R.layout.fragment_panel;
     }
 
-
     @Override
-    protected void initWidget(View root) {
-        super.initWidget(root);
-
-        initFace(root);
+    protected void initView() {
+        initFace();
         //initRecord(root);
         //initGallery(root);
-        initAttach(root);
-        initBot(root);
+        initAttach();
+        initBot();
     }
+
+    @Override
+    protected void initData() {
+
+    }
+
 
 
 
@@ -58,8 +64,8 @@ public class PanelFragment extends AppFragment {
     }
 
     // 初始化表情
-    private void initFace(View root) {
-        final View facePanel = mFacePanel = root.findViewById(R.id.lay_panel_face);
+    private void initFace() {
+        final View facePanel = mFacePanel = findViewById(R.id.lay_panel_face);
 
         View backspace = facePanel.findViewById(R.id.im_backspace);
         backspace.setOnClickListener(new View.OnClickListener() {
@@ -144,117 +150,10 @@ public class PanelFragment extends AppFragment {
 
     }
 
-    // 初始化语音
-    private void initRecord(View root) {
-        View recordView = mRecordPanel = root.findViewById(R.id.lay_panel_record);
-
-        final AudioRecordView audioRecordView = (AudioRecordView) recordView
-                .findViewById(R.id.view_audio_record);
 
 
-        // 录音的缓存文件
-        File tmpFile = Application.getAudioTmpFile(true);
-        // 录音辅助工具类
-        final AudioRecordHelper helper = new AudioRecordHelper(tmpFile, new AudioRecordHelper.RecordCallback() {
-            @Override
-            public void onRecordStart() {
-                //...
-            }
-
-            @Override
-            public void onProgress(long time, int mVolume) {
-                //...
-            }
-
-            @Override
-            public void onRecordDone(File file, long time) {
-                // 时间是毫秒，小于1秒则不发送
-                if (time < 1000) {
-                    return;
-                }
-
-                // 更改为一个发送的录音文件
-                File audioFile = Application.getAudioTmpFile(false);
-                if (file.renameTo(audioFile)) {
-                    // 通知到聊天界面
-                    PanelCallback panelCallback = mCallback;
-                    if (panelCallback != null) {
-                        panelCallback.onRecordDone(audioFile, time);
-                    }
-                }
-            }
-        });
-
-
-        // 初始化
-        audioRecordView.setup(new AudioRecordView.Callback() {
-            @Override
-            public void requestStartRecord() {
-                // 请求开始
-                helper.recordAsync();
-            }
-
-            @Override
-            public void requestStopRecord(int type) {
-                // 请求结束
-                switch (type) {
-                    case AudioRecordView.END_TYPE_CANCEL:
-                    case AudioRecordView.END_TYPE_DELETE:
-                        // 删除和取消都代表想要取消
-                        helper.stop(true);
-                        break;
-                    case AudioRecordView.END_TYPE_NONE:
-                    case AudioRecordView.END_TYPE_PLAY:
-                        // 播放暂时当中就是想要发送
-                        helper.stop(false);
-                        break;
-                }
-            }
-        });
-
-    }
-
-    // 初始化图片
-    private void initGallery(View root) {
-        final View galleryPanel = mGalleryPanel = root.findViewById(R.id.lay_gallery_panel);
-        final GalleryView galleryView = (GalleryView) galleryPanel.findViewById(R.id.view_gallery);
-        final TextView selectedSize = (TextView) galleryPanel.findViewById(R.id.txt_gallery_select_count);
-
-        galleryView.setup(getLoaderManager(), new GalleryView.SelectedChangeListener() {
-            @Override
-            public void onSelectedCountChanged(int count) {
-                String resStr = getText(R.string.label_gallery_selected_size).toString();
-                selectedSize.setText(String.format(resStr, count));
-            }
-        });
-
-        // 点击事件
-        galleryPanel.findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onGalleySendClick(galleryView, galleryView.getSelectedPath());
-            }
-        });
-
-    }
-
-    // 点击的时候触发，传回一个控件和选中的路径
-    private void onGalleySendClick(GalleryView galleryView, String[] paths) {
-        // 通知给聊天界面
-        // 清理状态
-        galleryView.clear();
-
-        // 删除逻辑
-        PanelCallback callback = mCallback;
-        if (callback == null)
-            return;
-
-        callback.onSendGallery(paths);
-    }
-
-
-    private void initAttach(View root) {
-        final View attachPanel = mAttachPanel = root.findViewById(R.id.lay_panel_attach);
+    private void initAttach() {
+        final View attachPanel = mAttachPanel = findViewById(R.id.lay_panel_attach);
         final View im_add_pic = attachPanel.findViewById(R.id.im_add_pic);
         final View im_take_photo = attachPanel.findViewById(R.id.im_take_photo);
         im_add_pic.setOnClickListener(new View.OnClickListener() {
@@ -280,8 +179,8 @@ public class PanelFragment extends AppFragment {
 
     }
 
-    private void initBot(View root) {
-        final View botPanel = mBotpanel = root.findViewById(R.id.lay_panel_bot);
+    private void initBot() {
+        final View botPanel = mBotpanel = findViewById(R.id.lay_panel_bot);
     }
 
 
@@ -325,20 +224,6 @@ public class PanelFragment extends AppFragment {
         mBotpanel.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    protected int getLayoutId() {
-        return 0;
-    }
-
-    @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void initData() {
-
-    }
 
     // 回调聊天界面的Callback
     public interface PanelCallback {

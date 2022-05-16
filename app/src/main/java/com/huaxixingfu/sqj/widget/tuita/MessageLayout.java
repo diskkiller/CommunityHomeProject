@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
 
-import com.longbei.im_push_service_sdk.common.app.kit.airpanel.AirPanelLinearLayout;
+import com.huaxixingfu.sqj.widget.tuita.airpanel.AirPanelLinearLayout;
 
 
 /**

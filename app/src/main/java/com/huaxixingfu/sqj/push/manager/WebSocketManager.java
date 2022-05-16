@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.huaxixingfu.sqj.BuildConfig;
 import com.huaxixingfu.sqj.push.bean.RequestHeartBeat;
 import com.huaxixingfu.sqj.push.bean.ResponseMessage;
 import com.huaxixingfu.sqj.utils.LogUtil;
@@ -199,8 +200,6 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
     private boolean isConnect = false;
     private int connectNum = 0;
 
-    private String url = "ws://192.168.1.31/ws/?token=";
-
     //心跳包发送时间计时
     private long sendTime = 0L;
     // 发送心跳包
@@ -322,7 +321,8 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .build();
-        request = new Request.Builder().url(url + token).build();
+        request = new Request.Builder().url(BuildConfig.HOST_WEBSOCKET_URL+ token).build();
+        LogUtil.e("diskkiller","websocket 地址：："+BuildConfig.HOST_WEBSOCKET_URL+ token);
         connectStateListener = message;
         connect();
     }
@@ -410,6 +410,7 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
      * @return boolean
      */
     public boolean sendMessage(String text) {
+        LogUtil.e("websocket isConnect ", "======"+isConnect());
         if (!isConnect()) return false;
         LogUtil.e("aaaaaaWebSocketManagerSend", text);
         return mWebSocket.send(text);

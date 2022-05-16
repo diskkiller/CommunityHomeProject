@@ -7,16 +7,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+
+import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
-import com.longbei.im_push_service_sdk.R;
-import com.longbei.im_push_service_sdk.app.fragment.message.ChatGroupFragment;
-import com.longbei.im_push_service_sdk.common.Common;
-import com.longbei.im_push_service_sdk.common.app.Activity;
-import com.longbei.im_push_service_sdk.common.app.Fragment;
-import com.longbei.im_push_service_sdk.common.basepercenter.model.Author;
-import com.longbei.im_push_service_sdk.im.db.Group;
-import com.longbei.im_push_service_sdk.im.db.Message;
-import com.longbei.im_push_service_sdk.im.db.Session;
+import com.huaxixingfu.sqj.commom.IntentKey;
 
 public class TempMessageActivity extends AppActivity {
     // 接收者Id，可以是群，也可以是人的Id
@@ -29,18 +24,24 @@ public class TempMessageActivity extends AppActivity {
     private View tootView;
     private ImageView iv_background;
 
+    private long targetUid;
+    private String sessionId;
+    private String nickName;
+
     /**
      * 通过Session发起聊天
      *
      * @param context 上下文
      *
      */
-    public static void show(Context context) {
+    public static void show(Context context,long targetUid,String sessionId, String nickName,boolean mIsGroup) {
         if (context == null)
             return;
         Intent intent = new Intent(context, TempMessageActivity.class);
-        intent.putExtra(KEY_RECEIVER_ID, "");
-        intent.putExtra(KEY_RECEIVER_IS_GROUP, false);
+        intent.putExtra(IntentKey.TARGETUID, targetUid);
+        intent.putExtra(IntentKey.SESSIONID, sessionId);
+        intent.putExtra(IntentKey.NICKNAME, nickName);
+        intent.putExtra(IntentKey.KEY_IS_GROUP, mIsGroup);
         context.startActivity(intent);
     }
 
@@ -67,19 +68,25 @@ public class TempMessageActivity extends AppActivity {
     protected void initView() {
         setTitle("");
 
-        mReceiverId = getString(KEY_RECEIVER_ID);
-        mIsGroup = getBoolean(KEY_RECEIVER_IS_GROUP);
+        targetUid = getLong(IntentKey.TARGETUID, 0);
+        sessionId = getString(IntentKey.SESSIONID);
+        nickName = getString(IntentKey.NICKNAME);
+        mIsGroup = getBoolean(IntentKey.KEY_IS_GROUP);
 
         Fragment fragment;
-        if (mIsGroup){
+       /* if (mIsGroup){
             fragment = new ChatGroupFragment();
         }
-        else
-            fragment = new TempChatUserFragment();
+        else*/
+        fragment = new TempChatUserFragment();
 
         // 从Activity传递参数到Fragment中去
         Bundle bundle = new Bundle();
         bundle.putString(KEY_RECEIVER_ID, mReceiverId);
+        bundle.putLong(IntentKey.TARGETUID, targetUid);
+        bundle.putString(IntentKey.SESSIONID, sessionId);
+        bundle.putString(IntentKey.NICKNAME, nickName);
+        bundle.putBoolean(IntentKey.KEY_IS_GROUP, mIsGroup);
         fragment.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction()

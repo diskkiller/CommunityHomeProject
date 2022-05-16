@@ -50,10 +50,14 @@ public final class MailListApi implements IRequestApi {
         public int chatFriendUserType;
         public int chatToUserId;
         public String chatFriendNiceName;
+        public String userNickName;
         public String chatFriendRemark;
         public String userAvatarUrl;
         public String zoneRoomAddr;
         public boolean flag;
+        public boolean isAdd;//是否在群
+
+        public boolean isSelect;
 
         /***
          * 获取悬浮栏文本，（#、定位、热门 需要特殊处理）

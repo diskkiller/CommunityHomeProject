@@ -15,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/len_32"
+        android:layout_height="@dimen/dp_32"
         android:layout_marginTop="1px"
         android:background="@color/white_alpha_224"
         android:elevation="1dp"
@@ -26,27 +26,27 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="0dp"
-            android:layout_height="@dimen/len_32"
+            android:layout_height="@dimen/dp_32"
             android:layout_gravity="bottom"
             android:layout_weight="2"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/black_alpha_16"
-            app:tabIndicatorHeight="@dimen/len_32"
+            app:tabIndicatorHeight="@dimen/dp_32"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/textPrimary"
+            app:tabSelectedTextColor="#4e5864"
             app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:tabTextColor="@color/textSecond" />
+            app:tabTextColor="#8d9ca9" />
 
         <ImageView
             android:id="@+id/im_backspace"
             android:layout_width="0dp"
-            android:layout_height="@dimen/len_32"
+            android:layout_height="@dimen/dp_32"
             android:layout_weight="1"
             android:contentDescription="@string/app_name"
             android:foreground="@drawable/ic_touch_fg"
-            android:padding="@dimen/len_6"
+            android:padding="@dimen/dp_6"
             android:scaleType="centerInside"
             android:src="@drawable/ic_backspace"
-            android:tint="@color/textSecond" />
+             />
     </LinearLayout>
 </LinearLayout>

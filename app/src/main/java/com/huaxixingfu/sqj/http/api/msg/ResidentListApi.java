@@ -105,6 +105,8 @@ public final class ResidentListApi implements IRequestApi {
             return userId;
         }
 
+        public boolean isSelect;
+
         public void setResidentName(String residentName) {
             this.residentName = residentName;
         }

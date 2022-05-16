@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_f7f7f7"
+    android:orientation="vertical">
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="聊天设置"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_55"
+            >
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/member_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/white"
+                />
+
+            <RelativeLayout
+                android:id="@+id/rl_show_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingVertical="@dimen/dp_10"
+                android:background="@color/white"
+                >
+                <TextView
+                    android:id="@+id/tx_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:gravity="center"
+                    android:drawableRight="@drawable/arrows_right_ic"
+                    android:textColor="#4eb7ff"
+                    android:text="展开全部"
+                    />
+
+            </RelativeLayout>
+
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_group_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="群聊名称"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                app:bar_rightText="群聊名称"
+                android:layout_marginTop="10dp"
+                />
+
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_group_notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="群公告"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_group_file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="群文件"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                />
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_group_his"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                app:bar_leftText="聊天记录"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                />
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_chat_set_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:bar_leftText="聊天置顶"
+                app:bar_lineVisible="false"
+                >
+
+                <com.diskkiller.widget.view.SwitchButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:checked="true"
+                    />
+
+            </com.diskkiller.widget.layout.SettingBar>
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_chat_no_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:bar_leftText="消息免打扰"
+                app:bar_lineVisible="false"
+                >
+
+                <com.diskkiller.widget.view.SwitchButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:checked="true"
+                    />
+
+            </com.diskkiller.widget.layout.SettingBar>
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_group_my_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:bar_leftText="我在群里的昵称"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                app:bar_rightText="昵称"
+                />
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_group_transfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:bar_leftText="群转让"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                app:bar_rightText="转让"
+                />
+
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_chat_his_clear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:bar_leftText="清空聊天记录"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+</LinearLayout>

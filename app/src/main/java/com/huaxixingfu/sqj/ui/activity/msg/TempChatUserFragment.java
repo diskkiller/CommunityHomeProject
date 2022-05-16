@@ -23,11 +23,6 @@ public class TempChatUserFragment extends TempChatFragment{
         // Required empty public constructor
     }
 
-    @Override
-    protected void initWidget(View root) {
-        super.initWidget(root);
-    }
-
 
     // 进行高度的综合运算，透明我们的头像和Icon
     @Override

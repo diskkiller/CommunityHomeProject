@@ -52,6 +52,7 @@ public class JsonBody extends RequestBody {
     public JsonBody(String json) {
         mJson = json;
         mBytes = mJson.getBytes();
+        ParamLogUtil.longlog("EasyHttp","请求的参数：："+mJson);
     }
 
     @Override

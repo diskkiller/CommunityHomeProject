@@ -285,6 +285,54 @@ public class API {
      */
     public static final String CHAT_FRIEND_EDITE_RENAME = MAIN_URL + "sggl/mobile/chat/friend/v1.0/update/nice";
 
+    /**
+     * 创建群组
+     */
+    public static final String CHAT_GROUP_CREAT = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/create";
+
+    /**
+     * 我加入的群组
+     */
+    public static final String CHAT_GROUP_JOIN_LIST = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/list";
+    /**
+     * 我创建的群组
+     */
+    public static final String CHAT_GROUP_CREAT_LIST = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/create/list";
+    /**
+     * 邀请我的群组
+     */
+    public static final String CHAT_GROUP_APPLY_LIST = MAIN_URL + "sggl/mobile/chat/group/v1.0/apply/list";
+
+    /**
+     * 我的群组详情
+     */
+    public static final String CHAT_GROUP_DETAIL = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/detail";
+
+    /**
+     * 群公告列表
+     */
+    public static final String CHAT_GROUP_NOTICE = MAIN_URL + "sggl/mobile/chat/group/v1.0/notice/list";
+
+    /**
+     * 群公告增加
+     */
+    public static final String CHAT_GROUP_NOTICE_ADD = MAIN_URL + "sggl/mobile/chat/group/v1.0/notice/add";
+
+    /**
+     * 邀请好友加群
+     */
+    public static final String CHAT_GROUP_FRIEND_ADD = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/add";
+
+    /**
+     * 群好友列表
+     */
+    public static final String CHAT_GROUP_FRIEND_LIST = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/list";
+
+    /**
+     * 删除群好友
+     */
+    public static final String CHAT_GROUP_FRIEND_DEL = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/del";
+
 
 
 

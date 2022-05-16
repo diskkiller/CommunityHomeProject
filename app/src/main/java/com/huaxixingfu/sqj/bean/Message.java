@@ -35,7 +35,7 @@ public class Message implements MultiItemEntity {
     public Message(RequestMessage msg, boolean timeFlag) {
         this.msg = msg;
         this.timeFlag = timeFlag;
-        if (msg.from == 111) {
+        if (msg.from == SPManager.instance(AppApplication.getInstances()).getModel(Constants.USERDATA,UserData.class).userId) {
             type = TEXT_ME;
         } else {
             type = TEXT_YOU;

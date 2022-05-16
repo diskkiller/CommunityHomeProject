@@ -40,6 +40,7 @@ import com.huaxixingfu.sqj.push.bean.ResponseConersationList;
 import com.huaxixingfu.sqj.push.manager.MessageListener;
 import com.huaxixingfu.sqj.push.manager.WebSocketManager;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
+import com.huaxixingfu.sqj.ui.activity.msg.CreatGroupActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.MailListActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.MsgActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.MsgMissionListActivity;
@@ -51,8 +52,7 @@ import com.huaxixingfu.sqj.ui.adapter.MsgListAdapter;
 import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
-import com.longbei.im_push_service_sdk.app.activitys.MessageActivity;
-import com.longbei.im_push_service_sdk.im.db.User;
+
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
@@ -148,37 +148,20 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                 startActivity(new Intent(getContext(), SearchFriendActivity.class));
             }
         });
+        view.findViewById(R.id.ll_creat_group).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                startActivity(new Intent(getContext(), CreatGroupActivity.class));
+            }
+        });
         popupWindow.setContentView(view);
         popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, dp2px(getContext(),10 ),dp2px(getContext(),70));
     }
 
     @Override
     public void onRightClick(View view) {
-        //startActivity(new Intent(getContext(), MailListActivity.class));
-
-        // 跳转到聊天界面
-        TempMessageActivity.show(getContext());
-/*
-        new InputDialog.Builder(getContext())
-                .setTitle("设置备注")
-                .setContent("")
-                .setHint("请输入备注")
-                .setCancelable(false)
-                .setListener(new InputDialog.OnListener() {
-
-                    @Override
-                    public void onConfirm(BaseDialog dialog, String content) {
-
-                    }
-
-                    @Override
-                    public void onCancel(BaseDialog dialog) {
-
-                    }
-                })
-                .show();*/
-
-
+        startActivity(new Intent(getContext(), MailListActivity.class));
     }
 
     public void initData() {
@@ -271,17 +254,6 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
         msgListAdapter.setList(msgList);
     }
 
-    /**
-     * 模拟数据
-     *//*
-    private List<Conersation> analogData() {
-        for (int i = msgListAdapter.getItemCount(); i < msgListAdapter.getItemCount() + 20; i++) {
-            Conersation uiConv = new Conersation();
-            uiConv.nickName = "我是第" + i + "条目";
-            msgList.add(uiConv);
-        }
-        return msgList;
-    }*/
 
     private void getFriendCount(){
         EasyHttp.post(this)
@@ -344,18 +316,26 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
         Conersation conersation = msgList.get(position);
-        toast(conersation.nickName);
-
+        toast(conersation.sessionId);
+        long targetUid = 0;
+        boolean isGroup = false;
         if (conersation.chatBody == null) {
 
         } else {
-            long targetUid = conersation.chatBody.from == SPManager.instance(getActivity()).
-                    getModel(Constants.USERDATA,UserData.class).userId ?
-                    conersation.chatBody.to : conersation.chatBody.from;
+            if(conersation.chatBody.chatType == 2){
+                isGroup = false;
+                targetUid = conersation.chatBody.from == SPManager.instance(getActivity()).
+                        getModel(Constants.USERDATA,UserData.class).userId ?
+                        conersation.chatBody.to : conersation.chatBody.from;
+            }else if(conersation.chatBody.chatType == 1){
+                isGroup = true;
+                targetUid = conersation.chatBody.groupId;
+            }
+
 
             HashMap<String, Object> map = new HashMap<>();
 
-            WebSocketManager.getInstance().read(msgList.get(position).sessionId);
+            //WebSocketManager.getInstance().read(msgList.get(position).sessionId);
             msgList.get(position).unreadMsgNum = 0;
             /**
              * java.lang.IllegalArgumentException: Called attach on a child which is not detached: ViewHolder
@@ -368,15 +348,16 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
              */
             msgListAdapter.notifyItemChanged(position + 1);
             // 跳转到聊天界面
-            //TempMessageActivity.show(getContext());
+            TempMessageActivity.show(getContext(),targetUid,
+                    conersation.sessionId,  conersation.nickName,isGroup);
 
-            MsgActivity.start(getAttachActivity(), targetUid,conersation.sessionId,  conersation.nickName, new MsgActivity.OnFinishResultListener() {
+            /*MsgActivity.start(getAttachActivity(), targetUid,conersation.sessionId,  conersation.nickName, new MsgActivity.OnFinishResultListener() {
                 @Override
                 public void onSucceed(String data) {
                     //重刷数据
                     initData();
                 }
-            });
+            });*/
 
         }
     }

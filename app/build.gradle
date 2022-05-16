@@ -2,6 +2,12 @@ apply plugin : 'com.android.application'
 apply plugin : 'android-aspectjx'
 apply from : '../common.gradle'
 
+
+
+
+def HOST_WEBSOCKET_URL = "http://jm.shequj.cn/api/im/ws/?token="
+
+
 android {
 
     // 资源目录存放指引：https://developer.android.google.cn/guide/topics/resources/providing-resources
@@ -24,6 +30,7 @@ android {
         buildConfigField('String', 'BUGLY_ID', '"' + BUGLY_ID + '"')
         // 测试服务器的主机地址
         buildConfigField('String', 'HOST_URL', '"' + HOST_URL + '"')
+        buildConfigField('String', 'HOST_WEBSOCKET_URL', '"' + HOST_WEBSOCKET_URL + '"')
     }
 
     signingConfigs {
@@ -231,5 +238,8 @@ dependencies {
 
     //头像
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+    implementation files('libs/bcprov-jdk15to18-1.71.jar')
 
 }

@@ -2,6 +2,7 @@ package com.huaxixingfu.sqj.ui.activity.msg;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.diskkiller.base.BaseActivity;
@@ -11,7 +12,6 @@ import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.commom.IntentKey;
 import com.huaxixingfu.sqj.ui.activity.me.EditeTextActivity;
 import com.huaxixingfu.sqj.utils.StringUtils;
-import com.longbei.im_push_service_sdk.common.app.widget.ImageView;
 
 /**
  * @Description: java类作用描述
@@ -85,8 +85,11 @@ public class ChatSettingActivity extends AppActivity {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_chat) {
-            MsgActivity.start(ChatSettingActivity.this,targetUid,
+            /*MsgActivity.start(ChatSettingActivity.this,targetUid,
                     targetUid+"",nickName,null);
+*/
+            TempMessageActivity.show(getContext(),targetUid,
+                    targetUid+"",nickName,false);
             finish();
         }else if(id == R.id.sb_edite_friend_rename){
             String name = StringUtils.isEmpty(nickName) ? "":nickName;

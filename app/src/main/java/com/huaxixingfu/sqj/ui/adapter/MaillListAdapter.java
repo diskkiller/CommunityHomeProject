@@ -39,7 +39,7 @@ public final class MaillListAdapter extends BaseQuickAdapter<MailListApi.Bean,Ba
 
     @Override
     protected void convert(@NonNull BaseViewHolder baseViewHolder, MailListApi.Bean contactsListBean) {
-        baseViewHolder.setText(R.id.tv_nickname, contactsListBean.chatFriendNiceName);
+        baseViewHolder.setText(R.id.tv_nickname, contactsListBean.userNickName);
     }
 
     public void setLayoutManager(LinearLayoutManager mLayoutManager) {

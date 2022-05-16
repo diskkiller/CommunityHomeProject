@@ -62,6 +62,10 @@ public final class IntentKey {
     public static String NICKNAME = "nickName";
 
 
+    public static String KEY_IS_GROUP = "isGroup";
+    public static String KEY_IS_GROUP_OWNER = "isGroupOwner";
+
+
     // 个人信息
 
     /** 姓名 */

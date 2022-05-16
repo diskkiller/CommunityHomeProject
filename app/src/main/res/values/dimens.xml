@@ -10,4 +10,7 @@
     <!-- 通用对话框圆角大小 -->
     <dimen name="dialog_ui_round_size">15dp</dimen>
 
+    <dimen name="airPanelMinHeight">86dp</dimen>
+    <dimen name="airPanelMaxHeight">300dp</dimen>
+
 </resources>

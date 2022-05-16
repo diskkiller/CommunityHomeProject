@@ -151,7 +151,7 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
             startActivity(new Intent(getActivity(), NewFriendsActivity.class));
         });
         rl_my_groups.setOnClickListener(v -> {
-
+            startActivity(new Intent(getActivity(), MyGroupListActivity.class));
         });
         rl_my_shegong.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), ResidentListActivity.class));
@@ -164,7 +164,7 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
         mailListAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                FriendInfoActivity.start(MailListActivity.this,contactsListBeans.get(position).chatUserId,contactsListBeans.get(position).chatFriendNiceName,null);
+                FriendInfoActivity.start(MailListActivity.this,contactsListBeans.get(position).chatToUserId,contactsListBeans.get(position).chatFriendNiceName,null);
 
             }
         });
