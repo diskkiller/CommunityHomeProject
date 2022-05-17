@@ -53,7 +53,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
+                android:layout_marginEnd="80dp"
                 android:text="好友昵称/备注"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="#ff333333"
                 android:textSize="17sp" />
 

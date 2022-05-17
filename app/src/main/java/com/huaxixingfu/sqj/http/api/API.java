@@ -333,6 +333,26 @@ public class API {
      */
     public static final String CHAT_GROUP_FRIEND_DEL = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/del";
 
+    /**
+     * 修改群昵称
+     */
+    public static final String CHAT_GROUP_CHANGE_NICKNAME = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/update/nice";
+
+    /**
+     * 修改我在群中的昵称
+     */
+    public static final String CHAT_GROUP_CHANGE_FRIEND_NICKNAME = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/update/nice";
+
+    /**
+     * 邀请入群-同意
+     */
+    public static final String CHAT_GROUP_APPLY = MAIN_URL + "sggl/mobile/chat/group/v1.0/apply/approve";
+
+    /**
+     * 邀请入群-拒绝
+     */
+    public static final String CHAT_GROUP_NEVER = MAIN_URL + "sggl/mobile/chat/group/v1.0/apply/refuse";
+
 
 
 

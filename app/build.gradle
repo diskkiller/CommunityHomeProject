@@ -5,7 +5,8 @@ apply from : '../common.gradle'
 
 
 
-def HOST_WEBSOCKET_URL = "http://jm.shequj.cn/api/im/ws/?token="
+//def HOST_WEBSOCKET_URL = "http://jm.shequj.cn/api/im/ws/?token="
+def HOST_WEBSOCKET_URL = "ws://192.168.34.34:10084/ws/?token="
 
 
 android {
@@ -241,5 +242,7 @@ dependencies {
 
 
     implementation files('libs/bcprov-jdk15to18-1.71.jar')
+
+    implementation 'com.github.Othershe:CombineBitmap:1.0.5'
 
 }

@@ -12,6 +12,33 @@
         app:title="我的群组"
         />
 
+    <LinearLayout
+        android:id="@+id/ll_creat_group"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/color_ffffff"
+        android:orientation="horizontal">
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/niv_avater"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/icon_my_group" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="发起群聊"
+            android:textColor="#ff333333"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,6 +50,7 @@
             >
 
             <TextView
+                android:id="@+id/tv_apply_title"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:text="邀请入群"
@@ -37,6 +65,7 @@
                 android:background="@color/color_ffffff" />
 
             <TextView
+                android:id="@+id/tv_creat_title"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:text="我创建的群聊"
@@ -51,6 +80,7 @@
                 android:background="@color/color_ffffff" />
 
             <TextView
+                android:id="@+id/tv_join_title"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:text="我加入的群聊"

@@ -446,16 +446,31 @@ public abstract class TempChatFragment
             }
             mRecyclerView.scrollToPosition(msgList.size() - 1);
         }*/
-        if (msg.sessionId.equals(sessionId)) {
-            //区分时间戳，添加新消息
-            if (msg.systemTime - msgTime > 180000) {
-                msgTime = msg.systemTime;
-                mAdapter.addData(new Message(msg, true));
-            } else {
-                mAdapter.addData(new Message(msg, false));
+
+        if(mIsGroup){
+            if (msg.groupId == targetUid) {
+                //区分时间戳，添加新消息
+                if (msg.systemTime - msgTime > 180000) {
+                    msgTime = msg.systemTime;
+                    mAdapter.addData(new Message(msg, true));
+                } else {
+                    mAdapter.addData(new Message(msg, false));
+                }
+                mRecyclerView.scrollToPosition(msgList.size() - 1);
             }
-            mRecyclerView.scrollToPosition(msgList.size() - 1);
+        }else{
+            if (msg.to == targetUid) {
+                //区分时间戳，添加新消息
+                if (msg.systemTime - msgTime > 180000) {
+                    msgTime = msg.systemTime;
+                    mAdapter.addData(new Message(msg, true));
+                } else {
+                    mAdapter.addData(new Message(msg, false));
+                }
+                mRecyclerView.scrollToPosition(msgList.size() - 1);
+            }
         }
+
     }
 
     private void onMoreClick() {

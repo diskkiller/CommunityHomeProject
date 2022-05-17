@@ -15,8 +15,8 @@ public final class RegisterApi implements IRequestApi {
 
     public final static class Bean {
         public String userId;//: 0,
-        public String status;//: true,
-        public String dataMessage;//: "string"
+        public boolean status;//: true,
+        public String message;//: "string"
 
         public String getUserId() {
             return userId;
@@ -26,20 +26,20 @@ public final class RegisterApi implements IRequestApi {
             this.userId = userId;
         }
 
-        public String getStatus() {
+        public boolean getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(boolean status) {
             this.status = status;
         }
 
         public String getDataMessage() {
-            return dataMessage;
+            return message;
         }
 
-        public void setDataMessage(String dataMessage) {
-            this.dataMessage = dataMessage;
+        public void setDataMessage(String message) {
+            this.message = message;
         }
     }
 }

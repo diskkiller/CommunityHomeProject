@@ -103,7 +103,6 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
                 ToastUtils.show(R.string.account_error);
                 return;
             }
-            mTextCountTimer.start();
             getCode(account);
         } else if (id == R.id.tv_tourist) {
             // 进行内存优化，销毁所有界面
@@ -130,6 +129,7 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
                                 return;
                             }
                             ToastUtils.show("发送验证码成功");
+                            mTextCountTimer.start();
                         }
                     }
 
@@ -154,8 +154,10 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
                     public void onSucceed(HttpData<RegisterApi.Bean> data) {
                         if(data.getData() != null){
                             RegisterApi.Bean model = data.getData();
+                            if(model.status){
+                                finish();
+                            }
                             ToastUtils.show(model.getDataMessage());
-                            finish();
                         }
                     }
 

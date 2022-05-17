@@ -37,11 +37,18 @@ public final class MsgListAdapter extends myAppAdapter<Conersation> {
 
         Conersation bean = conersation;
         tv_nickname.setText(bean.nickName);
-        /*tv_content.setText(bean.chatBody.content);
+        tv_content.setText(bean.chatBody.content);
         tv_time.setText(TimeUtils.formatTime(bean.chatBody.systemTime, TimeUtils.Time_FORMAT_HM));
         tv_unread.setText(String.valueOf(bean.unreadMsgNum));
+
         if(bean.unreadMsgNum < 1)
-            tv_unread.setVisibility(View.GONE);*/
+            tv_unread.setVisibility(View.GONE);
+
+        /*if(conersation.chatBody.chatType == 1){
+
+        }else{
+
+        }*/
 
         GlideApp.with(getContext())
                 .load(bean.avatarUrl)

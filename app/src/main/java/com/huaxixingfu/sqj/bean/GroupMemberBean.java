@@ -14,4 +14,5 @@ public class GroupMemberBean {
     public String userSignName;//个性签名
     public boolean isChatGroupUserId;//当前用户是否为群主
     public boolean isFriend;//当前用户是否为好友？？？
+    public boolean isSelect;//
 }

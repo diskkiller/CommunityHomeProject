@@ -15,12 +15,18 @@ import com.diskkiller.base.BaseActivity;
 import com.diskkiller.base.BaseDialog;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
+import com.diskkiller.widget.layout.SettingBar;
+import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.GroupDetailBean;
 import com.huaxixingfu.sqj.bean.GroupMemberBean;
+import com.huaxixingfu.sqj.bean.VCode;
 import com.huaxixingfu.sqj.commom.IntentKey;
 import com.huaxixingfu.sqj.http.api.DelGroupMemberApi;
+import com.huaxixingfu.sqj.http.api.EditGroupFriendNikeNameApi;
+import com.huaxixingfu.sqj.http.api.EditGroupNikeNameApi;
+import com.huaxixingfu.sqj.http.api.EditNikeNameApi;
 import com.huaxixingfu.sqj.http.api.GroupDetailApi;
 import com.huaxixingfu.sqj.http.api.GroupMemberDetailApi;
 import com.huaxixingfu.sqj.http.api.MailListApi;
@@ -44,6 +50,7 @@ public class GroupSettingActivity extends AppActivity {
     private TextView tx_more;
     private long targetUid;
     private boolean isOwner;
+    private SettingBar sb_group_name,sb_group_my_nickname;
 
     public static void start(BaseActivity activity, long targetUid, OnFinishResultListener listener) {
         Intent intent = new Intent(activity, GroupSettingActivity.class);
@@ -86,7 +93,9 @@ public class GroupSettingActivity extends AppActivity {
         targetUid = getLong(IntentKey.TARGETUID);
         gv_member = findViewById(R.id.member_gridview);
         tx_more = findViewById(R.id.tx_more);
-        setOnClickListener(R.id.tx_more,R.id.sb_group_name,R.id.sb_group_notice);
+        sb_group_name = findViewById(R.id.sb_group_name);
+        sb_group_my_nickname = findViewById(R.id.sb_group_my_nickname);
+        setOnClickListener(R.id.tx_more,R.id.sb_group_name,R.id.sb_group_notice,R.id.sb_group_transfer,R.id.sb_group_my_nickname);
         initRV();
     }
 
@@ -347,7 +356,7 @@ public class GroupSettingActivity extends AppActivity {
 
                         @Override
                         public void onConfirm(BaseDialog dialog, String content) {
-
+                            editGroupNikeName(content);
                         }
 
                         @Override
@@ -359,8 +368,71 @@ public class GroupSettingActivity extends AppActivity {
 
         }else if(id == R.id.sb_group_notice){
             GroupNotesListActivity.start(GroupSettingActivity.this,targetUid,isOwner,null);
+        }else if(id == R.id.sb_group_transfer){
+            GroupTransferActivity.start(GroupSettingActivity.this,targetUid,null);
+        }else if(id == R.id.sb_group_my_nickname){
+            new InputDialog.Builder(getContext())
+                    .setTitle("昵称设置")
+                    .setContent("")
+                    .setHint("请输入昵称")
+                    .setCancelable(false)
+                    .setListener(new InputDialog.OnListener() {
+
+                        @Override
+                        public void onConfirm(BaseDialog dialog, String content) {
+                            editGroupFriendNikeName(content);
+                        }
+
+                        @Override
+                        public void onCancel(BaseDialog dialog) {
+
+                        }
+                    })
+                    .show();
         }
     }
+
+    private void editGroupNikeName(String name){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("groupId", targetUid);
+        map.put("chatGroupNiceName", name);
+        EasyHttp.post(this)
+                .api(new EditGroupNikeNameApi())
+                .json(map)
+                .request(new HttpCallback<HttpData<VCode>>(this) {
+
+                    @Override
+                    public void onSucceed(HttpData<VCode> data) {
+                        sb_group_name.setRightText(name);
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
+    }
+    private void editGroupFriendNikeName(String name){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("groupId", targetUid);
+        map.put("chatGroupNiceName", name);
+        EasyHttp.post(this)
+                .api(new EditGroupFriendNikeNameApi())
+                .json(map)
+                .request(new HttpCallback<HttpData<VCode>>(this) {
+
+                    @Override
+                    public void onSucceed(HttpData<VCode> data) {
+                        sb_group_my_nickname.setRightText(name);
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
+    }
+
 
 
 }
