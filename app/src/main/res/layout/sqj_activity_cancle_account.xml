@@ -18,115 +18,127 @@
         app:rightTitleColor="#EC3937"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_account"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="center"
-        android:text="注销账号："
-        android:background="@color/white"
-        android:textColor="#333333"
-        android:textSize="16sp" />
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_cintent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:gravity="center_vertical"
-        android:text=""
-        android:textColor="#A4A4A4"
-        android:textSize="13sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="25dp"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/check_xieyi"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="5dp"
-            android:button="@drawable/btn_check" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="我已阅读并同意"
-            android:textColor="#ff999999"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tv_yinsi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="《隐私政策》"
-            android:textColor="@color/main"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="和"
-            android:textColor="#ff999999"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tv_yonghu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="《用户协议》"
-            android:textColor="@color/main"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="24dp"
-        android:layout_marginHorizontal="19dp"
-        >
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_request"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/shape_r5_white_bg"
-            android:backgroundTint="#EC3937"
-            android:textColor="@color/white"
-            android:text="申请注销"
-            android:layout_marginRight="10dp"
-            />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cancle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/shape_r5_white_bg"
-            android:backgroundTint="#DFDFDF"
-            android:textColor="@color/white"
-            android:text="取消" />
-    </LinearLayout>
+            android:orientation="vertical">
 
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_account"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="注销账号："
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <WebView
+                android:id="@+id/tv_cintent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="#A4A4A4"
+                android:textSize="13sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="25dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/check_xieyi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="5dp"
+                    android:button="@drawable/btn_check" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="我已阅读并同意"
+                    android:textColor="#ff999999"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_yinsi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="《隐私政策》"
+                    android:textColor="@color/main"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="和"
+                    android:textColor="#ff999999"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_yonghu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="《用户协议》"
+                    android:textColor="@color/main"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="19dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_request"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_r5_white_bg"
+                    android:backgroundTint="@color/main"
+                    android:text="申请注销"
+                    android:textColor="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_cancle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_r5_white_bg"
+                    android:backgroundTint="#DFDFDF"
+                    android:text="取消"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
     </LinearLayout>
 
 <RelativeLayout
@@ -231,7 +243,10 @@
 
                     <com.diskkiller.widget.view.CountdownView
                         android:id="@+id/cv_safe_countdown"
-                        style="@style/CountdownViewStyle" />
+                        style="@style/CountdownViewStyle"
+                        android:background="@drawable/shape_r5_white_bg"
+                        android:backgroundTint="#FFEEE6"/>
+
 
                 </LinearLayout>
 
@@ -263,7 +278,7 @@
                     android:gravity="center"
                     android:paddingVertical="15dp"
                     android:text="取消"
-                    android:textColor="#F44336"
+                    android:textColor="@color/color_ff999999"
                     android:textSize="14sp" />
 
                 <View
@@ -282,7 +297,7 @@
                     android:gravity="center"
                     android:paddingVertical="15dp"
                     android:text="确定"
-                    android:textColor="#007AFF"
+                    android:textColor="@color/main"
                     android:textSize="14sp" />
             </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.huaxixingfu.sqj.ui.activity.me;
 
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -49,9 +50,10 @@ public class CancleAccountActivity extends AppActivity {
 
     /** 当前手机号 */
     private  String mPhoneNumber;
-    private TextView tv_yinsi,tv_yonghu,tv_cintent,tv_account;
+    private TextView tv_yinsi,tv_yonghu,tv_account;
 
     private CheckBox check_xieyi;
+    private WebView tv_cintent;
 
     private boolean isAgree = false;
 
@@ -118,7 +120,7 @@ public class CancleAccountActivity extends AppActivity {
                     public void onSucceed(HttpData<CancleAccountApi.Bean> data) {
                         if(data.getData() != null){
                             String content = data.getData().appGuideContent;
-                            tv_cintent.setText(content);
+                            tv_cintent.loadData(content, "text/html", "UTF -8");//API提供的标准用法，无法解决乱码问题
                         }
                     }
 

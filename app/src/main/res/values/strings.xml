@@ -174,7 +174,7 @@
     <!-- 首页 -->
     <string name="home_exit_hint">再按一次退出</string>
     <string name="home_nav_index">发现</string>
-    <string name="home_nav_found">动态</string>
+    <string name="home_nav_found">生活圈</string>
     <string name="home_nav_message">消息</string>
     <string name="home_nav_me">我的</string>
 
