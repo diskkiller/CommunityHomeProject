@@ -195,7 +195,7 @@
     <string name="user_contract">《用户协议》</string>
     <string name="and">和</string>
     <string name="private_policy">《隐私政策》</string>
-    <string name="account_error">手机号不能为空</string>
+    <string name="account_error">请输入手机号</string>
     <string name="pwd_error">密码不能为空</string>
     <string name="agree_user_contract">请您选择同意用户协议</string>
     <string name="confirm_pwd_error">再次输入密码不能为空</string>
