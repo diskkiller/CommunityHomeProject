@@ -1,29 +1,20 @@
 apply plugin: 'com.android.library'
+apply from : '../../common.gradle'
 
 android {
-    compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 21
-        versionCode 1100
-        versionName "11.0"
+        // 模块混淆配置
+        consumerProguardFiles 'proguard-base.pro'
     }
 
-    // 使用 JDK 1.8
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
-
-    packagingOptions {
-        // 剔除这个包下的所有文件（不会移除签名信息）
-        exclude 'META-INF/*******'
-    }
-
-    android.libraryVariants.all { variant ->
-        // aar 输出文件名配置
-        variant.outputs.all { output ->
-            outputFileName = "${rootProject.name}-${android.defaultConfig.versionName}.aar"
+    sourceSets {
+        main {
+            // res 资源目录配置
+            res.srcDirs(
+                    'src/main/res',
+                    'src/main/res-sw',
+            )
         }
     }
 }
