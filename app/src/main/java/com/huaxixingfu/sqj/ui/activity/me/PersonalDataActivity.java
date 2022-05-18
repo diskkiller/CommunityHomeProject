@@ -151,7 +151,7 @@ public class PersonalDataActivity extends AppActivity {
                                 sbPersonalAdress.setRightText(personDataBean.getUserResidentCertStatusName());
                             }
                             if(StringUtils.isNotEmpty(personDataBean.getUserPhone()))
-                                sbPersonalPhone.setRightText(personDataBean.getUserPhone());
+                                sbPersonalPhone.setRightText(StringUtils.phoneNumber());
                         }
                     }
 

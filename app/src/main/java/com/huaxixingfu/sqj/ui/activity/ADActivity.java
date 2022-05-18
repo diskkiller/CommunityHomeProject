@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -45,7 +46,10 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
     private String imgUrl,title,contentUrl;
 
     private ImageView imageView;
+    private TextView tv_close;
     private  String adPicUrl,adDetailUrl;
+    private int timeSecond = 3;
+    private int timeUnit = 1000;
 
 
     @Override
@@ -56,7 +60,10 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         imageView = findViewById(R.id.splash_iv);
+        tv_close = findViewById(R.id.tv_close);
         setOnClickListener(R.id.splash_iv);
+
+        tv_close.setText(String.format(getString(R.string.AD_time_close),timeSecond));
     }
 
     @Override
@@ -85,10 +92,12 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
                                     .into(imageView);
 
                             //显示广告图片，开始倒计时
-                            mDownTimer = new CountDownTimer(5000, 1000) {
+                            mDownTimer = new CountDownTimer(timeSecond * timeUnit, timeUnit) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
 
+                                    tv_close.setText(String.format(getString(R.string.AD_time_close),
+                                            millisUntilFinished/timeUnit));
                                 }
 
                                 @Override
