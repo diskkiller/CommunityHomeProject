@@ -66,13 +66,14 @@ public final class SettingBar extends FrameLayout {
 
         mMainLayout.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER_VERTICAL));
 
-        LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         leftParams.gravity = Gravity.CENTER_VERTICAL;
-        leftParams.weight = 0.5F;
+        leftParams.weight = 1F;
         mLeftView.setLayoutParams(leftParams);
 
         LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         rightParams.gravity = Gravity.CENTER_VERTICAL;
+        rightParams.leftMargin = 140;
         mRightView.setLayoutParams(rightParams);
 
         mLineView.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, 1, Gravity.BOTTOM));

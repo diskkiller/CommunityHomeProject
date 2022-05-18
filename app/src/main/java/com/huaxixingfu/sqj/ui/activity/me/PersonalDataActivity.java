@@ -20,6 +20,7 @@ import com.huaxixingfu.sqj.bean.PersonEnumDataBean;
 import com.huaxixingfu.sqj.bean.VCode;
 import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.dialog.PickerDateDialog;
+import com.huaxixingfu.sqj.dialog.PickerHightClosedDialog;
 import com.huaxixingfu.sqj.dialog.PickerHightDialog;
 import com.huaxixingfu.sqj.http.api.EditBirApi;
 import com.huaxixingfu.sqj.http.api.EditHeadApi;
@@ -60,9 +61,10 @@ public class PersonalDataActivity extends AppActivity {
 
     private ImageView icIcon;
     private SettingBar sbPersonalName,sbPersonalSex,sbPersonalBirthday,
-            sbPersonalMinzu,sbPersonalNikeName,sbPersonalMianmao,sbPersonalRealName,
+            sbPersonalMinzu,sbPersonalMianmao,sbPersonalRealName,
             sbPersonalAdress,sbPersonalPhone,sb_personal_work;
 
+    private TextView sbPersonalNikeName;
     private TextView tv_title;
     private ImageView bar_back;
     private PersonDataBean personDataBean;
@@ -130,7 +132,7 @@ public class PersonalDataActivity extends AppActivity {
                                 sbPersonalMinzu.setRightText(personDataBean.getUserNationCodeName());
 
                             if(StringUtils.isNotEmpty(personDataBean.getUserSignName()))
-                                sbPersonalNikeName.setRightText(personDataBean.getUserSignName());
+                                sbPersonalNikeName.setText(personDataBean.getUserSignName());
 
                             if(StringUtils.isNotEmpty(personDataBean.getResidentPoliticsFaceName()))
                                 sbPersonalMianmao.setRightText(personDataBean.getResidentPoliticsFaceName());
@@ -177,9 +179,9 @@ public class PersonalDataActivity extends AppActivity {
                                     sexlist.add(personEnumDataBean.getDictName());
                                 }
 
-                                new PickerHightDialog.Builder(getContext())
+                                new PickerHightClosedDialog.Builder(getContext())
                                         // 标题可以不用填写
-                                        .setTitle("请选择性别")
+                                        .setTitle("性别")
                                         .setData((ArrayList) sexlist)
                                         // 确定按钮文本
                                         .setConfirm("确定")
@@ -188,7 +190,7 @@ public class PersonalDataActivity extends AppActivity {
                                         .setGravity(Gravity.BOTTOM)
                                         // 设置点击按钮后不关闭对话框
                                         //.setAutoDismiss(false)
-                                        .setListener(new PickerHightDialog.OnListener() {
+                                        .setListener(new PickerHightClosedDialog.OnListener() {
 
                                             @Override
                                             public void onConfirm(String data,int position) {
@@ -336,7 +338,7 @@ public class PersonalDataActivity extends AppActivity {
                                     datelist.add(personEnumDataBean.getDictName());
                                 }
 
-                                new PickerHightDialog.Builder(getContext())
+                                new PickerHightClosedDialog.Builder(getContext())
                                         // 标题可以不用填写
                                         .setTitle("请选择民族")
                                         .setData((ArrayList) datelist)
@@ -347,7 +349,7 @@ public class PersonalDataActivity extends AppActivity {
                                         .setGravity(Gravity.BOTTOM)
                                         // 设置点击按钮后不关闭对话框
                                         //.setAutoDismiss(false)
-                                        .setListener(new PickerHightDialog.OnListener() {
+                                        .setListener(new PickerHightClosedDialog.OnListener() {
 
                                             @Override
                                             public void onConfirm(String data,int position) {
@@ -441,7 +443,7 @@ public class PersonalDataActivity extends AppActivity {
                                     datelist.add(personEnumDataBean.getDictName());
                                 }
 
-                                new PickerHightDialog.Builder(getContext())
+                                new PickerHightClosedDialog.Builder(getContext())
                                         // 标题可以不用填写
                                         .setTitle("请选择政治面貌")
                                         .setData((ArrayList) datelist)
@@ -452,7 +454,7 @@ public class PersonalDataActivity extends AppActivity {
                                         .setGravity(Gravity.BOTTOM)
                                         // 设置点击按钮后不关闭对话框
                                         //.setAutoDismiss(false)
-                                        .setListener(new PickerHightDialog.OnListener() {
+                                        .setListener(new PickerHightClosedDialog.OnListener() {
 
                                             @Override
                                             public void onConfirm(String data,int position) {

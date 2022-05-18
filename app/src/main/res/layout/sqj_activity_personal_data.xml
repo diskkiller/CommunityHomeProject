@@ -47,7 +47,7 @@
                 android:background="@color/white"
                 >
 
-                <com.shehuan.niv.NiceImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ic_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -159,16 +159,43 @@
             <View
                 style="@style/HorizontalLineStyle"
                 android:layout_marginHorizontal="20dp" />
-            <com.diskkiller.widget.layout.SettingBar
-                android:id="@+id/sb_personal_nike_name"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:bar_leftText="个性签名"
-                app:bar_rightDrawable="@drawable/arrows_right_ic"
-                app:bar_rightText="这家伙什么也没留"
-                app:bar_rightTextColor="#BBBBBB"
-                app:bar_lineVisible="false"
-                />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="个性签名"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/color_333333"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/sb_personal_nike_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="这家伙什么也没留"
+                    android:textColor="#BBBBBB"
+                    android:lines="1"
+                    android:layout_gravity="end|center_vertical"
+                    android:gravity="end"
+                    android:ellipsize="end"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrows_right_ic"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
             <View
                 style="@style/HorizontalLineStyle"
                 android:layout_marginHorizontal="20dp" />
@@ -208,6 +235,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:textSize="13sp"
+                android:background="#F8F8F8"
                 />
             <com.diskkiller.widget.layout.SettingBar
                 android:id="@+id/sb_personal_real_name"
@@ -250,9 +278,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:bar_leftText="手机号"
-                app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_rightText="请完成实名认证后操作"
-                app:bar_rightTextColor="#EC3937"
+                app:bar_rightTextColor="@color/color_FFBBBBBB"
                 app:bar_lineVisible="false"
                 />
 
