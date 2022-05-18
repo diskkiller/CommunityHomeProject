@@ -142,6 +142,11 @@ public class FragmentHome extends AppFragment<HomeActivity> {
                                         GlideApp.with(getContext())
                                                 .load(img)
                                                 .into(holder.imageView);
+                                        holder.imageView.setOnClickListener(view->{
+
+                                            BrowserActivity.start(getActivity(),data.appGuideImageUrl);
+
+                                        });
                                     }
 
                                 });

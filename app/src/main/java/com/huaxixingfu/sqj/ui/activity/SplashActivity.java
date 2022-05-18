@@ -134,7 +134,8 @@ public class SplashActivity extends AppActivity {
                     // 设置 null 表示不显示取消按钮
                     .setCancel(getString(R.string.common_never))
                     // 设置点击按钮后不关闭对话框
-                    //.setAutoDismiss(false)
+//                    .setAutoDismiss(false)
+                    .setCancelable(false)
                     .setListener(new AgreementDialog.OnListener() {
 
                         @Override

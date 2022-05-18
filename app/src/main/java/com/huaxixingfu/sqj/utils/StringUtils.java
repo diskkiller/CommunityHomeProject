@@ -3,10 +3,21 @@ package com.huaxixingfu.sqj.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.huaxixingfu.sqj.app.AppApplication;
+
 import java.util.Locale;
 
 public class StringUtils {
 
+
+    /**
+     *  获取手机号吗展示
+     */
+    public static String phoneNumber() {
+
+        String mPhoneNumber = SPManager.instance(AppApplication.getContext()).getUserPhone();
+        return String.format("%s****%s", mPhoneNumber.substring(0, 3), mPhoneNumber.substring(mPhoneNumber.length() - 4));
+    }
     /**
      * Don't let anyone instantiate this class.
      */

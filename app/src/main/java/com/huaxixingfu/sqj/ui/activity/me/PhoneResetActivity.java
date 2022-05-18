@@ -17,6 +17,7 @@ import com.huaxixingfu.sqj.http.api.ResetPhoneApi;
 import com.huaxixingfu.sqj.http.api.ResetPhoneCodeApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.HashMap;
 
@@ -44,7 +45,7 @@ public class PhoneResetActivity extends AppActivity {
         sbSettingPhone = findViewById(R.id.sb_setting_phone);
         etPhoneResetPhone = findViewById(R.id.et_phone_reset_phone);
         etPhoneResetCode = findViewById(R.id.et_phone_reset_code);
-        sbSettingPhone.setRightText(SPManager.instance(getContext()).getUserPhone());
+        sbSettingPhone.setRightText(StringUtils.phoneNumber());
         setOnClickListener(R.id.cv_phone_reset_countdown,R.id.btn_phone_reset_commit);
     }
 

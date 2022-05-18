@@ -20,6 +20,7 @@ import com.huaxixingfu.sqj.http.api.ResetPasswordApi;
 import com.huaxixingfu.sqj.http.api.ResetPasswordCodeApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.HashMap;
 
@@ -56,7 +57,7 @@ public class PasswordResetActivity extends AppActivity {
 
 
     public void initData() {
-        tv_phone.setText(SPManager.instance(getActivity()).getUserPhone());
+        tv_phone.setText(StringUtils.phoneNumber());
     }
 
     private void resetPasswordCode(){

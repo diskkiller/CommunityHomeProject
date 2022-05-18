@@ -22,7 +22,9 @@ import com.huaxixingfu.sqj.http.api.RegisterApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
+import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.utils.MatchUtils;
+import com.huaxixingfu.sqj.utils.SPManager;
 
 import java.util.HashMap;
 
@@ -44,7 +46,7 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
     @Override
     protected void initView() {
         mTextCountTimer = findViewById(R.id.tv_get_code);
-        setOnClickListener(R.id.tv_get_code,R.id.tv_tourist,R.id.tv_code_login,R.id.tv_submit);
+        setOnClickListener(R.id.tv_get_code,R.id.tv_tourist,R.id.tv_code_login,R.id.tv_submit,R.id.private_btn,R.id.about_btn);
 
         checkContract = findViewById(R.id.check_xieyi);
         etAccount = findViewById(R.id.et_account);
@@ -108,6 +110,10 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
             // 进行内存优化，销毁所有界面
             ActivityManager.getInstance().finishAllActivities();
             startActivity(new Intent(getActivity(), HomeActivity.class));
+        } else if (id == R.id.private_btn) {
+            BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getPrivate());
+        } else if (id == R.id.about_btn) {
+            BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getAgreement());
         }
 
     }
