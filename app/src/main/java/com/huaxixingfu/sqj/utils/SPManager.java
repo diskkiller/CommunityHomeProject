@@ -182,6 +182,14 @@ public class SPManager {
         return getBoolean(Constants.USERINFO_LOGIN);
     }
 
+    public void setGuideShow(boolean b) {
+        put(Constants.IS_GIUDE_SHOW, b);
+    }
+
+    public boolean isGuideShow() {
+        return getBoolean(Constants.IS_GIUDE_SHOW);
+    }
+
 
     public void clearUserInfo() {
         remove(Constants.USERINFO);

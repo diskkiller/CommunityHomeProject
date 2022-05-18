@@ -353,6 +353,16 @@ public class API {
      */
     public static final String CHAT_GROUP_NEVER = MAIN_URL + "sggl/mobile/chat/group/v1.0/apply/refuse";
 
+    /**
+     * 注销账号协议详情
+     */
+    public static final String CANCEL_ACCOUNT_DETAIL = MAIN_URL + "sggl/mobile/home/v1.0/guide/cancel/account/detail";
+
+    /**
+     * 广告
+     */
+    public static final String CANCEL_AD_DETAIL = MAIN_URL + "sggl/mobile/home/v1.0/start/page/one";
+
 
 
 

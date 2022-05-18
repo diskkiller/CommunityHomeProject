@@ -41,7 +41,7 @@ public class NewsColumnFragment extends AppFragment<AppActivity>
 
     static String mNewsColumnCode;
 
-    int page = 1;
+    int page = 0;
 
     public static NewsColumnFragment newInstance(String newsColumnCode) {
         NewsColumnFragment fragment = new NewsColumnFragment();
@@ -143,7 +143,7 @@ public class NewsColumnFragment extends AppFragment<AppActivity>
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page = 1;
+        page = 0;
         getHomeContentNews(
                 10,
                 page,

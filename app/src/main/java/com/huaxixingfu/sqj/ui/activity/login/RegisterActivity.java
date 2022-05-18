@@ -110,7 +110,7 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
             // 进行内存优化，销毁所有界面
             ActivityManager.getInstance().finishAllActivities();
             startActivity(new Intent(getActivity(), HomeActivity.class));
-        } else if (id == R.id.private_btn) {
+        }else if (id == R.id.private_btn) {
             BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getPrivate());
         } else if (id == R.id.about_btn) {
             BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getAgreement());

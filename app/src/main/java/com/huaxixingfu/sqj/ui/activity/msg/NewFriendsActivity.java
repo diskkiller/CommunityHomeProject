@@ -30,7 +30,7 @@ public class NewFriendsActivity extends AppActivity implements View.OnClickListe
 
     private RecyclerView rv_new_friends;
     private NewFriendAdapter friendAdapter;
-    private int page = 1;
+    private int page = 0;
     private SmartRefreshLayout srl_new_friends;
 
     @Override

@@ -46,7 +46,7 @@ public class GroupNotesListActivity extends AppActivity implements OnRefreshLoad
     GroupNotesAdapter adapter;
     RecyclerView recycler;
 
-    int page = 1;
+    int page = 0;
 
     private SmartRefreshLayout srlNewFriends;
 
@@ -220,7 +220,7 @@ public class GroupNotesListActivity extends AppActivity implements OnRefreshLoad
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page = 1;
+        page = 0;
         getNotesColumn(10,page,Integer.parseInt(groupId+""),false);
     }
 

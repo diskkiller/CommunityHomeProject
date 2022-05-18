@@ -44,7 +44,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         public void onBindView(int position) {
             HomeContentNewsApi.Bean.VContentNew bean = getItem(position);
             itemTitle.setText(bean.newsTile);
-            itemType.setText(bean.newsSource);
+            itemType.setText(bean.newsColumnName);
             itemTime.setText(bean.createdAt);
             GlideApp.with(getContext())
                     .load(bean.newsImageUrl)

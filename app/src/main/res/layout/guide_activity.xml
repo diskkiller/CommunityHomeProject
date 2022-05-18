@@ -27,16 +27,18 @@
             app:ci_drawable_unselected="@drawable/guide_indicator_unselected"
             app:ci_height="@dimen/dp_5"
             app:ci_margin="@dimen/dp_5"
-            app:ci_width="@dimen/dp_5" />
+            app:ci_width="@dimen/dp_5"
+            android:visibility="invisible"
+            />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btn_guide_complete"
             style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:minWidth="@dimen/dp_160"
-            android:text="了解详情"
+            android:text="欢迎使用"
             android:visibility="invisible" />
 
     </FrameLayout>

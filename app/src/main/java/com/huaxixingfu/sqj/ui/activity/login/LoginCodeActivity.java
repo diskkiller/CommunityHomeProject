@@ -2,6 +2,7 @@ package com.huaxixingfu.sqj.ui.activity.login;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.http.api.GetLoginCodeApi;
 import com.huaxixingfu.sqj.http.api.LoginApiByCode;
+import com.huaxixingfu.sqj.http.api.LoginPhoneValidateApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
@@ -62,7 +64,6 @@ public class LoginCodeActivity extends AppActivity implements View.OnClickListen
                 ToastUtils.show(R.string.account_error);
                 return;
             }
-            textCountTimer.start();
             getCode(account);
         } else if (id == R.id.tv_submit) {
             //调用登录
@@ -117,6 +118,7 @@ public class LoginCodeActivity extends AppActivity implements View.OnClickListen
                                 ToastUtils.show(model.message);
                                 return;
                             }
+                            textCountTimer.start();
                             ToastUtils.show("发送验证码成功");
                         }
                     }

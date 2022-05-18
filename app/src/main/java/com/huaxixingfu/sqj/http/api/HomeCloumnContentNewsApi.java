@@ -12,7 +12,7 @@ public final class HomeCloumnContentNewsApi implements IRequestApi {
 
     @Override
     public String getApi() {
-        return API.HOME_CONTENT_NEW;
+        return API.NEWS_PAGE;
     }
 
     public final static class Bean {

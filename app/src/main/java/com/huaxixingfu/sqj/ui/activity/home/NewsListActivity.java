@@ -1,6 +1,5 @@
 package com.huaxixingfu.sqj.ui.activity.home;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -8,13 +7,15 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.diskkiller.base.FragmentPagerAdapter;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
+import com.google.android.material.tabs.TabLayout;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.http.api.NewsColumnApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.fragment.NewsColumnFragment;
@@ -36,10 +37,11 @@ import java.util.List;
  * 功能：社会新闻列表
  */
 
-public class NewsListActivity extends AppActivity {
+public class NewsListActivity extends AppActivity implements  ViewPager.OnPageChangeListener{
 
-    private MagicIndicator magic;
-    private ViewPager viewPager;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private FragmentPagerAdapter<AppFragment<?>> mPagerAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -48,8 +50,12 @@ public class NewsListActivity extends AppActivity {
 
     @Override
     protected void initView() {
-        magic = findViewById(R.id.magic);
-        viewPager = findViewById(R.id.viewPager);
+        mTabLayout = findViewById(R.id.magic);
+        mViewPager = findViewById(R.id.viewPager);
+        mPagerAdapter = new FragmentPagerAdapter<>(this);
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(this);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     protected void initData(){
@@ -62,7 +68,11 @@ public class NewsListActivity extends AppActivity {
                         if(data.getData() != null){
                             List<NewsColumnApi.Bean>  columns = data.getData();
                             if((null != columns) && (columns.size()>0)){
-                                setColumnData(columns);
+
+                                for (NewsColumnApi.Bean column : columns) {
+                                    mPagerAdapter.addFragment(NewsColumnFragment.newInstance(column.newsColumnCode), column.newsColumnName);
+                                }
+
                             }
                         }
                     }
@@ -74,80 +84,19 @@ public class NewsListActivity extends AppActivity {
                 });
     }
 
-    /**
-     * 设置新闻分类
-     * @param columns
-     */
-    private void setColumnData( List<NewsColumnApi.Bean>  columns){
 
-        List<Fragment> fragments = new ArrayList<>(columns.size());
-        for (int i=0,j=columns.size();i<j;i++){
-            NewsColumnApi.Bean column = columns.get(i);
-            NewsColumnFragment fragment = NewsColumnFragment.newInstance(column.newsColumnCode);
-            fragments.add(fragment);
-        }
-        viewPager.setAdapter(new NewsColumnAdapter(this.getSupportFragmentManager(),fragments));
-
-        MagicIndicator magicIndicator = magic;
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return columns == null ? 0 : columns.size();
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, final int index) {
-                ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#FF333333"));
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#FFEC3937"));
-                colorTransitionPagerTitleView.setText(columns.get(index).newsColumnName);
-                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        viewPager.setCurrentItem(index);
-                    }
-                });
-                return colorTransitionPagerTitleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                //  public static final int MODE_MATCH_EDGE = 0;   // 直线宽度 == title宽度 - 2 * mXOffset
-                //   public static final int MODE_WRAP_CONTENT = 1;    // 直线宽度 == title内容宽度 - 2 * mXOffset
-                //   public static final int MODE_EXACTLY = 2;  // 直线宽度 == mLineWidth
-                //TODO 线的宽度
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineWidth(50);
-                indicator.setColors(getResources().getColor(R.color.color_ffec3937));
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(commonNavigator);
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
 
-    public class NewsColumnAdapter extends FragmentPagerAdapter{
-        List<Fragment> fragments;
+    @Override
+    public void onPageSelected(int position) {
 
-        public NewsColumnAdapter(@NonNull @NotNull FragmentManager fm,
-                                 List<Fragment> fragments) {
-            super(fm);
-            this.fragments = fragments;
-        }
-
-        @NonNull
-        @NotNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
     }
 
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }
