@@ -151,7 +151,7 @@
         android:layout_marginHorizontal="58dp"
         android:layout_marginTop="176dp"
         android:background="@drawable/shape_r5_white_bg"
-        android:backgroundTint="#EC3937"
+        android:backgroundTint="@color/main"
         android:enabled="true"
         android:gravity="center"
         android:text="退出登录"

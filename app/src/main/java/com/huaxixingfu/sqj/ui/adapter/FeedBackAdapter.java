@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.huaxixingfu.sqj.R;
+import com.huaxixingfu.sqj.app.AppApplication;
 import com.huaxixingfu.sqj.bean.TypeBean;
 
 import java.util.List;
@@ -53,8 +54,11 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.TypeVi
 //                typeBean.setSelected(!typeBean.isSelected);
                 if (typeBean.isSelected) {
                     holder.typeName.setBackgroundResource(R.drawable.bg_question_type_red_oval);
+                    holder.typeName.setTextColor(AppApplication.getContext().getColor(R.color.main));
+
                 } else {
                     holder.typeName.setBackgroundResource(R.drawable.bg_question_type_oval);
+                    holder.typeName.setTextColor(AppApplication.getContext().getColor(R.color.color_ff999999));
                 }
             }
         }
