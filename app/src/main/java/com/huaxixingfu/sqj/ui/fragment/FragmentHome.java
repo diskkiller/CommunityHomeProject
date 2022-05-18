@@ -42,6 +42,8 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class FragmentHome extends AppFragment<HomeActivity> {
 
@@ -98,28 +100,13 @@ public class FragmentHome extends AppFragment<HomeActivity> {
                     public void onSucceed(HttpData<List<NotesListApi.Bean>> data) {
                         if(data.getData() != null){
                             List<NotesListApi.Bean> models =  data.getData();
-                            List<String> datas = new ArrayList<String>();
                             if((null != models) && (models.size()>0)){
-                                for (int i=0,j=models.size();i<j;i++){
-                                    datas.add(models.get(i).appGuideTitle);
-                                }
-
-                                if((null != datas) && (datas.size()>0)){
-                                    SimpleMF<String> marqueeFactory = new SimpleMF(getContext());
-                                    marqueeFactory.setData(datas);
-                                    marquee.setMarqueeFactory(marqueeFactory);
-                                    marquee.startFlipping();
-                                    marquee.setOnItemClickListener(new OnItemClickListener() {
-                                        @Override
-                                        public void onItemClickListener(View mView, Object mData, int mPosition) {
-                                            if(StringUtils.isNotEmpty(models.get(mPosition).detailUrl))
-                                                BrowserActivity.start(getAttachActivity(),models.get(mPosition).detailUrl);
-                                        }
-                                    });
-
-                                }
-
-
+                                HomeSimpleMF<NotesListApi.Bean> marqueeFactory = new HomeSimpleMF<>(getContext(),view->{
+                                    BrowserActivity.start(getActivity(),view.detailUrl);
+                                });
+                                marqueeFactory.setData(models);
+                                marquee.setMarqueeFactory(marqueeFactory);
+                                marquee.startFlipping();
                             }
                         }
                     }
@@ -157,6 +144,11 @@ public class FragmentHome extends AppFragment<HomeActivity> {
                                         GlideApp.with(getContext())
                                                 .load(img)
                                                 .into(holder.imageView);
+                                        holder.imageView.setOnClickListener(view->{
+
+                                            BrowserActivity.start(getActivity(),data.appGuideUrl);
+
+                                        });
                                     }
 
                                 });

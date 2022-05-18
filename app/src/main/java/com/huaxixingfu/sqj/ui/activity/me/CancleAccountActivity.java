@@ -27,6 +27,7 @@ import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.HashMap;
 
@@ -48,7 +49,7 @@ public class CancleAccountActivity extends AppActivity {
 
     /** 当前手机号 */
     private  String mPhoneNumber;
-    private TextView tv_yinsi,tv_yonghu,tv_cintent;
+    private TextView tv_yinsi,tv_yonghu,tv_cintent,tv_account;
 
     private CheckBox check_xieyi;
 
@@ -68,6 +69,7 @@ public class CancleAccountActivity extends AppActivity {
         tb_title.getRightView().setVisibility(View.INVISIBLE);
 
         tv_ui_title = findViewById(R.id.tv_ui_title);
+        tv_account = findViewById(R.id.tv_account);
         btn_cancle = findViewById(R.id.btn_cancle);
         btn_request = findViewById(R.id.btn_request);
         rl_dialog_bg = findViewById(R.id.rl_dialog_bg);
@@ -93,11 +95,12 @@ public class CancleAccountActivity extends AppActivity {
 
         mPhoneNumber = SPManager.instance(this).getUserPhone();
         // 为了保护用户的隐私，不明文显示中间四个数字
-        mPhoneView.setText(String.format("%s****%s", mPhoneNumber.substring(0, 3), mPhoneNumber.substring(mPhoneNumber.length() - 4)));
+        mPhoneView.setText(StringUtils.phoneNumber());
+        tv_account.setText("注销账号："+StringUtils.phoneNumber());
 
 
         setOnClickListener(btn_cancle,btn_request,mCountdownView,mCancelView,
-                mConfirmView,tv_ui_confirm_confirm,tv_yinsi,tv_yonghu);
+                mConfirmView,tv_ui_confirm_confirm,tv_yinsi,tv_yonghu,check_xieyi);
     }
 
 

@@ -1,5 +1,6 @@
 package com.huaxixingfu.sqj.ui.fragment;
 
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.huaxixingfu.sqj.ui.activity.me.FamilyDateActivity;
 import com.huaxixingfu.sqj.ui.activity.me.FeedbackActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.activity.me.SettingActivity;
+import com.huaxixingfu.sqj.utils.Encryption;
+import com.huaxixingfu.sqj.utils.MyTime;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
 

@@ -13,6 +13,8 @@ import com.hjq.bar.TitleBar;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
 public class AccountSecurityActivity extends AppActivity {
 
@@ -37,6 +39,8 @@ public class AccountSecurityActivity extends AppActivity {
         sb_setting_cancel_account = findViewById(R.id.sb_setting_cancel_account);
 
         setOnClickListener(R.id.sb_setting_phone,R.id.sb_setting_password,R.id.sb_setting_cancel_account);
+
+        sb_setting_phone.setRightText(StringUtils.phoneNumber());
 
     }
 
