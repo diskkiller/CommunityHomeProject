@@ -37,7 +37,7 @@ public class ForgetPwdActivity extends AppActivity implements View.OnClickListen
         etPwd = findViewById(R.id.et_pwd);
         etConfirmPwd = findViewById(R.id.et_confirm_pwd);
 
-        setOnClickListener(R.id.tv_get_code,R.id.tv_submit);
+        setOnClickListener(R.id.tv_get_code,R.id.tv_submit,R.id.iv_back);
     }
 
     @Override
@@ -79,6 +79,8 @@ public class ForgetPwdActivity extends AppActivity implements View.OnClickListen
                 ToastUtils.show(R.string.login_pwd_principle);
             }
             reset(account, code, pwd, confirmPwd);
+        } else if (id == R.id.iv_back) {
+            finish();
         } else if (id == R.id.tv_get_code) {
             account = etAccount.getText().toString();
             //判断参数情况

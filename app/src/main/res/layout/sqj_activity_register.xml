@@ -19,6 +19,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/register_title"
             android:textColor="#ff333333"
+            android:textStyle="bold"
             android:textSize="25sp" />
 
         <TextView
@@ -39,7 +40,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="33dp"
+                android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
@@ -62,6 +63,7 @@
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="@string/input_phone_hint"
+                android:textColorHint="@color/color_FFBBBBBB"
                 android:inputType="phone"
                 android:digits="0123456789"
                 android:maxLength="11"
@@ -90,6 +92,7 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:hint="@string/common_code_input_hint"
+                android:textColorHint="@color/color_FFBBBBBB"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="6"
@@ -123,6 +126,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="@string/register_password_hint1"
+            android:textColorHint="@color/color_FFBBBBBB"
             android:inputType="textPassword"
             android:maxLength="8"
             android:textSize="17sp" />
@@ -144,6 +148,7 @@
             android:layout_marginTop="25dp"
             android:background="@null"
             android:gravity="center_vertical"
+            android:textColorHint="@color/color_FFBBBBBB"
             android:hint="@string/register_password_hint2"
             android:inputType="textPassword"
             android:maxLength="8"
@@ -167,7 +172,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/shape_r5_white_bg"
-            android:backgroundTint="#EC3937"
+            android:backgroundTint="@color/main"
             android:gravity="center"
             android:text="@string/register_title"
             android:textColor="@color/white"
@@ -208,7 +213,7 @@
                 android:paddingEnd="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="@string/login_immediately"
-                android:textColor="#EC3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -245,7 +250,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/private_policy"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
         <TextView
@@ -262,7 +267,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/user_contract"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
     </LinearLayout>

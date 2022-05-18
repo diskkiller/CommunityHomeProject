@@ -16,6 +16,7 @@
             android:layout_marginTop="90dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/login_text"
+            android:textStyle="bold"
             android:textColor="#ff333333"
             android:textSize="25sp" />
 
@@ -60,6 +61,7 @@
                 android:background="@null"
                 android:digits="0123456789"
                 android:gravity="center_vertical"
+                android:textColorHint="@color/color_FFBBBBBB"
                 android:hint="@string/input_phone_hint"
                 android:inputType="phone"
                 android:maxLength="11"
@@ -88,6 +90,7 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:hint="@string/common_code_input_hint"
+                android:textColorHint="@color/color_FFBBBBBB"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="6"
@@ -100,7 +103,7 @@
                 android:id="@+id/tv_get_code"
                 style="@style/CountdownViewStyle"
                 android:background="@drawable/shape_r5_white_bg"
-                android:backgroundTint="#FFEBEB" />
+                android:backgroundTint="#FFEEE6" />
 
         </LinearLayout>
 
@@ -128,7 +131,7 @@
                 android:paddingHorizontal="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="@string/login_by_pwd"
-                android:textColor="#ffec3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
         </RelativeLayout>
@@ -141,7 +144,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/sqj_bg_white_shap_4"
-            android:backgroundTint="#EC3937"
+            android:backgroundTint="@color/main"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="@string/login_text"
@@ -183,7 +186,7 @@
                 android:paddingVertical="@dimen/dp_10"
                 android:paddingEnd="@dimen/dp_10"
                 android:text="@string/login_register"
-                android:textColor="#EC3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -220,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/private_policy"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
         <TextView
@@ -237,7 +240,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/user_contract"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
     </LinearLayout>

@@ -39,16 +39,16 @@ public final class AgreementDialog {
             TextView tvContent = findViewById(R.id.tv_week_title);
             String content = getString(R.string.str_private_agreement_content_2);
             SpannableString mSpannableString = new SpannableString(content);
-            TouchableSpan serviceSpan = new TouchableSpan(getColor( R.color.col_main),
-                    getColor( R.color.col_main), getColor( R.color.color_ffffff)) {
+            TouchableSpan serviceSpan = new TouchableSpan(getColor( R.color.main),
+                    getColor( R.color.main), getColor( R.color.color_ffffff)) {
                 @Override
                 public void onClick(View widget) {
 
                     BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getAgreement());
                 }
             };
-            TouchableSpan personSpan = new TouchableSpan(getColor( R.color.col_main),
-                    getColor( R.color.col_main), getColor( R.color.color_ffffff)) {
+            TouchableSpan personSpan = new TouchableSpan(getColor( R.color.main),
+                    getColor( R.color.main), getColor( R.color.color_ffffff)) {
                 @Override
                 public void onClick(View widget) {
                     BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getPrivate());

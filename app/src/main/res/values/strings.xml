@@ -181,6 +181,7 @@
     <!-- 登录 -->
     <string name="login_register">立即注册</string>
     <string name="login_immediately">立即登录</string>
+    <string name="login_forget_normal">忘记密码</string>
     <string name="login_forget">忘记密码？</string>
     <string name="login_text">登录</string>
     <string name="input_pwd_hint">请输入密码</string>

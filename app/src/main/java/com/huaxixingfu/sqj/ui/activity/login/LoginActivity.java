@@ -1,10 +1,12 @@
 package com.huaxixingfu.sqj.ui.activity.login;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.diskkiller.http.EasyConfig;
 import com.diskkiller.http.EasyHttp;
@@ -20,6 +22,7 @@ import com.huaxixingfu.sqj.http.api.LoginApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.ViewUtils;
 
 import java.util.HashMap;
 
@@ -43,6 +46,14 @@ public class LoginActivity extends AppActivity{
         findViewById(R.id.tv_tourist).setOnClickListener(this);
         findViewById(R.id.private_btn).setOnClickListener(this);
         findViewById(R.id.about_btn).setOnClickListener(this);
+
+        findViewById(R.id.private_btn).setOnClickListener(this);
+        findViewById(R.id.about_btn).setOnClickListener(this);
+        TextView privateNtn = findViewById(R.id.private_btn);
+        TextView aboutNtn = findViewById(R.id.about_btn);
+        ViewUtils.setAntiAlias(privateNtn);
+        ViewUtils.setAntiAlias(aboutNtn);
+
         checkContract = findViewById(R.id.check_xieyi);
 
         etAccount = findViewById(R.id.et_account);
