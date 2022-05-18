@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:paddingTop="20dp"
         android:orientation="horizontal">
 
         <com.diskkiller.widget.view.ClearEditText
@@ -63,7 +64,8 @@
             android:inputType="number"
             android:maxLength="6"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="18dp"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
             android:textSize="15sp"
             android:singleLine="true" />
 

@@ -61,7 +61,7 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
     protected void initView() {
         imageView = findViewById(R.id.splash_iv);
         tv_close = findViewById(R.id.tv_close);
-        setOnClickListener(R.id.splash_iv);
+        setOnClickListener(R.id.splash_iv,R.id.tv_close);
 
         tv_close.setText(String.format(getString(R.string.AD_time_close),timeSecond));
     }
@@ -131,6 +131,14 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_close:
+
+                if(SPManager.instance(getContext()).isLogin())
+                    startActivity(new Intent(getContext(), HomeActivity.class));
+                else
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                finish();
+                break;
             case R.id.splash_iv:
                 //toast(博客介绍使用,实际开发中应该删除)
                 /*showToast("点击广告图片,进入详情");

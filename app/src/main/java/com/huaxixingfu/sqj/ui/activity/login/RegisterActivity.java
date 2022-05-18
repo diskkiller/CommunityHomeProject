@@ -169,7 +169,7 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
                             if(model.status){
                                 finish();
                             }
-                            ToastUtils.show(model.getDataMessage());
+                            ToastUtils.show("注册成功");
                         }
                     }
 

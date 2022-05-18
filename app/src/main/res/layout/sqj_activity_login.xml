@@ -59,7 +59,7 @@
                 android:layout_marginStart="13dp"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="@string/phone_reset_title"
+                android:hint="@string/input_phone_hint"
                 android:textColorHint="@color/color_FFBBBBBB"
                 android:digits="0123456789"
                 android:inputType="phone"
