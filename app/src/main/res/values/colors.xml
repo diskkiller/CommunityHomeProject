@@ -8,6 +8,8 @@
     <color name="common_text_color">#333333</color>
     <color name="common_text_hint_color">@color/panda</color>
 
+    <color name="col_main">#FF6C2A</color>
+
     <!-- 按钮按压时的颜色 -->
     <color name="common_button_pressed_color">#AA5A8DDF</color>
     <!-- 按钮禁用时的颜色 -->
