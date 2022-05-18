@@ -68,7 +68,7 @@ public final class SettingBar extends FrameLayout {
 
         LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
         leftParams.gravity = Gravity.CENTER_VERTICAL;
-        leftParams.weight = 1;
+        leftParams.weight = 0.5F;
         mLeftView.setLayoutParams(leftParams);
 
         LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
