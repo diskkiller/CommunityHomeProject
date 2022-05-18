@@ -34,6 +34,8 @@ import com.youth.banner.holder.BannerImageHolder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class FragmentHome extends AppFragment<HomeActivity> {
 
@@ -90,21 +92,13 @@ public class FragmentHome extends AppFragment<HomeActivity> {
                     public void onSucceed(HttpData<List<NotesListApi.Bean>> data) {
                         if(data.getData() != null){
                             List<NotesListApi.Bean> models =  data.getData();
-                            List<String> datas = new ArrayList<String>();
                             if((null != models) && (models.size()>0)){
-                                for (int i=0,j=models.size();i<j;i++){
-                                    datas.add(models.get(i).appGuideTitle);
-                                }
-
-                                if((null != datas) && (datas.size()>0)){
-                                    SimpleMF<String> marqueeFactory = new SimpleMF(getContext());
-                                    marqueeFactory.setData(datas);
-                                    marquee.setMarqueeFactory(marqueeFactory);
-                                    marquee.startFlipping();
-
-                                }
-
-
+                                HomeSimpleMF<NotesListApi.Bean> marqueeFactory = new HomeSimpleMF<>(getContext(),view->{
+                                    BrowserActivity.start(getActivity(),view.detailUrl);
+                                });
+                                marqueeFactory.setData(models);
+                                marquee.setMarqueeFactory(marqueeFactory);
+                                marquee.startFlipping();
                             }
                         }
                     }
@@ -144,7 +138,7 @@ public class FragmentHome extends AppFragment<HomeActivity> {
                                                 .into(holder.imageView);
                                         holder.imageView.setOnClickListener(view->{
 
-                                            BrowserActivity.start(getActivity(),data.appGuideImageUrl);
+                                            BrowserActivity.start(getActivity(),data.appGuideUrl);
 
                                         });
                                     }
