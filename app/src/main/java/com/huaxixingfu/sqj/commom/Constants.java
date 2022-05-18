@@ -29,6 +29,8 @@ public class Constants {
 
     public static final String USERINFO_LOGIN = "userinfo_login";
 
+    public static final String IS_GIUDE_SHOW = "is_guide_show";
+
 
 
     public static String sp_name = "killerAppSP";//sp名字";

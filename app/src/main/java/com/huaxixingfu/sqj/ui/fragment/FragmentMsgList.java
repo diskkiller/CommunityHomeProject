@@ -73,7 +73,7 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
     private RelativeLayout rl_extend;
     private TextView tv_right;
     private TextView tv_login;
-    private int page = 1;
+    private int page = 0;
     private MsgListAdapter msgListAdapter;
     private ArrayList<Conersation> msgList = new ArrayList<>();
     private MessageListener.MessageObserver messageObserver;
@@ -316,7 +316,6 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
         Conersation conersation = msgList.get(position);
-        toast(conersation.sessionId);
         long targetUid = 0;
         boolean isGroup = false;
         if (conersation.chatBody == null) {
@@ -331,6 +330,8 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                 isGroup = true;
                 targetUid = conersation.chatBody.groupId;
             }
+
+            toast(targetUid+"");
 
 
             HashMap<String, Object> map = new HashMap<>();

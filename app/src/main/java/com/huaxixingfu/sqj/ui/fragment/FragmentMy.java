@@ -1,9 +1,5 @@
 package com.huaxixingfu.sqj.ui.fragment;
 
-import static com.huaxixingfu.sqj.utils.Encryption.ByteArrayToHexStr;
-import static com.huaxixingfu.sqj.utils.Encryption.HexStrToByteArray;
-import static com.huaxixingfu.sqj.utils.MySm4Util.Sm4EnOrDecrypt_EcbMode;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
@@ -30,21 +26,8 @@ import com.huaxixingfu.sqj.ui.activity.me.FamilyDateActivity;
 import com.huaxixingfu.sqj.ui.activity.me.FeedbackActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.activity.me.SettingActivity;
-import com.huaxixingfu.sqj.utils.Encryption;
-import com.huaxixingfu.sqj.utils.MySm4Util;
-import com.huaxixingfu.sqj.utils.MyTime;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import java.security.Key;
-import java.util.Calendar;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentMy extends TitleBarFragment<HomeActivity> {
 

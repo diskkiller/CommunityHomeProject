@@ -45,7 +45,7 @@ public class SystemNotesListActivity extends AppActivity implements OnRefreshLoa
 
     RecyclerView recycler;
 
-    int page = 1;
+    int page = 0;
 
     private SmartRefreshLayout srlNewFriends;
 
@@ -137,7 +137,7 @@ public class SystemNotesListActivity extends AppActivity implements OnRefreshLoa
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page = 1;
+       page = 0;
         getNewsColumn(10,page,false);
     }
 }

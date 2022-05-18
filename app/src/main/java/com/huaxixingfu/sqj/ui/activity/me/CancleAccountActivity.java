@@ -18,6 +18,9 @@ import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.http.api.AboutUsApi;
+import com.huaxixingfu.sqj.http.api.AgreementApi;
+import com.huaxixingfu.sqj.http.api.CancleAccountApi;
 import com.huaxixingfu.sqj.http.api.LogoutCodeApi;
 import com.huaxixingfu.sqj.http.api.LogoutSubmitApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
@@ -45,7 +48,7 @@ public class CancleAccountActivity extends AppActivity {
 
     /** 当前手机号 */
     private  String mPhoneNumber;
-    private TextView tv_yinsi,tv_yonghu;
+    private TextView tv_yinsi,tv_yonghu,tv_cintent;
 
     private CheckBox check_xieyi;
 
@@ -69,6 +72,7 @@ public class CancleAccountActivity extends AppActivity {
         btn_request = findViewById(R.id.btn_request);
         rl_dialog_bg = findViewById(R.id.rl_dialog_bg);
         ll_content = findViewById(R.id.ll_content);
+        tv_cintent = findViewById(R.id.tv_cintent);
 
         card_confirm = findViewById(R.id.card_confirm);
         card_deconfirm = findViewById(R.id.card_deconfirm);
@@ -98,7 +102,30 @@ public class CancleAccountActivity extends AppActivity {
 
 
     public void initData() {
+
+        cancleAccountDetail();
     }
+
+    private void cancleAccountDetail() {
+        EasyHttp.post(this)
+                .api(new CancleAccountApi())
+                .request(new HttpCallback<HttpData<CancleAccountApi.Bean>>(this) {
+
+                    @Override
+                    public void onSucceed(HttpData<CancleAccountApi.Bean> data) {
+                        if(data.getData() != null){
+                            String content = data.getData().appGuideContent;
+                            tv_cintent.setText(content);
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
+    }
+
 
     private void reqestLogoutCode(){
         EasyHttp.post(this)

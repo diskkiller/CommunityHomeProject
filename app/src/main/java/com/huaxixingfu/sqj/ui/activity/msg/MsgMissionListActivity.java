@@ -41,7 +41,7 @@ public class MsgMissionListActivity extends AppActivity implements OnRefreshLoad
     MsgNotesAdapter adapter;
     RecyclerView recycler;
 
-    int page = 1;
+    int page = 0;
 
     private SmartRefreshLayout srlNewFriends;
 
@@ -156,7 +156,7 @@ public class MsgMissionListActivity extends AppActivity implements OnRefreshLoad
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page = 1;
+        page = 0;
         getNewsColumn(10,page,false);
     }
 

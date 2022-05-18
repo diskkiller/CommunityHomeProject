@@ -13,12 +13,12 @@ import com.huaxixingfu.sqj.http.api.AboutUsApi;
 import com.huaxixingfu.sqj.http.api.AgreementApi;
 import com.huaxixingfu.sqj.http.api.PrivateApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
-import com.huaxixingfu.sqj.ui.activity.login.GuideActivity;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.dialog.AgreementDialog;
 import com.huaxixingfu.sqj.utils.SPManager;
 
-public class SplashActivity extends AppActivity {
+@SuppressLint("CustomSplashScreen")
+public class GuidActivity extends AppActivity {
 
     @Override
     protected int getLayoutId() {
@@ -135,7 +135,6 @@ public class SplashActivity extends AppActivity {
                     .setCancel(getString(R.string.common_never))
                     // 设置点击按钮后不关闭对话框
                     //.setAutoDismiss(false)
-                    .setCanceledOnTouchOutside(false)
                     .setListener(new AgreementDialog.OnListener() {
 
                         @Override
@@ -157,13 +156,10 @@ public class SplashActivity extends AppActivity {
      * 准备跳转
      */
     private void initJump() {
-        if(SPManager.instance(getContext()).isGuideShow()){
-            startActivity(new Intent(getContext(), ADActivity.class));
-        }else{
-            SPManager.instance(getContext()).setGuideShow(true);
-            startActivity(new Intent(getContext(), GuideActivity.class));
-        }
-
+        if(SPManager.instance(getContext()).isLogin())
+            startActivity(new Intent(getContext(), HomeActivity.class));
+        else
+            startActivity(new Intent(getContext(), LoginActivity.class));
         finish();
     }
 

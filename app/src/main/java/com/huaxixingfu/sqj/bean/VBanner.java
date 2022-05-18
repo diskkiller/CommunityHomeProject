@@ -16,4 +16,5 @@ public class VBanner {
     public String appGuideImageUrl;
     public String userName;
     public String modifiedAt;
+    public String appGuideUrl;
 }
