@@ -15,13 +15,28 @@
         >
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="首页"
             android:layout_marginLeft="20dp"
             android:textSize="@dimen/sp_15"
             android:textStyle="bold"
+            />
+
+        <ImageView
+            android:id="@+id/left_icon"
+            style="@style/lwhw"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/fragment_homt_right_icon"
+            android:visibility="invisible"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
             />
 
         <ImageView
