@@ -491,8 +491,10 @@ public class WheelView<T> extends View implements Runnable {
     private void drawSelectedRect(Canvas canvas) {
         if (isDrawSelectedRect) {
             mPaint.setColor(mSelectedRectColor);
-            canvas.drawRoundRect(new RectF(mClipLeft, mSelectedItemTopLimit, mClipRight, mSelectedItemBottomLimit),10,10, mPaint);
-        }
+            canvas.drawRoundRect(new RectF(mClipLeft, mSelectedItemTopLimit, mClipRight, mSelectedItemTopLimit + 3  ),10,10, mPaint);
+            mPaint.setColor(mSelectedRectColor);
+            canvas.drawRoundRect(new RectF(mClipLeft, mSelectedItemBottomLimit, mClipRight, mSelectedItemBottomLimit + 3),10,10, mPaint);
+       }
     }
 
     /**
