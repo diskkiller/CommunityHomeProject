@@ -8,7 +8,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/lmhm"
-        android:paddingBottom="@dimen/dp_20">
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@color/color_ffffff"
+        >
 
         <com.hjq.bar.TitleBar
             android:id="@+id/sb_title"
