@@ -3,12 +3,8 @@
 
 
     <string name="str_private_agreement_title">用户隐私与隐私政策</string>
-    <string name="str_private_agreement_content">&#160;&#160;&#160;&#160;&#160;请你务必审慎阅读。充分理解“用户协
-议”和“隐私政策”各条款，包括但不限于:\n&#160;&#160;&#160;&#160;&#160;
-为了向你提供即时通讯等服务。我们需要收集你的设备信息。操作日志等个人信息。你可以在“设置”中查看。变更、删除个人信息并管理你的授权\n &#160;&#160;&#160;&#160;&#160;
-你可阅读下方《隐私政策》和《用户协议》
-请点击“”同意“开始接受我们的服务。
-</string>
+    <string name="str_private_agreement_content_1">感谢您使用社区家APP</string>
+    <string name="str_private_agreement_content_2">为了更好的保障您的个人权益，在您使用我们的产品前，请务必审慎阅读《用户协议》和《隐私政策》，以帮助您了解我们对您的个人信息的处理情况以及您享有的相关权利。</string>
     <string name="str_to_private_detail"><u>查看隐私政策</u></string>
     <string name="str_to_agreement_detail"><u>查看用户协议</u></string>
     <string name="str_select_agreement_ok">选中表示我已阅读并同意协议</string>
@@ -21,6 +17,8 @@
 
     <string name="common_confirm">确定</string>
     <string name="common_cancel">取消</string>
+    <string name="common_refuse">不同意</string>
+    <string name="common_agress">同意</string>
     <string name="common_never">拒绝</string>
 
     <string name="common_year">年</string>
@@ -176,13 +174,14 @@
     <!-- 首页 -->
     <string name="home_exit_hint">再按一次退出</string>
     <string name="home_nav_index">发现</string>
-    <string name="home_nav_found">动态</string>
+    <string name="home_nav_found">生活圈</string>
     <string name="home_nav_message">消息</string>
     <string name="home_nav_me">我的</string>
 
     <!-- 登录 -->
     <string name="login_register">立即注册</string>
     <string name="login_immediately">立即登录</string>
+    <string name="login_forget_normal">忘记密码</string>
     <string name="login_forget">忘记密码？</string>
     <string name="login_text">登录</string>
     <string name="input_pwd_hint">请输入密码</string>
@@ -195,7 +194,7 @@
     <string name="user_contract">《用户协议》</string>
     <string name="and">和</string>
     <string name="private_policy">《隐私政策》</string>
-    <string name="account_error">手机号不能为空</string>
+    <string name="account_error">请输入手机号</string>
     <string name="pwd_error">密码不能为空</string>
     <string name="agree_user_contract">请您选择同意用户协议</string>
     <string name="confirm_pwd_error">再次输入密码不能为空</string>
@@ -298,5 +297,8 @@
     <string name="camera_image_error">目标地址错误</string>
     <string name="beijingtong_account_hint">使用北京通账号可直接登录</string>
 
+
+<!--    <string name="AD_time_close">%d 秒关闭</string>-->
+    <string name="AD_time_close">跳过</string>
 
 </resources>

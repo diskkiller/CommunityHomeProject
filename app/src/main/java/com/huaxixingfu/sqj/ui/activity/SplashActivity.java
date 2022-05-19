@@ -130,9 +130,9 @@ public class SplashActivity extends AppActivity {
             //隐私协议弹窗
             new AgreementDialog.Builder(this)
                     // 确定按钮文本
-                    .setConfirm(getString(R.string.common_confirm))
+                    .setConfirm(getString(R.string.common_agress))
                     // 设置 null 表示不显示取消按钮
-                    .setCancel(getString(R.string.common_never))
+                    .setCancel(getString(R.string.common_refuse))
                     // 设置点击按钮后不关闭对话框
 //                    .setAutoDismiss(false)
                     .setCancelable(false)

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
             android:layout_marginTop="90dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/login_text"
+            android:textStyle="bold"
             android:textColor="#ff333333"
             android:textSize="25sp" />
 
@@ -57,10 +59,11 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="13dp"
                 android:background="@null"
+                android:digits="0123456789"
                 android:gravity="center_vertical"
+                android:textColorHint="@color/color_FFBBBBBB"
                 android:hint="@string/input_phone_hint"
                 android:inputType="phone"
-                android:digits="0123456789"
                 android:maxLength="11"
                 android:textSize="17sp" />
 
@@ -78,6 +81,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="20dp"
             android:orientation="horizontal">
 
             <com.diskkiller.widget.view.ClearEditText
@@ -87,19 +91,21 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:hint="@string/common_code_input_hint"
+                android:textColorHint="@color/color_FFBBBBBB"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="6"
                 android:paddingHorizontal="20dp"
-                android:paddingVertical="18dp"
-                android:textSize="15sp"
-                android:singleLine="true" />
+                android:gravity="bottom"
+                android:layout_gravity="bottom"
+                android:singleLine="true"
+                android:textSize="15sp" />
 
             <com.diskkiller.widget.view.CountdownView
                 android:id="@+id/tv_get_code"
+                style="@style/CountdownViewStyle"
                 android:background="@drawable/shape_r5_white_bg"
-                android:backgroundTint="#FFEBEB"
-                style="@style/CountdownViewStyle" />
+                android:backgroundTint="#FFEEE6" />
 
         </LinearLayout>
 
@@ -127,7 +133,7 @@
                 android:paddingHorizontal="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="@string/login_by_pwd"
-                android:textColor="#ffec3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
         </RelativeLayout>
@@ -140,7 +146,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/sqj_bg_white_shap_4"
-            android:backgroundTint="#EC3937"
+            android:backgroundTint="@color/main"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="@string/login_text"
@@ -169,8 +175,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
+                android:paddingStart="@dimen/dp_10"
                 android:text="@string/without_account"
                 android:textColor="#ffbbbbbb"
                 android:textSize="14sp" />
@@ -179,10 +185,10 @@
                 android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
                 android:text="@string/login_register"
-                android:textColor="#EC3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -219,7 +225,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/private_policy"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
         <TextView
@@ -236,7 +242,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/user_contract"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
     </LinearLayout>

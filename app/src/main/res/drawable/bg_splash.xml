@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_ffffff" />
+        </shape>
+    </item>
+
+    <item>
+        <bitmap android:src="@drawable/wel_activity_holder_pic"
+            android:gravity="bottom"/>
+    </item>
+
+</layer-list>

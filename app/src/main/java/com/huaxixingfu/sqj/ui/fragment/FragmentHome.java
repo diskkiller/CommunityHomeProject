@@ -45,11 +45,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class FragmentHome extends AppFragment<HomeActivity> {
+public class FragmentHome extends AppFragment<HomeActivity>  {
 
-
-    private SimpleMarqueeView marquee;
-    private Banner banner;
     private RecyclerView recycler;
 
     public static FragmentHome newInstance() {
@@ -63,17 +60,10 @@ public class FragmentHome extends AppFragment<HomeActivity> {
 
     @Override
     protected void initView() {
-        marquee = findViewById(R.id.marquee);
-        banner = findViewById(R.id.banner);
+
+
         initRv();
-        setOnClickListener(R.id.ll_view_one,
-                R.id.ll_view_two,
-                R.id.ll_view_three,
-                R.id.ll_view_five,
-                R.id.ll_view_six,
-                R.id.ll_view_seven,
-                R.id.ll_view_eight,
-                R.id.move,R.id.right_icon
+        setOnClickListener(R.id.right_icon
         );
     }
 
@@ -81,94 +71,7 @@ public class FragmentHome extends AppFragment<HomeActivity> {
      * 处理网络请求
      */
     public void initData(){
-        initBanner();
-
         initHomeContentNews(false);
-
-        initNotesList();
-    }
-
-    /**
-     * 获取公告列表
-     */
-    private void initNotesList() {
-        EasyHttp.post(this)
-                .api(new NotesListApi())
-                .request(new HttpCallback<HttpData<List<NotesListApi.Bean>>>(this) {
-
-                    @Override
-                    public void onSucceed(HttpData<List<NotesListApi.Bean>> data) {
-                        if(data.getData() != null){
-                            List<NotesListApi.Bean> models =  data.getData();
-                            if((null != models) && (models.size()>0)){
-                                HomeSimpleMF<NotesListApi.Bean> marqueeFactory = new HomeSimpleMF<>(getContext(),view->{
-                                    BrowserActivity.start(getActivity(),view.detailUrl);
-                                });
-                                marqueeFactory.setData(models);
-                                marquee.setMarqueeFactory(marqueeFactory);
-                                marquee.startFlipping();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFail(Exception e) {
-                        super.onFail(e);
-                    }
-                });
-    }
-
-    /**
-     * 轮播图片请求并展示
-     */
-    private void initBanner() {
-        EasyHttp.post(this)
-                .api(new BannerApi())
-                .request(new HttpCallback<HttpData<List<VBanner>>>(this) {
-
-                    @Override
-                    public void onSucceed(HttpData<List<VBanner>> data) {
-                        if(data.getData() != null){
-                            List<VBanner> models = data.getData();
-                            LogUtil.e("aaaaaaaappGuideImageUrl", "aaaaaaa----" + models);
-                            if((null != models) && (models.size()>0)){
-                                banner.setAdapter(new BannerImageAdapter<VBanner>(models) {
-                                    @Override
-                                    public void onBindView(BannerImageHolder holder,
-                                                           VBanner data,
-                                                           int position,
-                                                           int size) {
-                                        String img = data.appGuideImageUrl;
-                                        LogUtil.e("aaaaaaaappGuideImageUrl", "aaaaaaa----" + img);
-
-                                        GlideApp.with(getContext())
-                                                .load(img)
-                                                .into(holder.imageView);
-                                        holder.imageView.setOnClickListener(view->{
-
-                                            BrowserActivity.start(getActivity(),data.appGuideUrl);
-
-                                        });
-                                    }
-
-                                });
-
-                                banner.setOnBannerListener(new OnBannerListener() {
-                                    @Override
-                                    public void OnBannerClick(Object data, int position) {
-                                        if(StringUtils.isNotEmpty(models.get(position).appGuideUrl))
-                                            BrowserActivity.start(getAttachActivity(),models.get(position).appGuideUrl);
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFail(Exception e) {
-                        super.onFail(e);
-                    }
-                });
     }
 
     private HomeContentNewsAdapter adapter;
@@ -192,7 +95,7 @@ public class FragmentHome extends AppFragment<HomeActivity> {
                 initHomeContentNews(false);
             }
         });
-        adapter = new HomeContentNewsAdapter(getAttachActivity());
+        adapter = new HomeContentNewsAdapter(getAttachActivity(),this,this);
         adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
@@ -235,6 +138,10 @@ public class FragmentHome extends AppFragment<HomeActivity> {
                                         mRefreshLayout.finishLoadMore();
 
                                     }else{
+                                        news.add(0,new HomeContentNewsApi.Bean.VContentNew());
+                                        news.add(0,new HomeContentNewsApi.Bean.VContentNew());
+                                        news.add(0,new HomeContentNewsApi.Bean.VContentNew());
+                                        news.add(0,new HomeContentNewsApi.Bean.VContentNew());
                                         adapter.clearData();
                                         adapter.setData(news);
                                         mRefreshLayout.finishRefresh();
@@ -260,34 +167,6 @@ public class FragmentHome extends AppFragment<HomeActivity> {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.ll_view_one:
-                ToastUtils.debugShow("功能正在书写");
-//                startActivity(new Intent(getActivity(), ResidentActivity.class));
-                break;
-            case R.id.ll_view_two:
-                startActivity(new Intent(getActivity(), NewsListActivity.class));
-                break;
-            case R.id.ll_view_three:
-                ToastUtils.debugShow("功能正在书写");
-                break;
-            case R.id.ll_view_four:
-                ToastUtils.debugShow("功能正在书写");
-                break;
-            case R.id.ll_view_five:
-                ToastUtils.debugShow("功能正在书写");
-                break;
-            case R.id.ll_view_six:
-                ToastUtils.debugShow("功能正在书写");
-                break;
-            case R.id.ll_view_seven:
-                ToastUtils.debugShow("功能正在书写");
-                break;
-            case R.id.ll_view_eight:
-                ToastUtils.debugShow("功能正在书写");
-                break;
-            case R.id.move:
-                startActivity(new Intent(getActivity(), NewsListActivity.class));
-                break;
             case R.id.right_icon:
                 startActivity(new Intent(getActivity(), SystemNotesListActivity.class));
                 break;
@@ -299,12 +178,16 @@ public class FragmentHome extends AppFragment<HomeActivity> {
     @Override
     public void onStart() {
         super.onStart();
-        marquee.startFlipping();
+        if(adapter != null && adapter.marquee != null){
+            adapter.marquee.startFlipping();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        marquee.stopFlipping();
+        if(adapter != null && adapter.marquee != null){
+            adapter.marquee.stopFlipping();
+        }
     }
 }

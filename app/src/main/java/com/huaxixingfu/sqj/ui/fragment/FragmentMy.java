@@ -46,6 +46,7 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
     }
 
     private void getPersonDate(){
+
         EasyHttp.post(this)
                 .api(new PersonalDataApi())
                 .request(new HttpCallback<HttpData<PersonDataBean>>(this) {
@@ -66,7 +67,7 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
     }
 
     private LinearLayout llHeader;
-    private TextView tvUserDate,tvLogout,tvTitle;
+    private TextView tvUserDate,tvLogout,tvTitle,tv_un_login;
     private SettingBar user_setting_family,user_account_security,user_feedback,user_setting;
     private ImageView icIcon;
 
@@ -74,6 +75,8 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
         llHeader = findViewById(R.id.ll_header);
         tvUserDate = findViewById(R.id.tv_user_date);
         tvLogout = findViewById(R.id.tv_logout);
+        tvTitle = findViewById(R.id.tv_title);
+        tv_un_login = findViewById(R.id.tv_un_login);
         tvTitle = findViewById(R.id.tv_title);
         icIcon = findViewById(R.id.ic_icon);
         user_setting_family = findViewById(R.id.sb_user_setting_family);
@@ -84,11 +87,22 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
        setOnClickListener(R.id.ll_header,R.id.tv_user_date,
                R.id.tv_logout,R.id.sb_user_setting_family,
                R.id.sb_user_account_security,R.id.sb_user_feedback,R.id.sb_user_setting);
+
+       if(SPManager.instance(getContext()).isLogin()){
+           icIcon.setVisibility(View.VISIBLE);
+           tv_un_login.setVisibility(View.GONE);
+       }else{
+           tv_un_login.setVisibility(View.VISIBLE);
+           icIcon.setVisibility(View.GONE);
+       }
+
     }
 
     @Override
     protected void initData() {
-        getPersonDate();
+        if(SPManager.instance(getContext()).isLogin()){
+            getPersonDate();
+        }
     }
 
     @Override

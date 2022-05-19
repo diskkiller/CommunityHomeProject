@@ -30,7 +30,7 @@ public class FamilyAdapter extends BaseQuickAdapter<FamilyDataApi.Bean.VFamily, 
         TextView tvTitle = baseViewHolder.getView(R.id.tv_title);
         TextView tvFam = baseViewHolder.getView(R.id.tv_fam);
 
-        Glide.with(icIcon).load(model.userAvatarUrl).into(icIcon);
+        Glide.with(icIcon).load(model.userAvatarUrl).error(R.color.color_ffffff).placeholder(R.color.color_ffffff).into(icIcon);
         tvName.setText(model.userName);
         tvTitle.setText("手机号码:"+model.phoneNum);
         tvFam.setVisibility((model.flag)? View.VISIBLE:View.GONE);

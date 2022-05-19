@@ -63,7 +63,8 @@
 
             <com.diskkiller.widget.view.CountdownView
                 android:id="@+id/cv_register_countdown"
-                style="@style/CountdownViewStyle" />
+                style="@style/CountdownViewStyle"
+                android:background="#FFEEE6"/>
         </LinearLayout>
 
         <com.diskkiller.widget.view.RegexEditText

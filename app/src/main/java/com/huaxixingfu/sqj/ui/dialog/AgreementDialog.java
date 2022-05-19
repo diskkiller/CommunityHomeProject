@@ -1,6 +1,9 @@
 package com.huaxixingfu.sqj.ui.dialog;
 
+import android.Manifest;
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -12,6 +15,8 @@ import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.commom.Constants;
+import com.huaxixingfu.sqj.other.LinkTouchMovementMethod;
+import com.huaxixingfu.sqj.other.TouchableSpan;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.utils.SPManager;
 
@@ -26,22 +31,34 @@ public final class AgreementDialog {
         @Nullable
         private OnListener mListener;
 
-        private CheckBox checkBox;
-
         public Builder(Context context) {
             super(context);
             setTitle(R.string.str_private_agreement_title);
             setCustomView(R.layout.dialog_yinsi);
 
-            TextView tvYinsiDetail = findViewById(R.id.tv_yinsi_detail);
-            TextView tvYonghu = findViewById(R.id.tv_yonghu_detail);
+            TextView tvContent = findViewById(R.id.tv_week_title);
+            String content = getString(R.string.str_private_agreement_content_2);
+            SpannableString mSpannableString = new SpannableString(content);
+            TouchableSpan serviceSpan = new TouchableSpan(getColor( R.color.main),
+                    getColor( R.color.main), getColor( R.color.color_ffffff)) {
+                @Override
+                public void onClick(View widget) {
 
-            checkBox = findViewById(R.id.check_xieyi);
-
-            tvYinsiDetail.setOnClickListener(v -> BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getPrivate()));
-
-            tvYonghu.setOnClickListener(v -> BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getAgreement()));
-        }
+                    BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getAgreement());
+                }
+            };
+            TouchableSpan personSpan = new TouchableSpan(getColor( R.color.main),
+                    getColor( R.color.main), getColor( R.color.color_ffffff)) {
+                @Override
+                public void onClick(View widget) {
+                    BrowserActivity.start(getActivity(), SPManager.instance(getActivity()).getPrivate());
+                }
+            };
+            mSpannableString.setSpan(serviceSpan, 32, 38, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            mSpannableString.setSpan(personSpan, 39, 45, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            tvContent.setMovementMethod(new LinkTouchMovementMethod());
+            tvContent.setText(mSpannableString);
+            }
 
         public Builder setListener(OnListener listener) {
             mListener = listener;
@@ -53,10 +70,6 @@ public final class AgreementDialog {
         public void onClick(View view) {
             int viewId = view.getId();
             if (viewId == R.id.tv_ui_confirm) {
-                if (!checkBox.isChecked()){
-                    ToastUtils.show(R.string.str_select_agreement_tips);
-                    return;
-                }
 
                 SPManager.instance(getContext()).put(Constants.IS_AGREEMENT,true);
                 autoDismiss();

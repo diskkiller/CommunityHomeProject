@@ -8,6 +8,8 @@
     <color name="common_text_color">#333333</color>
     <color name="common_text_hint_color">@color/panda</color>
 
+    <color name="col_ff6c2a">#FF6C2A</color>
+
     <!-- 按钮按压时的颜色 -->
     <color name="common_button_pressed_color">#AA5A8DDF</color>
     <!-- 按钮禁用时的颜色 -->
@@ -31,7 +33,7 @@
     <color name="black">#000000</color>
     <color name="color_333333">#333333</color>
     <color name="gray">#f3f3f3</color>
-    <color name="main">#EC3937</color>
+    <color name="main">@color/col_ff6c2a</color>
     <color name="color_7229ff">#ff7229ff</color>
     <color name="color_ffffff">#ffffff</color>
     <color name="color_000000">#000000</color>
@@ -73,6 +75,7 @@
     <color name="color_ff333333">#ff333333</color>
     <color name="color_ff999999">#ff999999</color>
     <color name="color_de000000">#de000000</color>
+    <color name="color_d8d8d8">#D8D8D8</color>
     <color name="color_fffff3f0">#fffff3f0</color>
     <color name="color_ffec3937">#ffec3937</color>
     <color name="color_61000000">#61000000</color>

@@ -24,6 +24,7 @@ import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.ViewUtils;
 
 import java.util.HashMap;
 
@@ -45,6 +46,11 @@ public class LoginCodeActivity extends AppActivity implements View.OnClickListen
         checkContract = findViewById(R.id.check_xieyi);
         etAccount = findViewById(R.id.et_account);
         etCode = findViewById(R.id.et_code);
+
+        TextView privateNtn = findViewById(R.id.private_btn);
+        TextView aboutNtn = findViewById(R.id.about_btn);
+        ViewUtils.setAntiAlias(privateNtn);
+        ViewUtils.setAntiAlias(aboutNtn);
 
         setOnClickListener(R.id.tv_get_code,R.id.tv_tourist,
                 R.id.tv_pwd_login,R.id.tv_submit,R.id.tv_register,R.id.about_btn,R.id.private_btn);

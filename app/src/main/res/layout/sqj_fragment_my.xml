@@ -47,6 +47,17 @@
                 android:textColor="#333333"
                 android:textSize="22sp" />
 
+
+            <TextView
+                android:id="@+id/tv_un_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请登录后查看相关信息"
+                android:textColor="#666666"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
         </LinearLayout>
 
         <TextView
@@ -63,10 +74,10 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp"
-            android:background="@drawable/arrows_right_ic"
+            android:src="@drawable/arrows_right_ic"
             />
 
 
@@ -80,6 +91,7 @@
             android:layout_marginTop="10dp"
             app:bar_leftText="家庭信息"
             app:bar_rightDrawable="@drawable/arrows_right_ic"
+            app:bar_rightDrawableSize="20dp"
             app:bar_leftDrawable="@mipmap/ic_user_setting_family"
             />
 
@@ -89,17 +101,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:bar_lineVisible="true"
-            app:bar_lineDrawable="#CCCCCC"
             app:bar_leftText="账号安全"
+            app:bar_rightDrawableSize="20dp"
             app:bar_leftDrawable="@mipmap/ic_user_account_security"
             app:bar_rightDrawable="@drawable/arrows_right_ic" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ffffff">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F7F7F7"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+    </LinearLayout>
 
     <com.diskkiller.widget.layout.SettingBar
             android:id="@+id/sb_user_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:bar_leftText="意见反馈"
+        app:bar_rightDrawableSize="20dp"
             app:bar_rightDrawable="@drawable/arrows_right_ic"
             app:bar_leftDrawable="@mipmap/ic_user_feedback"
             />
@@ -111,6 +138,7 @@
             android:layout_height="wrap_content"
             app:bar_leftText="设置"
             android:layout_marginTop="10dp"
+        app:bar_rightDrawableSize="20dp"
             app:bar_rightDrawable="@drawable/arrows_right_ic"
             app:bar_leftDrawable="@mipmap/ic_user_setting"
         />
@@ -123,7 +151,7 @@
         android:layout_marginHorizontal="58dp"
         android:layout_marginTop="176dp"
         android:background="@drawable/shape_r5_white_bg"
-        android:backgroundTint="#EC3937"
+        android:backgroundTint="@color/main"
         android:enabled="true"
         android:gravity="center"
         android:text="退出登录"

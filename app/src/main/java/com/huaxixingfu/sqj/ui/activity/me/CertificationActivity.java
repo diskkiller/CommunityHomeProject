@@ -141,6 +141,27 @@ public class CertificationActivity extends AppActivity {
                 });
     }
     private void realNameSubmit(){
+
+        if (TextUtils.isEmpty(userName)) {
+            ToastUtils.show("姓名不能为空");
+            return;
+        }
+
+        if (userName != null && userName.length() > 20) {
+            ToastUtils.show("产权人姓名不能超过20位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(cardNumber)) {
+            ToastUtils.show("身份证号不能为空");
+            return;
+        }
+
+        if (cardNumber != null && !StringUtils.isRealIDCard(cardNumber)) {
+            ToastUtils.show("身份证号码不能超过18位");
+            return;
+        }
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("userName", userName);
         map.put("cardNumber", cardNumber);
@@ -233,7 +254,13 @@ public class CertificationActivity extends AppActivity {
             IDCardCamera.create(this).openCamera(IDCardCamera.TYPE_IDCARD_BACK);
         }else if(id == R.id.sb_setting_name){
             if(realNameData.getCardStartus() == 2)return;
-            InputTextActivity.start(CertificationActivity.this, "输入姓名", "",10,new InputTextActivity.OnFinishResultListener() {
+
+            String realName = sb_setting_name.getRightText().toString();
+
+            if("请输入姓名".equals(realName)){
+                realName = "";
+            }
+            InputTextActivity.start(CertificationActivity.this, "输入姓名", realName ,10,new InputTextActivity.OnFinishResultListener() {
                 @Override
                 public void onSucceed(String data) {
                     sb_setting_name.setRightText(data);
@@ -242,7 +269,11 @@ public class CertificationActivity extends AppActivity {
             });
         }else if(id == R.id.sb_setting_idcard){
             if(realNameData.getCardStartus() == 2)return;
-            InputTextActivity.start(CertificationActivity.this, "输入身份证号", "",0,new InputTextActivity.OnFinishResultListener() {
+            String realName = sb_setting_idcard.getRightText().toString();
+            if("请输入身份证号".equals(realName)){
+                realName = "";
+            }
+            InputTextActivity.start(CertificationActivity.this, "输入身份证号", realName,0,new InputTextActivity.OnFinishResultListener() {
                 @Override
                 public void onSucceed(String data) {
                     sb_setting_idcard.setRightText(data);

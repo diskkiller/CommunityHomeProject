@@ -52,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/bg_realname_front"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 />
 
             <ImageView
@@ -61,6 +62,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@mipmap/bg_realname_front"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 />
 
         </LinearLayout>
@@ -77,7 +79,7 @@
         android:layout_marginHorizontal="58dp"
         android:layout_marginTop="146dp"
         android:background="@drawable/shape_r5_white_bg"
-        android:backgroundTint="#EC3937"
+        android:backgroundTint="@color/main"
         android:enabled="true"
         android:gravity="center"
         android:text="提交信息"

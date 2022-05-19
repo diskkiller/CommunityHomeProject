@@ -16,6 +16,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/login_text"
             android:textColor="#ff333333"
+            android:textStyle="bold"
             android:textSize="25sp" />
 
         <TextView
@@ -58,7 +59,8 @@
                 android:layout_marginStart="13dp"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="@string/phone_reset_title"
+                android:hint="@string/input_phone_hint"
+                android:textColorHint="@color/color_FFBBBBBB"
                 android:digits="0123456789"
                 android:inputType="phone"
                 android:maxLength="11"
@@ -84,6 +86,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="@string/input_pwd_hint"
+            android:textColorHint="@color/color_FFBBBBBB"
             android:inputType="textPassword"
             android:maxLength="16"
             android:textSize="17sp" />
@@ -111,7 +114,7 @@
                 android:paddingHorizontal="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="@string/login_by_code"
-                android:textColor="#ffec3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
             <TextView
@@ -122,7 +125,7 @@
                 android:paddingHorizontal="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="@string/password_forget_title"
-                android:textColor="#ffec3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
         </RelativeLayout>
@@ -135,7 +138,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/sqj_bg_white_shap_4"
-            android:backgroundTint="#EC3937"
+            android:backgroundTint="@color/main"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="@string/login_text"
@@ -177,7 +180,7 @@
                 android:paddingEnd="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="@string/login_register"
-                android:textColor="#EC3937"
+                android:textColor="@color/main"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -214,7 +217,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/private_policy"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
         <TextView
@@ -231,7 +234,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/user_contract"
-            android:textColor="#EC3937"
+            android:textColor="@color/main"
             android:textSize="12sp" />
 
     </LinearLayout>

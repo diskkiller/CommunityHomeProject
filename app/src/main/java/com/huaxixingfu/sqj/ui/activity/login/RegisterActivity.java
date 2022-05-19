@@ -25,6 +25,7 @@ import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.utils.MatchUtils;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.ViewUtils;
 
 import java.util.HashMap;
 
@@ -53,6 +54,11 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
         etCode = findViewById(R.id.et_code);
         etPwd = findViewById(R.id.et_pwd);
         etConfirmPwd = findViewById(R.id.et_confirm_pwd);
+
+        TextView privateNtn = findViewById(R.id.private_btn);
+        TextView aboutNtn = findViewById(R.id.about_btn);
+        ViewUtils.setAntiAlias(privateNtn);
+        ViewUtils.setAntiAlias(aboutNtn);
     }
 
     @Override
@@ -162,8 +168,10 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
                             RegisterApi.Bean model = data.getData();
                             if(model.status){
                                 finish();
+                                ToastUtils.show("注册成功");
+                            }else{
+                                ToastUtils.show(model.message);
                             }
-                            ToastUtils.show(model.getDataMessage());
                         }
                     }
 

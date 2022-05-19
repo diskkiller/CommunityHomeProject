@@ -69,7 +69,8 @@ public class ResidentActivity extends AppActivity {
     private TextView communityValue,quartersValue,
             numberValue,unitValue,floorValue,
             roomNumValue,submit,roomNameValue,roomCodeValue,
-            roomCheckStateValue,reasonsValue;
+            roomCheckStateValue,reasonsValue,reasons_key;
+    private View empty_divide;
     private Group residentGruop;
     private void initListener() {
         communityValue = findViewById(R.id.community_value);
@@ -83,7 +84,9 @@ public class ResidentActivity extends AppActivity {
         roomNameValue = findViewById(R.id.room_name_value);
         roomCodeValue = findViewById(R.id.room_code_value);
         roomCheckStateValue = findViewById(R.id.room_check_state_value);
+        reasons_key = findViewById(R.id.reasons_key);
         reasonsValue = findViewById(R.id.reasons_value);
+        empty_divide = findViewById(R.id.empty_divide);
         setOnClickListener(R.id.community_value,
                 R.id.quarters_value,R.id.number_value,
                 R.id.unit_value,R.id.floor_value,R.id.room_num_value,R.id.submit);
@@ -127,6 +130,9 @@ public class ResidentActivity extends AppActivity {
                                     submit.setFocusable(false);
                                     submit.setClickable(false);
                                     submit.setVisibility(View.GONE);
+                                    reasons_key.setVisibility(View.GONE);
+                                    reasonsValue.setVisibility(View.GONE);
+                                    empty_divide.setVisibility(View.GONE);
                                 }else if (residentStatus == 3){
                                     //3认证驳回
                                     roomNameValue.setFocusable(true);
@@ -135,6 +141,7 @@ public class ResidentActivity extends AppActivity {
                                     roomCodeValue.setFocusableInTouchMode(true);
 
                                     setUserBaseInfo(data);
+                                    reasons_key.setVisibility(View.VISIBLE);
                                     reasonsValue.setText(data.residentExamineContent);
                                     roomCheckStateValue.setText("已驳回");
                                     roomCheckStateValue.setTextColor(getResources().getColor(R.color.color_ffec3937));

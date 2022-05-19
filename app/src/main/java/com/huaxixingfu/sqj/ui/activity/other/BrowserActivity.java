@@ -169,7 +169,7 @@ public final class BrowserActivity extends AppActivity
             if (icon == null) {
                 return;
             }
-            setRightIcon(new BitmapDrawable(getResources(), icon));
+//            setRightIcon(new BitmapDrawable(getResources(), icon));
         }
 
         /**
