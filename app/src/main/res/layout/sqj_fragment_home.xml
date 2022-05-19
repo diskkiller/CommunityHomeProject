@@ -26,10 +26,11 @@
         <ImageView
             android:id="@+id/left_icon"
             style="@style/lwhw"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@mipmap/fragment_homt_right_icon"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/fragment_homt_left_icon"
             android:visibility="invisible"
             />
 
