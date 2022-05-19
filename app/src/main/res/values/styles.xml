@@ -34,6 +34,7 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+
     <!-- 全屏主题样式 -->
     <style name="FullScreenTheme" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
@@ -44,6 +45,7 @@
         <!-- https://www.jianshu.com/p/d0d907754603 -->
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
     <!-- 默认按钮样式 -->
