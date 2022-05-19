@@ -78,9 +78,7 @@ android {
         preview {
             applicationIdSuffix ''
             // 添加清单占位符
-            addManifestPlaceholders([
-                    'app_name'    :    '社区家 Preview 版'
-            ])
+            manifestPlaceholders = ['app_name' : '社区家 Preview 版']
         }
 
         release {
@@ -150,6 +148,13 @@ dependencies {
 
     implementation project(':library:idcardcamera')
 
+    // 网络请求框架
+    implementation project(':library:easyhttp')
+    // OkHttp 框架：https://github.com/square/okhttp
+    // noinspection GradleDependency
+    implementation 'com.squareup.okhttp3:okhttp:3.12.13'
+
+
     //implementation project(':library:im_push_service_sdk')
 
     // 权限请求框架：
@@ -161,11 +166,6 @@ dependencies {
     // 吐司框架：
     implementation 'com.github.getActivity:ToastUtils:9.5'
 
-    // 网络请求框架
-    implementation project(':library:easyhttp')
-    // OkHttp 框架：https://github.com/square/okhttp
-    // noinspection GradleDependency
-    implementation 'com.squareup.okhttp3:okhttp:3.12.13'
 
     // Json 解析框架：
     implementation 'com.google.code.gson:gson:2.8.8'

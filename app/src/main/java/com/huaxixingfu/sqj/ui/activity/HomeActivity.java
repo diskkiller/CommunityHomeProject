@@ -39,7 +39,7 @@ import java.util.List;
  *    desc   : 首页界面
  */
 public final class HomeActivity extends AppActivity
-        implements NavigationAdapter.OnNavigationListener {
+        implements NavigationAdapter.OnNavigationListener ,WebSocketManager.ConnectStateListener{
 
     private static final String INTENT_KEY_IN_FRAGMENT_INDEX = "fragmentIndex";
     private static final String INTENT_KEY_IN_FRAGMENT_CLASS = "fragmentClass";
@@ -108,36 +108,29 @@ public final class HomeActivity extends AppActivity
 
     private void initIM() {
         if (SPManager.instance(getActivity()).isLogin()) {
-
-            WebSocketManager.getInstance().init(SPManager.instance(getApplicationContext()).getToken(), new WebSocketManager.ConnectStateListener() {
-                @Override
-                public void onConnectSuccess() {
-
-                }
-
-                @Override
-                public void onConnectFailed() {
-                    runOnUiThread(() -> Toast.makeText(getContext(), "IM登录失败", Toast.LENGTH_SHORT).show());
-                }
-
-                @Override
-                public void onClose() {
-
-                }
-
-                @Override
-                public void onMessage(String text) {
-                    LogUtil.e("aaaaaaaa_SplashWebSocket", "websocke------" + text);
-                    if (WebSocketManager.getCommand(text) == WebSocketManager.COMMAND_LOGIN_RESP) {
-                        if (WebSocketManager.getCode(text) == WebSocketManager.LOGIN_SUCCESS) {
-
-                        } else {
-                            Toast.makeText(getActivity(), "IM登录失败", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            });
+            WebSocketManager.getInstance().init(SPManager.instance(getApplicationContext()).getToken(), this);
         }
+    }
+
+    @Override
+    public void onConnectSuccess() {
+
+    }
+
+    @Override
+    public void onConnectFailed() {
+        runOnUiThread(() -> Toast.makeText(getContext(), "IM登录失败", Toast.LENGTH_SHORT).show());
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void onMessage(String text) {
+
     }
 
     public static class NetworkConnectChangedReceiver extends BroadcastReceiver {
