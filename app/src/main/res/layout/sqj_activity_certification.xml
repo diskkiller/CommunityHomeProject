@@ -52,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/bg_realname_front"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 />
 
             <ImageView
@@ -61,6 +62,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@mipmap/bg_realname_front"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 />
 
         </LinearLayout>

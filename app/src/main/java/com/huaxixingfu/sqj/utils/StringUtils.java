@@ -11,6 +11,21 @@ public class StringUtils {
 
 
     /**
+     * 判断身份证号码的工具
+     *
+     * @param IdCard 用户输入的身份证号码
+     * @return [true符合规范, false不符合规范]
+     */
+    public static boolean isRealIDCard(String IdCard) {
+        if (IdCard != null) {
+            int correct = new IdCardUtil(IdCard).isCorrect();
+            // 符合规范
+            return 0 == correct;
+        }
+        return false;
+    }
+
+    /**
      *  获取手机号吗展示
      */
     public static String phoneNumber() {

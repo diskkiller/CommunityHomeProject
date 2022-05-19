@@ -63,7 +63,7 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
         tv_close = findViewById(R.id.tv_close);
         setOnClickListener(R.id.splash_iv,R.id.tv_close);
 
-        tv_close.setText(String.format(getString(R.string.AD_time_close),timeSecond));
+        tv_close.setText(getString(R.string.AD_time_close));
     }
 
     @Override
@@ -97,8 +97,8 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
 
-                                    tv_close.setText(String.format(getString(R.string.AD_time_close),
-                                            millisUntilFinished/timeUnit));
+//                                    tv_close.setText(String.format(getString(R.string.AD_time_close),
+//                                            millisUntilFinished/timeUnit));
                                 }
 
                                 @Override

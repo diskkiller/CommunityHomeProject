@@ -141,6 +141,27 @@ public class CertificationActivity extends AppActivity {
                 });
     }
     private void realNameSubmit(){
+
+        if (TextUtils.isEmpty(userName)) {
+            ToastUtils.show("姓名不能为空");
+            return;
+        }
+
+        if (userName != null && userName.length() > 20) {
+            ToastUtils.show("产权人姓名不能超过20位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(cardNumber)) {
+            ToastUtils.show("身份证号不能为空");
+            return;
+        }
+
+        if (cardNumber != null && !StringUtils.isRealIDCard(cardNumber)) {
+            ToastUtils.show("身份证号码不能超过18位");
+            return;
+        }
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("userName", userName);
         map.put("cardNumber", cardNumber);

@@ -22,8 +22,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text=""
-        android:padding="20dp" />
+        android:text="@string/AD_time_close"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/bg_ad_close"
+        android:textColor="@color/color_ffffff"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

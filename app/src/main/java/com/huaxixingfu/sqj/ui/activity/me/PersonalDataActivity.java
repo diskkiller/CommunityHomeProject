@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.diskkiller.base.BaseActivity;
 import com.diskkiller.base.BaseDialog;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
@@ -19,6 +20,7 @@ import com.huaxixingfu.sqj.bean.PersonDataBean;
 import com.huaxixingfu.sqj.bean.PersonEnumDataBean;
 import com.huaxixingfu.sqj.bean.VCode;
 import com.huaxixingfu.sqj.commom.Constants;
+import com.huaxixingfu.sqj.commom.IntentKey;
 import com.huaxixingfu.sqj.dialog.PickerDateDialog;
 import com.huaxixingfu.sqj.dialog.PickerHightClosedDialog;
 import com.huaxixingfu.sqj.dialog.PickerHightDialog;
@@ -59,6 +61,9 @@ public class PersonalDataActivity extends AppActivity {
 
     private static final String TAG = PersonalDataActivity.class.getSimpleName();
 
+    private static final int REQUEST_CertificationActivity_1 = 1;
+    private static final int REQUEST_ResidentActivity_2 = 2;
+
     private ImageView icIcon;
     private SettingBar sbPersonalName,sbPersonalSex,sbPersonalBirthday,
             sbPersonalMinzu,sbPersonalMianmao,sbPersonalRealName,
@@ -68,6 +73,7 @@ public class PersonalDataActivity extends AppActivity {
     private TextView tv_title;
     private ImageView bar_back;
     private PersonDataBean personDataBean;
+
 
     @SuppressLint("NewApi")
     @Override
@@ -653,8 +659,11 @@ public class PersonalDataActivity extends AppActivity {
                 });
                 break;
             case R.id.sb_personal_adress:
+
                 //居民认证
-                startActivity(new Intent(getActivity(), ResidentActivity.class));
+                ((BaseActivity)this).startActivityForResult(new Intent(getActivity(), ResidentActivity.class), (resultCode, data) -> {
+                    getPersonDate();
+                });
                 break;
 
         }

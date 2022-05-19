@@ -298,6 +298,7 @@
     <string name="beijingtong_account_hint">使用北京通账号可直接登录</string>
 
 
-    <string name="AD_time_close">%d 秒关闭</string>
+<!--    <string name="AD_time_close">%d 秒关闭</string>-->
+    <string name="AD_time_close">跳过</string>
 
 </resources>

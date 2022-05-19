@@ -254,7 +254,7 @@
                 android:id="@+id/sb_personal_adress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:bar_leftText="居住信息"
+                app:bar_leftText="居民认证"
                 app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_rightText="请完成实名认证后操作"
                 app:bar_rightTextColor="#EC3937"
