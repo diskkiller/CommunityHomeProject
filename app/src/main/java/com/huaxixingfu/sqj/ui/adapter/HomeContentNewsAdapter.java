@@ -327,6 +327,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
             itemTime.setText(bean.createdAt);
             GlideApp.with(getContext())
                     .load(bean.newsImageUrl)
+                    .centerCrop()
                     .into(itemImg);
         }
     }
