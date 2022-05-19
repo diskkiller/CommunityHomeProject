@@ -60,8 +60,6 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
 
     @Override
     protected void initView() {
-
-
         initRv();
         setOnClickListener(R.id.right_icon
         );
