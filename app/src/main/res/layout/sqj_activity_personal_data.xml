@@ -244,7 +244,7 @@
                 app:bar_leftText="实名认证"
                 app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_rightText="请尽快完成实名认证"
-                app:bar_rightTextColor="#EC3937"
+                app:bar_rightTextColor="@color/main"
                 app:bar_lineVisible="false"
                 />
             <View
@@ -257,7 +257,7 @@
                 app:bar_leftText="居民认证"
                 app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_rightText="请完成实名认证后操作"
-                app:bar_rightTextColor="#EC3937"
+                app:bar_rightTextColor="@color/main"
                 app:bar_lineVisible="false"
                 />
             <View

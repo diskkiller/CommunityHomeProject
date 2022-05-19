@@ -70,6 +70,8 @@ public class InputTextActivity extends AppActivity {
         tb_title.setTitle(title);
 
         et_input = findViewById(R.id.et_input);
+
+        et_input.setHint("请"+title);
         if(StringUtils.isNotEmpty(text))
             et_input.setText(text);
         if(maxInput != 0){

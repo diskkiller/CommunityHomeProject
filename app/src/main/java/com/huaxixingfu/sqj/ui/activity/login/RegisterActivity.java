@@ -168,8 +168,10 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
                             RegisterApi.Bean model = data.getData();
                             if(model.status){
                                 finish();
+                                ToastUtils.show("注册成功");
+                            }else{
+                                ToastUtils.show(model.message);
                             }
-                            ToastUtils.show("注册成功");
                         }
                     }
 

@@ -254,7 +254,13 @@ public class CertificationActivity extends AppActivity {
             IDCardCamera.create(this).openCamera(IDCardCamera.TYPE_IDCARD_BACK);
         }else if(id == R.id.sb_setting_name){
             if(realNameData.getCardStartus() == 2)return;
-            InputTextActivity.start(CertificationActivity.this, "输入姓名", "",10,new InputTextActivity.OnFinishResultListener() {
+
+            String realName = sb_setting_name.getRightText().toString();
+
+            if("请输入姓名".equals(realName)){
+                realName = "";
+            }
+            InputTextActivity.start(CertificationActivity.this, "输入姓名", realName ,10,new InputTextActivity.OnFinishResultListener() {
                 @Override
                 public void onSucceed(String data) {
                     sb_setting_name.setRightText(data);
@@ -263,7 +269,11 @@ public class CertificationActivity extends AppActivity {
             });
         }else if(id == R.id.sb_setting_idcard){
             if(realNameData.getCardStartus() == 2)return;
-            InputTextActivity.start(CertificationActivity.this, "输入身份证号", "",0,new InputTextActivity.OnFinishResultListener() {
+            String realName = sb_setting_idcard.getRightText().toString();
+            if("请输入身份证号".equals(realName)){
+                realName = "";
+            }
+            InputTextActivity.start(CertificationActivity.this, "输入身份证号", realName,0,new InputTextActivity.OnFinishResultListener() {
                 @Override
                 public void onSucceed(String data) {
                     sb_setting_idcard.setRightText(data);
