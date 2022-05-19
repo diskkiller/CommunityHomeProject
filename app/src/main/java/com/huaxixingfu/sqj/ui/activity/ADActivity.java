@@ -89,6 +89,7 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
                             adDetailUrl = data.getData().appGuideUrl;
                             GlideApp.with(getContext())
                                     .load(adPicUrl)
+                                    .placeholder(R.color.color_ffffff)
                                     .into(imageView);
 
                             //显示广告图片，开始倒计时

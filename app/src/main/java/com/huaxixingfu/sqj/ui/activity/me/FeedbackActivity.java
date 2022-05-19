@@ -250,7 +250,12 @@ public class FeedbackActivity extends AppActivity{
                 ToastUtils.show("反馈内容不能为空");
                 return;
             }
-            if(null== selectTypeBean){
+            if (feedbackText != null && feedbackText.length() > 500) {
+                ToastUtils.show("最大字数限制500个汉字");
+                return;
+            }
+
+            if(null== selectTypeBean){  
                 ToastUtils.show("请选择反馈问题类型");
                 return;
             }
