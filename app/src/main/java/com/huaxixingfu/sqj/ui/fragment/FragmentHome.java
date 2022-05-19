@@ -154,6 +154,17 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
                                 }
                             }
                         }
+
+                        if(adapter != null && (adapter.getData() == null || adapter.getData().size() == 0)){
+                            List<HomeContentNewsApi.Bean.VContentNew> news = new ArrayList<>();
+                            news.add(0,new HomeContentNewsApi.Bean.VContentNew());
+                            news.add(0,new HomeContentNewsApi.Bean.VContentNew());
+                            news.add(0,new HomeContentNewsApi.Bean.VContentNew());
+                            news.add(0,new HomeContentNewsApi.Bean.VContentNew());
+                            adapter.clearData();
+                            adapter.setData(news);
+                            mRefreshLayout.finishRefresh();
+                        }
                     }
 
                     @Override
