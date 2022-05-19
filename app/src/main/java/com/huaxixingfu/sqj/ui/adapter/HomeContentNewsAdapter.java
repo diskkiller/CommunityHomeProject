@@ -243,7 +243,11 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
                     R.id.ll_view_five,
                     R.id.ll_view_six,
                     R.id.ll_view_seven,
-                    R.id.ll_view_eight
+                    R.id.ll_view_eight,
+                    R.id.ll_view_3_1,
+                    R.id.ll_view_3_2,
+                    R.id.ll_view_3_3,
+                    R.id.ll_view_3_4
             );
 
         }
@@ -282,6 +286,20 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
                 case R.id.ll_view_eight:
                     ToastUtils.debugShow("功能正在书写");
                     break;
+                case R.id.ll_view_3_1:
+                    ToastUtils.debugShow("功能正在书写");
+                    break;
+                case R.id.ll_view_3_2:
+                    ToastUtils.debugShow("功能正在书写");
+                    break;
+                case R.id.ll_view_3_3:
+                    ToastUtils.debugShow("功能正在书写");
+                    break;
+                case R.id.ll_view_3_4:
+                    ToastUtils.debugShow("功能正在书写");
+                    break;
+
+                default:
 
             }
 

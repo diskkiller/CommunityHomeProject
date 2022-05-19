@@ -74,10 +74,6 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
         initHomeContentNews(false);
     }
 
-
-
-
-
     private HomeContentNewsAdapter adapter;
     private SmartRefreshLayout mRefreshLayout;
     int page = 0;
