@@ -1,8 +1,10 @@
 package com.huaxixingfu.sqj.ui.activity.me;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import com.huaxixingfu.sqj.http.api.GetCommunityDataApi;
 import com.huaxixingfu.sqj.http.api.GetResidentInitApi;
 import com.huaxixingfu.sqj.http.api.SubmitCommunityDataApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +42,7 @@ import java.util.List;
  */
 
 public class ResidentActivity extends AppActivity {
+
     VCommunity communityVCommunity = null;
     VCommunity quartersVCommunity = null;
     VCommunity numberVCommunity = null;
@@ -56,6 +60,11 @@ public class ResidentActivity extends AppActivity {
 
     int residentStatus = -1;
 
+    public static final String RE_SUMBIT_KEY = "RE_SUMBIT_KEY";
+    public static final int RESIDENT_STATUS_REFUCE = 3;
+
+    private boolean reSumbit = false;
+
     @Override
     protected int getLayoutId() {
         return R.layout.sqj_activity_resident;
@@ -64,7 +73,9 @@ public class ResidentActivity extends AppActivity {
     @Override
     protected void initView() {
         initListener();
+        reSumbit = getIntent().getBooleanExtra(RE_SUMBIT_KEY, false);
     }
+
 
     private TextView communityValue,quartersValue,
             numberValue,unitValue,floorValue,
@@ -93,8 +104,8 @@ public class ResidentActivity extends AppActivity {
     }
 
     public void initData(){
-        getResidentInit();
 
+        getResidentInit();
         //获取社区
         getResidentCommunity(
                 ResidentConfig.level_community,
@@ -113,20 +124,30 @@ public class ResidentActivity extends AppActivity {
                             if(null != data){
                                 //0未认证  /1待认证/2认证通过/3认证驳回
                                 residentStatus = data.residentStatus;
-                                if(residentStatus == 0 || residentStatus == 1){
-                                    //0未认证  /1待认证 暂不处理
+                                if(reSumbit){
+                                    //0未认证
+                                    residentStatus = 0;
+                                }
+
+                                if(residentStatus == 0){
+                                    //0未认证
                                     residentGruop.setVisibility(View.GONE);
 
-                                }else if(residentStatus == 2){
-                                    //2认证通过
+                                }else if(residentStatus == 2 || residentStatus == 1){
+                                    //2认证通过 /1待认证 暂不处理
                                     roomNameValue.setFocusable(false);
                                     roomNameValue.setFocusableInTouchMode(false);
                                     roomCodeValue.setFocusable(false);
                                     roomCodeValue.setFocusableInTouchMode(false);
 
                                     setUserBaseInfo(data);
-                                    roomCheckStateValue.setTextColor(Color.parseColor("#8CD130"));
-                                    roomCheckStateValue.setText("已通过");
+                                    if(residentStatus == 2){
+                                        roomCheckStateValue.setTextColor(Color.parseColor("#8CD130"));
+                                        roomCheckStateValue.setText("已通过");
+                                    }else{
+                                        roomCheckStateValue.setTextColor(getResources().getColor(R.color.main));
+                                        roomCheckStateValue.setText("待认证");
+                                    }
                                     submit.setFocusable(false);
                                     submit.setClickable(false);
                                     submit.setVisibility(View.GONE);
@@ -312,8 +333,14 @@ public class ResidentActivity extends AppActivity {
                 showSelect(rooms,ResidentConfig.level_room);
                 break;
             case R.id.submit:
-                //提交
-                sumbitInfo();
+                if(residentStatus == RESIDENT_STATUS_REFUCE){
+                    Intent intent = new Intent(getActivity(), ResidentActivity.class);
+                    intent.putExtra(RE_SUMBIT_KEY, true);
+                    startActivity(intent);
+                }else{
+                    //提交
+                    sumbitInfo();
+                }
                 break;
 
         }
@@ -503,12 +530,22 @@ public class ResidentActivity extends AppActivity {
             return;
         }
 
+        if (roomNameDesc != null && roomNameDesc.length() > 20) {
+            ToastUtils.show("产权人姓名不能超过20位");
+            return;
+        }
+
 
         String roomCodeDesc = roomCodeValue.getText().toString();
         if((null == roomCodeDesc) || (roomCodeDesc.length()==0)){
             ToastUtils.show("请输入产权人身份证号");
             return;
         }
+
+//        if (roomCodeDesc != null && !StringUtils.isRealIDCard(roomCodeDesc)) {
+//            ToastUtils.show("身份证号码不能超过18位");
+//            return;
+//        }
 
         if(null == communityVCommunity){
             ToastUtils.show("请选择社区");

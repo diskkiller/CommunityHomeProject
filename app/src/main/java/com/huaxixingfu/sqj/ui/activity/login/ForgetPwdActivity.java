@@ -106,7 +106,6 @@ public class ForgetPwdActivity extends AppActivity implements View.OnClickListen
                 ToastUtils.show(R.string.account_error);
                 return;
             }
-            mTextCountTimer.start();
             getCode(account);
         }
 
@@ -157,6 +156,7 @@ public class ForgetPwdActivity extends AppActivity implements View.OnClickListen
                                 ToastUtils.show(model.message);
                                 return;
                             }
+                            mTextCountTimer.start();
                             ToastUtils.show("发送验证码成功");
                         }
                     }

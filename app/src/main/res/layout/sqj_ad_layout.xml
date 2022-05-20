@@ -9,6 +9,13 @@
     >
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/wel_activity_holder_pic"
+        />
+
+    <ImageView
         android:id="@+id/splash_iv"
         android:scaleType="fitXY"
         android:layout_width="match_parent"

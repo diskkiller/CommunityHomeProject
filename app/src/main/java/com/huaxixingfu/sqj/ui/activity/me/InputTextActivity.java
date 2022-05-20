@@ -70,8 +70,18 @@ public class InputTextActivity extends AppActivity {
         tb_title.setTitle(title);
 
         et_input = findViewById(R.id.et_input);
+        switch (title){
 
-        et_input.setHint("请"+title);
+            case "输入姓名":
+            case "输入身份证号":
+                et_input.setHint("请"+title);
+                break;
+            case "职业信息":
+            case "个性签名":
+                et_input.setHint("请输入"+title);
+                break;
+        }
+
         if(StringUtils.isNotEmpty(text))
             et_input.setText(text);
         if(maxInput != 0){

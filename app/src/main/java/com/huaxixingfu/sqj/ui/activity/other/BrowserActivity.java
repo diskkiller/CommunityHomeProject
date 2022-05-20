@@ -18,6 +18,7 @@ import com.huaxixingfu.sqj.action.StatusAction;
 import com.huaxixingfu.sqj.aop.CheckNet;
 import com.huaxixingfu.sqj.aop.Log;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.utils.StringUtils;
 import com.huaxixingfu.sqj.widget.BrowserView;
 import com.huaxixingfu.sqj.widget.StatusLayout;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -31,19 +32,25 @@ public final class BrowserActivity extends AppActivity
         implements StatusAction, OnRefreshListener {
 
     private static final String INTENT_KEY_IN_URL = "url";
+    private static final String INTENT_KEY_IN_TITLE = "title";
 
     @CheckNet
     @Log
-    public static void start(Context context, String url) {
-        if (TextUtils.isEmpty(url)) {
+    public static void start(Context context, String url,String title) {
+        if (StringUtils.isEmpty(url)) {
             return;
         }
         Intent intent = new Intent(context, BrowserActivity.class);
         intent.putExtra(INTENT_KEY_IN_URL, url);
+        intent.putExtra(INTENT_KEY_IN_TITLE, title);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
+    }
+
+    public static void start(Context context, String url) {
+        start(context,url,"详情");
     }
 
     private StatusLayout mStatusLayout;
@@ -71,7 +78,7 @@ public final class BrowserActivity extends AppActivity
 
     @Override
     protected void initData() {
-        setTitle("详情");
+        setTitle(getString(INTENT_KEY_IN_TITLE));
 
         showLoading();
 
@@ -158,10 +165,10 @@ public final class BrowserActivity extends AppActivity
          */
         @Override
         public void onReceivedTitle(WebView view, String title) {
-            /*if (title == null) {
+           if (title == null || "about:blank".equals(title)) {
                 return;
             }
-            setTitle(title);*/
+            setTitle(title);
         }
 
         @Override

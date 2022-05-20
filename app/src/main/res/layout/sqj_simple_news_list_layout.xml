@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.hjq.bar.TitleBar
         android:id="@+id/tb_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:leftIcon="@color/color_333333"
-        app:rightIcon="@color/color_333333"
-        app:title="@string/home_nav_found"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.huaxixingfu.sqj.widget.StatusLayout
-        android:id="@+id/hl_status_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-    </com.huaxixingfu.sqj.widget.StatusLayout>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/rl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/tb_title"
-        android:visibility="visible"
         android:background="@color/color_ffffff"
         >
         <androidx.recyclerview.widget.RecyclerView
@@ -36,8 +26,5 @@
             android:layout_height="match_parent"
             />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
-
-
 
 </LinearLayout>

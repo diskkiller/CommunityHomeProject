@@ -73,6 +73,11 @@ public class API {
     public static final String BANNER = MAIN_URL + "sggl/mobile/home/v1.0/banner/list";
 
     /**
+     * 导航栏
+     */
+    public static final String BAR_LIST = MAIN_URL + "sggl/mobile/home/v1.0/sys/bar/list";
+
+    /**
      * 首页-新闻
      */
     public static final String HOME_CONTENT_NEW = MAIN_URL + "sggl/mobile/home/v1.0/news/top/page";
@@ -96,6 +101,11 @@ public class API {
      * 系统公告列表
      */
     public static final String SYSTEM_NOTIES_LIST = MAIN_URL + "sggl/mobile/home/v1.0/notice/page";
+
+ /**
+     * 系统公告列表
+     */
+    public static final String SYSTEM_NOTIES_UPDATE_STATUS = MAIN_URL + "sggl/mobile/home/v1.0/notice/message/status";
 
 
     /**
