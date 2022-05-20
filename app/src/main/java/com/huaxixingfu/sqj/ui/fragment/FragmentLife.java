@@ -103,7 +103,7 @@ public class FragmentLife extends TitleBarFragment<AppActivity> implements Statu
         HashMap<String, Object> map = new HashMap<>();
         map.put("size","10");
         map.put("page",page);
-        map.put("newsColumnCode","");
+        map.put("newsColumnCode","SHENGHUOQUAN");
         EasyHttp.post(this)
                 .api(new HomeContentNewsApi())
                 .json(map)
