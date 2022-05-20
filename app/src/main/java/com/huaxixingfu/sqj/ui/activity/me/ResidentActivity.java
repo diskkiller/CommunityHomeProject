@@ -3,6 +3,7 @@ package com.huaxixingfu.sqj.ui.activity.me;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.huaxixingfu.sqj.http.api.GetCommunityDataApi;
 import com.huaxixingfu.sqj.http.api.GetResidentInitApi;
 import com.huaxixingfu.sqj.http.api.SubmitCommunityDataApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -503,10 +505,20 @@ public class ResidentActivity extends AppActivity {
             return;
         }
 
+        if (roomNameDesc != null && roomNameDesc.length() > 20) {
+            ToastUtils.show("产权人姓名不能超过20位");
+            return;
+        }
+
 
         String roomCodeDesc = roomCodeValue.getText().toString();
         if((null == roomCodeDesc) || (roomCodeDesc.length()==0)){
             ToastUtils.show("请输入产权人身份证号");
+            return;
+        }
+
+        if (roomCodeDesc != null && !StringUtils.isRealIDCard(roomCodeDesc)) {
+            ToastUtils.show("身份证号码不能超过18位");
             return;
         }
 

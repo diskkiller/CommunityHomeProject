@@ -1,7 +1,11 @@
 package com.huaxixingfu.sqj.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,18 +22,22 @@ import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.AppFragment;
+import com.huaxixingfu.sqj.bean.PersonDataBean;
 import com.huaxixingfu.sqj.bean.VBanner;
+import com.huaxixingfu.sqj.bean.VResident;
 import com.huaxixingfu.sqj.http.api.BannerApi;
+import com.huaxixingfu.sqj.http.api.GetResidentInitApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.api.NotesListApi;
+import com.huaxixingfu.sqj.http.api.PersonalDataApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
-import com.huaxixingfu.sqj.ui.activity.home.NewsListActivity;
 import com.huaxixingfu.sqj.ui.adapter.HomeContentNewsAdapter;
 import com.huaxixingfu.sqj.utils.LogUtil;
+import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -63,6 +71,65 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
         initRv();
         setOnClickListener(R.id.right_icon
         );
+        Looper.myQueue().addIdleHandler(()->{
+            if(SPManager.instance(getContext()).isLogin()){
+                getPersonData();
+            }
+            return false;
+        });
+    }
+
+    /**
+     *  获取居住信息
+     */
+    private void  getPersonData(){
+
+        EasyHttp.post(this)
+                .api(new PersonalDataApi())
+                .request(new HttpCallback<HttpData<PersonDataBean>>(this) {
+
+                    @Override
+                    public void onSucceed(HttpData<PersonDataBean> data) {
+                        if(data.getData() != null){
+                            PersonDataBean personDataBean = data.getData();
+                            if("已认证".equals(personDataBean.getCardStartusName())) {
+                                getResidentInit();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
+    }
+
+    private void getResidentInit(){
+        EasyHttp.post(this)
+                .api(new GetResidentInitApi())
+                .request(new HttpCallback<HttpData<VResident>>(this) {
+                    @Override
+                    public void onSucceed(HttpData<VResident> mdata) {
+                        if(mdata.getData() != null){
+                            VResident data = mdata.getData();
+                            if(null != data){
+                                //0未认证  /1待认证/2认证通过/3认证驳回
+                                int residentStatus = data.residentStatus;
+                                if(residentStatus == 2){
+                                    //2认证通过
+                                    ((TextView)findViewById(R.id.tv_title)).setText(data.zoneName);
+                                    (findViewById(R.id.left_icon)).setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
     }
 
     /**
@@ -98,7 +165,9 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
                 HomeContentNewsApi.Bean.VContentNew model = adapter.getData().get(position);
-                BrowserActivity.start(getActivity(),model.newsUrl);
+                if(model != null && StringUtils.isNotEmpty(model.newsUrl)){
+                    BrowserActivity.start(getActivity(),model.newsUrl);
+                }
             }
 
         });

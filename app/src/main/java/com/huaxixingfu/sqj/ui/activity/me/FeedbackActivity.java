@@ -2,6 +2,7 @@ package com.huaxixingfu.sqj.ui.activity.me;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ import com.huaxixingfu.sqj.http.api.FeedBackApi;
 import com.huaxixingfu.sqj.http.api.GetFeedBackTypeApi;
 import com.huaxixingfu.sqj.http.api.UpdateImageApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+
 import com.huaxixingfu.sqj.ui.adapter.FeedBackAdapter;
 import com.huaxixingfu.sqj.ui.adapter.FeedBackImageAdapter;
 import com.huaxixingfu.sqj.utils.GlideEngine;
@@ -130,7 +132,9 @@ public class FeedbackActivity extends AppActivity{
                                 boolean isstatus = data.status;
                                 if(isstatus){
                                     ToastUtils.show("感谢您的反馈,我们会及时处理");
-                                    FeedbackActivity.this.finish();
+                                    new Handler().postDelayed(()->{
+                                        FeedbackActivity.this.finish();
+                                    },2000);
                                 }else{
                                     String message = data.message;
 
@@ -251,7 +255,7 @@ public class FeedbackActivity extends AppActivity{
                 return;
             }
             if (feedbackText != null && feedbackText.length() > 500) {
-                ToastUtils.show("最大字数限制500个汉字");
+                ToastUtils.show("字数限制最多500字");
                 return;
             }
 

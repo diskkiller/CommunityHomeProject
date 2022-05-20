@@ -65,8 +65,7 @@
         <activity
             android:name="com.huaxixingfu.sqj.ui.activity.SplashActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:screenOrientation="portrait">
 
             <!-- 程序入口 -->
             <intent-filter>
@@ -316,6 +315,17 @@
 
         <activity
             android:name=".ui.activity.ADActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <!--  hall -->
+        <activity
+            android:name=".ui.activity.position.HallActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.position.news.SimpleNewListActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />

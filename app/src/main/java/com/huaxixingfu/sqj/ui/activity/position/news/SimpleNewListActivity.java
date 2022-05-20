@@ -1,63 +1,84 @@
-package com.huaxixingfu.sqj.ui.fragment;
+package com.huaxixingfu.sqj.ui.activity.position.news;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.diskkiller.base.BaseActivity;
 import com.diskkiller.base.BaseAdapter;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
+import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
-import com.huaxixingfu.sqj.action.StatusAction;
+import com.huaxixingfu.sqj.aop.CheckNet;
+import com.huaxixingfu.sqj.aop.Log;
 import com.huaxixingfu.sqj.app.AppActivity;
-import com.huaxixingfu.sqj.app.AppFragment;
-import com.huaxixingfu.sqj.app.TitleBarFragment;
+import com.huaxixingfu.sqj.commom.IntentKey;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.ui.activity.me.CertificationActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
-import com.huaxixingfu.sqj.ui.activity.position.news.SimpleNewsAdapter;
-import com.huaxixingfu.sqj.widget.StatusLayout;
+import com.huaxixingfu.sqj.ui.adapter.HomeContentNewsAdapter;
+import com.huaxixingfu.sqj.utils.StringUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FragmentLife extends TitleBarFragment<AppActivity> implements StatusAction {
 
-    private StatusLayout mStatusLayout;
+/**
+ *  新闻列表
+ */
+public class SimpleNewListActivity extends AppActivity {
+
 
     private SimpleNewsAdapter adapter;
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView recycler;
     int page = 0;
 
-    public static FragmentLife newInstance() {
-        return new FragmentLife();
+    public static  final String TITLE_KEY = "TITLE_KEY";
+    public static  final String TITLE_REQUEST = "TITLE_REQUEST";
+
+    @CheckNet
+//    @Log
+    public static void start(BaseActivity activity, String title, String content) {
+        Intent intent = new Intent(activity, SimpleNewListActivity.class);
+        intent.putExtra(TITLE_KEY, title);
+        intent.putExtra(TITLE_REQUEST, content);
+        activity.startActivity(intent);
     }
 
-    @Override
-    public boolean isStatusBarEnabled() {
-        // 使用沉浸式状态栏
-        return !super.isStatusBarEnabled();
-    }
+    private String requestKey = "";
 
     @Override
     protected int getLayoutId() {
-        return R.layout.sqj_fragment_life;
+        return R.layout.sqj_simple_news_list_layout;
     }
 
     @Override
     protected void initView() {
-        mStatusLayout = findViewById(R.id.hl_status_hint);
+
+        String title = getString(TITLE_KEY);
+        requestKey = getString(TITLE_REQUEST);
+
+        if(StringUtils.isEmpty(requestKey)){
+            requestKey = "";
+        }
+        TitleBar tb_title = findViewById(R.id.tb_title);
+        if(StringUtils.isEmpty(title)){
+            tb_title.setTitle(getString(R.string.news_simple_list_title));
+        }else{
+            tb_title.setTitle(title);
+        }
+
         initRv();
     }
 
@@ -77,6 +98,7 @@ public class FragmentLife extends TitleBarFragment<AppActivity> implements Statu
                 initHomeContentNews(false);
             }
         });
+        mRefreshLayout.setEnableLoadMore(true);
         adapter = new SimpleNewsAdapter(getContext());
         adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
@@ -100,10 +122,12 @@ public class FragmentLife extends TitleBarFragment<AppActivity> implements Statu
      * 头像请求并展示
      */
     private void initHomeContentNews(boolean isLoadMore) {
+
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("size","10");
         map.put("page",page);
-        map.put("newsColumnCode","");
+        map.put("newsColumnCode",requestKey);
         EasyHttp.post(this)
                 .api(new HomeContentNewsApi())
                 .json(map)
@@ -148,12 +172,13 @@ public class FragmentLife extends TitleBarFragment<AppActivity> implements Statu
 
 
     @Override
-    protected void initData() {
-        showEmpty();
+    public boolean isStatusBarEnabled() {
+        // 使用沉浸式状态栏
+        return !super.isStatusBarEnabled();
     }
 
     @Override
-    public StatusLayout getStatusLayout() {
-        return mStatusLayout;
+    protected void initData() {
+
     }
 }

@@ -63,7 +63,7 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
         tv_close = findViewById(R.id.tv_close);
         setOnClickListener(R.id.splash_iv,R.id.tv_close);
 
-        tv_close.setText(getString(R.string.AD_time_close));
+        tv_close.setText(String.format(getString(R.string.AD_time_close),timeSecond));
     }
 
     @Override
@@ -87,6 +87,9 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
                         if(data.getData() != null){
                             adPicUrl = data.getData().appGuideImageUrl;
                             adDetailUrl = data.getData().appGuideUrl;
+                            if(StringUtils.isEmpty(adPicUrl)){
+                                jumpAct();
+                            }
                             GlideApp.with(getContext())
                                     .load(adPicUrl)
                                     .placeholder(R.color.color_ffffff)
@@ -98,23 +101,21 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
 
-//                                    tv_close.setText(String.format(getString(R.string.AD_time_close),
-//                                            millisUntilFinished/timeUnit));
+                                    tv_close.setText(String.format(getString(R.string.AD_time_close),
+                                            millisUntilFinished/timeUnit));
                                 }
 
                                 @Override
                                 public void onFinish() {
                                     if (!mIsStopTimer) {
-                                        if(SPManager.instance(getContext()).isLogin())
-                                            startActivity(new Intent(getContext(), HomeActivity.class));
-                                        else
-                                            startActivity(new Intent(getContext(), LoginActivity.class));
-                                        finish();
+                                        jumpAct();
                                     }
                                 }
                             };
                             mDownTimer.start();
                             //注意，如果点击进入广告内容activity，中断mDownTimer的计时，防止首页打开
+                        }else{
+                            jumpAct();
                         }
                     }
 
@@ -130,6 +131,13 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
                 });
     }
 
+    private void jumpAct(){
+        if(SPManager.instance(getContext()).isLogin())
+            startActivity(new Intent(getContext(), HomeActivity.class));
+        else
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        finish();
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

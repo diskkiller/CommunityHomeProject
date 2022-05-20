@@ -33,6 +33,14 @@ public class MyTime {
         return formate.format(date);
     }
 
+    public static String geTime_yyyyMMdd(Date date) {
+        if(date == null){
+            date = new Date(System.currentTimeMillis());
+        }
+        SimpleDateFormat formate = new SimpleDateFormat("yyyyMMdd");
+        return formate.format(date);
+    }
+
     public static String geTime(long time) {
         Date date = new Date(time);
         SimpleDateFormat formate = new SimpleDateFormat("MM-dd HH:mm:ss");

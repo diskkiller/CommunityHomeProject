@@ -9,7 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.diskkiller.base.BaseActivity;
 import com.diskkiller.base.BaseAdapter;
 import com.diskkiller.base.action.ClickAction;
 import com.diskkiller.http.EasyHttp;
@@ -21,16 +25,20 @@ import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
 import com.huaxixingfu.sqj.bean.VBanner;
 import com.huaxixingfu.sqj.http.api.BannerApi;
+import com.huaxixingfu.sqj.http.api.BarListApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.api.NotesListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
-import com.huaxixingfu.sqj.ui.activity.home.NewsListActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
+import com.huaxixingfu.sqj.ui.activity.position.HallActivity;
+import com.huaxixingfu.sqj.ui.activity.position.news.SimpleNewListActivity;
 import com.huaxixingfu.sqj.ui.fragment.HomeSimpleMF;
 import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.StringUtils;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
@@ -69,7 +77,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
             marquee = homeHeaderMessage.marquee;
             return homeHeaderMessage;
         } else if (viewType == VIEW_TYPE_HEADER_LIST) {
-            return new HomeHeaderList();
+            return new HomeHeaderList(lifecycleOwner, listener);
         } else if (viewType == VIEW_TYPE_THEN) {
             return new HomeHeaderNewTop();
         } else {
@@ -176,7 +184,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         @Override
         public void onBindView(int position) {
             findViewById(R.id.move).setOnClickListener(view->{
-                getContext().startActivity(new Intent(getContext(), NewsListActivity.class));
+                SimpleNewListActivity.start((BaseActivity) getContext(),"","");
             });
         }
     }
@@ -230,83 +238,117 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         }
     }
 
-    private final class HomeHeaderList extends AppAdapter<?>.ViewHolder implements ClickAction {
+    private final class HomeHeaderList extends AppAdapter<?>.ViewHolder {
 
-
-
-        private HomeHeaderList() {
+        private LifecycleOwner lifecycleOwner;
+        private OnHttpListener listener;
+        HomeContentPositionAdapter adapter;
+        private HomeHeaderList(LifecycleOwner lifecycleOwner,OnHttpListener listener) {
             super(R.layout.sqj_fragment_home_list_item);
-
-            setOnClickListener(R.id.ll_view_one,
-                    R.id.ll_view_two,
-                    R.id.ll_view_three,
-                    R.id.ll_view_five,
-                    R.id.ll_view_six,
-                    R.id.ll_view_seven,
-                    R.id.ll_view_eight,
-                    R.id.ll_view_3_1,
-                    R.id.ll_view_3_2,
-                    R.id.ll_view_3_3,
-                    R.id.ll_view_3_4
-            );
-
+            this.lifecycleOwner = lifecycleOwner;
+            this.listener = listener;
+            initBar();
+            initRv();
         }
+
+        /**
+         * 轮播图片请求并展示
+         */
+        private void initBar() {
+            EasyHttp.post(lifecycleOwner)
+                    .api(new BarListApi())
+                    .request(new HttpCallback<HttpData<List<BarListApi.Bean>>>(listener) {
+
+                        @Override
+                        public void onSucceed(HttpData<List<BarListApi.Bean>> data) {
+                            if(data != null && data.getData() != null){
+                                adapter.setData(data.getData());
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(Exception e) {
+                            super.onFail(e);
+                        }
+                    });
+        }
+
+
+        public void initRv(){
+            RecyclerView recycler = findViewById(R.id.recycler);
+            adapter = new HomeContentPositionAdapter(getContext(),lifecycleOwner,listener);
+//            adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+//                    HomeContentNewsApi.Bean.VContentNew model = adapter.getData().get(position);
+//                    if(model != null && StringUtils.isNotEmpty(model.newsUrl)){
+//                        BrowserActivity.start(getActivity(),model.newsUrl);
+//                    }
+//                }
+//
+//            });
+            LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),4);
+            recycler.setLayoutManager(linearLayoutManager);
+            recycler.setAdapter(adapter);
+        }
+
+
 
         @Override
         public void onBindView(int position) {
 
         }
 
-        @Override
-        public void onClick(View view) {
-            super.onClick(view);
-            switch (view.getId()){
-                case R.id.ll_view_one:
-                    ToastUtils.debugShow("功能正在书写");
-//                startActivity(new Intent(getActivity(), ResidentActivity.class));
-                    break;
-                case R.id.ll_view_two:
-                    getContext().startActivity(new Intent(getContext(), NewsListActivity.class));
-                    break;
-                case R.id.ll_view_three:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_four:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_five:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_six:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_seven:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_eight:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_3_1:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_3_2:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_3_3:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-                case R.id.ll_view_3_4:
-                    ToastUtils.debugShow("功能正在书写");
-                    break;
-
-                default:
-
-            }
-
-        }
+//        @Override
+//        public void onClick(View view) {
+//            super.onClick(view);
+//            switch (view.getId()){
+//                case R.id.ll_view_one:
+//                    getContext().startActivity(new Intent(getContext(), HallActivity.class));
+//                    break;
+//                case R.id.ll_view_two:
+//                    SimpleNewListActivity.start((BaseActivity) getContext(),"","");
+//                    break;
+//                case R.id.ll_view_three:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_four:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_five:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_six:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_seven:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_eight:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_3_1:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_3_2:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_3_3:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//                case R.id.ll_view_3_4:
+//                    ToastUtils.debugShow("功能正在书写");
+//                    break;
+//
+//                default:
+//
+//            }
+//
+//        }
     }
 
-    private final class ViewNormalHolder extends AppAdapter<?>.ViewHolder {
+    public final class ViewNormalHolder extends AppAdapter<?>.ViewHolder {
 
         private final TextView itemType,itemTitle,itemTime;
         private final ImageView itemImg;
@@ -325,10 +367,16 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
             itemTitle.setText(bean.newsTile);
             itemType.setText(bean.newsColumnName);
             itemTime.setText(bean.createdAt);
-            GlideApp.with(getContext())
-                    .load(bean.newsImageUrl)
-                    .centerCrop()
-                    .into(itemImg);
+            String url = bean.newsImageUrl;
+            if(StringUtils.isNotEmpty(url)){
+                itemImg.setVisibility(View.VISIBLE);
+                GlideApp.with(getContext())
+                        .load(url)
+                        .centerCrop()
+                        .into(itemImg);
+            }else{
+                itemImg.setVisibility(View.GONE);
+            }
         }
     }
 }

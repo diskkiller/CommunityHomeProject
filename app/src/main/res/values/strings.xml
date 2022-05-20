@@ -240,8 +240,8 @@
 
     <!-- 重置密码 -->
     <string name="password_reset_title">设置登录密码</string>
-    <string name="password_reset_phone_hint1">设置6&#8211;18位登录密码</string>
-    <string name="password_reset_phone_hint2">重新输入一次密码</string>
+    <string name="password_reset_phone_hint1">设置6&#8211;8位登录密码</string>
+    <string name="password_reset_phone_hint2">请再次输入密码</string>
     <string name="password_reset_input_error">两次密码输入不一致，请重新输入</string>
     <string name="password_reset_success">修改成功</string>
 
@@ -298,7 +298,19 @@
     <string name="beijingtong_account_hint">使用北京通账号可直接登录</string>
 
 
-<!--    <string name="AD_time_close">%d 秒关闭</string>-->
-    <string name="AD_time_close">跳过</string>
+    <string name="AD_time_close">跳过%dS</string>
+<!--    <string name="AD_time_close">跳过</string>-->
+
+
+    <string name="postion_hall_2_1">出入境业务</string>
+    <string name="postion_hall_2_2">公交业务</string>
+    <string name="postion_hall_1_4">监管业务</string>
+    <string name="postion_hall_1_3">交管业务</string>
+    <string name="postion_hall_1_2">治安业务</string>
+    <string name="postion_hall_1_1">户政业务</string>
+    <string name="postion_hall_title">政务大厅</string>
+
+    <string name="news_simple_list_title">新闻列表</string>
+    <string name="position_need_develop_toast">待开发功能</string>
 
 </resources>

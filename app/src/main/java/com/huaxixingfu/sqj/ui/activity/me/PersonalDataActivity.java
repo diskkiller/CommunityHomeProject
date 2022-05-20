@@ -38,6 +38,8 @@ import com.huaxixingfu.sqj.http.api.PersonalDataApi;
 import com.huaxixingfu.sqj.http.api.PersonalSexApi;
 import com.huaxixingfu.sqj.http.api.UpdateImageApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.ui.dialog.AgreementDialog;
+import com.huaxixingfu.sqj.ui.dialog.CardNotifocationDialog;
 import com.huaxixingfu.sqj.utils.GlideEngine;
 import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.MyTime;
@@ -513,7 +515,7 @@ public class PersonalDataActivity extends AppActivity {
                     }
                 });
     }
-    private void editBir(long bir){
+    private void editBir(String bir){
         HashMap<String, Object> map = new HashMap<>();
         map.put("content", bir);
         EasyHttp.post(this)
@@ -606,9 +608,8 @@ public class PersonalDataActivity extends AppActivity {
                                         ToastUtils.show("时间不能大于当前日期");
                                         return;
                                     }
+                                    editBir(MyTime.geTime_yyyyMMdd(selTime));
                                     sbPersonalBirthday.setRightText(date);
-                                    Integer time = Integer.valueOf(String.valueOf(selTime.getTime()).substring(0,10));
-                                    editBir(time.intValue());
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -660,15 +661,49 @@ public class PersonalDataActivity extends AppActivity {
                 break;
             case R.id.sb_personal_adress:
 
-                //居民认证
-                ((BaseActivity)this).startActivityForResult(new Intent(getActivity(), ResidentActivity.class), (resultCode, data) -> {
-                    getPersonDate();
-                });
+                personAdressClick();
                 break;
 
         }
     }
 
+    /**
+     *  居民认识
+     */
+    private void personAdressClick(){
+
+        if("已认证".equals(personDataBean.getCardStartusName())){
+            //居民认证
+            ((BaseActivity)this).startActivityForResult(new Intent(getActivity(), ResidentActivity.class), (resultCode, data) -> {
+                getPersonDate();
+            });
+        }else{
+
+            new CardNotifocationDialog.Builder(this)
+                // 确定按钮文本
+                .setConfirm(getString(R.string.common_agress))
+                // 设置 null 表示不显示取消按钮
+                .setCancel(getString(R.string.common_refuse))
+                // 设置点击按钮后不关闭对话框
+//                    .setAutoDismiss(false)
+                .setCancelable(false)
+                //.setAutoDismiss(false)
+                .setCanceledOnTouchOutside(false)
+                .setListener(new CardNotifocationDialog.OnListener() {
+
+                    @Override
+                    public void onConfirm() {
+                        startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+                    }
+
+                    @Override
+                    public void onCancel(BaseDialog dialog) {
+//                        finish();
+                    }
+                })
+                .show();
+        }
+    }
     /**
      * 图片选择
      */

@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.diskkiller.base.BaseActivity;
+import com.diskkiller.base.BaseDialog;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
 import com.diskkiller.widget.layout.SettingBar;
@@ -26,7 +28,9 @@ import com.huaxixingfu.sqj.ui.activity.me.AccountSecurityActivity;
 import com.huaxixingfu.sqj.ui.activity.me.FamilyDateActivity;
 import com.huaxixingfu.sqj.ui.activity.me.FeedbackActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
+import com.huaxixingfu.sqj.ui.activity.me.ResidentActivity;
 import com.huaxixingfu.sqj.ui.activity.me.SettingActivity;
+import com.huaxixingfu.sqj.ui.dialog.CardNotifocationDialog;
 import com.huaxixingfu.sqj.utils.Encryption;
 import com.huaxixingfu.sqj.utils.MyTime;
 import com.huaxixingfu.sqj.utils.SPManager;
@@ -146,8 +150,7 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
             startActivity(new Intent(getActivity(), PersonalDataActivity.class));
 
         }else if (viewId == R.id.sb_user_setting_family) {
-            startActivity(new Intent(getActivity(), FamilyDateActivity.class));
-
+            personAdressClick();
         }else if(viewId == R.id.sb_user_account_security){
             startActivity(new Intent(getActivity(), AccountSecurityActivity.class));
 
@@ -158,6 +161,42 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
 
         }else if(viewId == R.id.tv_logout){
             ActivityManager.getInstance().loginOut(getActivity());
+        }
+    }
+
+
+    /**
+     *  居民认识
+     */
+    private void personAdressClick(){
+
+        if("已认证".equals(personDataBean.getCardStartusName())){
+            startActivity(new Intent(getActivity(), FamilyDateActivity.class));
+        }else{
+
+            new CardNotifocationDialog.Builder(getActivity())
+                    // 确定按钮文本
+                    .setConfirm(getString(R.string.common_agress))
+                    // 设置 null 表示不显示取消按钮
+                    .setCancel(getString(R.string.common_refuse))
+                    // 设置点击按钮后不关闭对话框
+//                    .setAutoDismiss(false)
+                    .setCancelable(false)
+                    //.setAutoDismiss(false)
+                    .setCanceledOnTouchOutside(false)
+                    .setListener(new CardNotifocationDialog.OnListener() {
+
+                        @Override
+                        public void onConfirm() {
+                            startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+                        }
+
+                        @Override
+                        public void onCancel(BaseDialog dialog) {
+//                            finish();
+                        }
+                    })
+                    .show();
         }
     }
 
