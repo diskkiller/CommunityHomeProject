@@ -41,7 +41,9 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
+import com.youth.banner.config.BannerConfig;
 import com.youth.banner.holder.BannerImageHolder;
+import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.List;
@@ -109,6 +111,8 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         private HomeHeaderBanner(LifecycleOwner lifecycleOwner,OnHttpListener listener) {
             super(R.layout.sqj_fragment_home_banner_item);
             banner = findViewById(R.id.banner);
+            banner.setIndicator(new CircleIndicator(getContext()));
+
             this.lifecycleOwner = lifecycleOwner;
             this.listener = listener;
         }
