@@ -20,10 +20,14 @@ import com.huaxixingfu.sqj.bean.VNotes;
 import com.huaxixingfu.sqj.bean.VNotiesData;
 import com.huaxixingfu.sqj.databinding.SqjActivitySystemNotesListBinding;
 import com.huaxixingfu.sqj.http.api.ApplyFriendApi;
+import com.huaxixingfu.sqj.http.api.MsgNotesListEditeApi;
 import com.huaxixingfu.sqj.http.api.SysNotesListApi;
+import com.huaxixingfu.sqj.http.api.SysNotesUpdateApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.adapter.MsgNotesAdapter;
 import com.huaxixingfu.sqj.ui.adapter.SystemNotesAdapter;
+import com.huaxixingfu.sqj.utils.StringUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
@@ -124,8 +128,40 @@ public class SystemNotesListActivity extends AppActivity implements OnRefreshLoa
     }
 
 
+    private void editeNewsColumn(int id){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userMessageId",id);
+        EasyHttp.post(this)
+                .api(new SysNotesUpdateApi())
+                .json(map)
+                .request(new HttpCallback<HttpData>(this) {
+
+                    @Override
+                    public void onSucceed(HttpData data) {
+                        if(data.getData() != null){
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
+    }
+
+
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+
+        Object item = adapter.getItem(position);
+        if(item instanceof VNotes){
+            if(StringUtils.isNotEmpty(((VNotes)item).detailUrl)){
+                editeNewsColumn(((VNotes)item).userMessageId);
+                BrowserActivity.start(getContext(),((VNotes)item).detailUrl);
+            }
+        }
 
     }
 

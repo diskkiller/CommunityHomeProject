@@ -102,6 +102,11 @@ public class API {
      */
     public static final String SYSTEM_NOTIES_LIST = MAIN_URL + "sggl/mobile/home/v1.0/notice/page";
 
+ /**
+     * 系统公告列表
+     */
+    public static final String SYSTEM_NOTIES_UPDATE_STATUS = MAIN_URL + "sggl/mobile/home/v1.0/notice/message/status";
+
 
     /**
      * 居民认证-初始化

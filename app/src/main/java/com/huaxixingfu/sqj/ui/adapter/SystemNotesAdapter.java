@@ -45,12 +45,12 @@ public class SystemNotesAdapter extends BaseQuickAdapter<VNotes, BaseViewHolder>
         itemContent.setText(model.appGuideContent);
         itemTime.setText(model.modifiedAt);
 
-        itemFind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BrowserActivity.start(getContext(),model.detailUrl);
-            }
-        });
+//        itemFind.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
     }
 }
