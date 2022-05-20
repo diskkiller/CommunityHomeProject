@@ -120,6 +120,9 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
                                     //2认证通过
                                     ((TextView)findViewById(R.id.tv_title)).setText(data.zoneName);
                                     (findViewById(R.id.left_icon)).setVisibility(View.VISIBLE);
+                                    if(adapter != null){
+                                        adapter.updateNotify(true);
+                                    }
                                 }
                             }
                         }

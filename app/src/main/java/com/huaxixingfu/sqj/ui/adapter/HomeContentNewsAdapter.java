@@ -17,6 +17,7 @@ import com.diskkiller.base.BaseActivity;
 import com.diskkiller.base.BaseAdapter;
 import com.diskkiller.base.action.ClickAction;
 import com.diskkiller.http.EasyHttp;
+import com.diskkiller.http.config.IRequestApi;
 import com.diskkiller.http.listener.HttpCallback;
 import com.diskkiller.http.listener.OnHttpListener;
 import com.gongwen.marqueen.SimpleMarqueeView;
@@ -24,10 +25,14 @@ import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
 import com.huaxixingfu.sqj.bean.VBanner;
+import com.huaxixingfu.sqj.bean.VNotes;
+import com.huaxixingfu.sqj.bean.VNotiesData;
 import com.huaxixingfu.sqj.http.api.BannerApi;
 import com.huaxixingfu.sqj.http.api.BarListApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.api.NotesListApi;
+import com.huaxixingfu.sqj.http.api.NotesSysListApi;
+import com.huaxixingfu.sqj.http.api.SysNotesListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
@@ -46,6 +51,7 @@ import com.youth.banner.holder.BannerImageHolder;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -61,6 +67,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
     private LifecycleOwner lifecycleOwner;
     private OnHttpListener listener;
     public SimpleMarqueeView marquee;
+    public HomeHeaderMessage homeHeaderMessage;
 
     public HomeContentNewsAdapter(Context context, LifecycleOwner lifecycleOwner, OnHttpListener listener) {
         super(context);
@@ -75,7 +82,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         if (viewType == VIEW_TYPE_HEADER_BANNER) {
             return new HomeHeaderBanner(lifecycleOwner,listener);
         } else if (viewType == VIEW_TYPE_HEADER_MESSAGE_LIST) {
-            HomeHeaderMessage homeHeaderMessage = new HomeHeaderMessage(lifecycleOwner, listener);
+            homeHeaderMessage = new HomeHeaderMessage(lifecycleOwner, listener);
             marquee = homeHeaderMessage.marquee;
             return homeHeaderMessage;
         } else if (viewType == VIEW_TYPE_HEADER_LIST) {
@@ -84,6 +91,13 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
             return new HomeHeaderNewTop();
         } else {
             return new ViewNormalHolder();
+        }
+    }
+
+    public void updateNotify(boolean certification){
+
+        if(homeHeaderMessage != null){
+            homeHeaderMessage.updateNotify(certification);
         }
     }
 
@@ -209,29 +223,38 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
 
         @Override
         public void onBindView(int position) {
-            initNotesList();
+            initNotesSysList();
+        }
+
+
+        public void updateNotify(boolean certification) {
+            if(certification){
+                 initNotesList();
+            }else{
+                initNotesSysList();
+            }
         }
 
         /**
          * 获取公告列表
          */
         private void initNotesList() {
+
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("size","5");
+            map.put("page","0");
+            map.put("id","");
+
             EasyHttp.post(lifecycleOwner)
                     .api(new NotesListApi())
+                    .json(map)
                     .request(new HttpCallback<HttpData<List<NotesListApi.Bean>>>(listener) {
 
                         @Override
                         public void onSucceed(HttpData<List<NotesListApi.Bean>> data) {
                             if(data.getData() != null){
                                 List<NotesListApi.Bean> models =  data.getData();
-                                if((null != models) && (models.size()>0)){
-                                    HomeSimpleMF<NotesListApi.Bean> marqueeFactory = new HomeSimpleMF<>(getContext(), view->{
-                                        BrowserActivity.start(getContext(),view.detailUrl);
-                                    });
-                                    marqueeFactory.setData(models);
-                                    marquee.setMarqueeFactory(marqueeFactory);
-                                    marquee.startFlipping();
-                                }
+                                susseccControl( models);
                             }
                         }
                         @Override
@@ -240,7 +263,49 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
                         }
                     });
         }
+
+        /**
+         * 获取系统公告列表
+         */
+        private void initNotesSysList() {
+
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("size","5");
+            map.put("page","0");
+            map.put("id","");
+
+            EasyHttp.post(lifecycleOwner)
+                    .api(new NotesSysListApi())
+                    .json(map)
+                    .request(new HttpCallback<HttpData<NotesSysListApi.Bean>>(listener) {
+
+                        @Override
+                        public void onSucceed(HttpData<NotesSysListApi.Bean> data) {
+                            if(data.getData() != null){
+                                List<NotesListApi.Bean> models =  data.getData().content;
+                                susseccControl( models);
+                            }
+                        }
+                        @Override
+                        public void onFail(Exception e) {
+                            super.onFail(e);
+                        }
+                    });
+        }
+
+
+        private void  susseccControl(List<NotesListApi.Bean> models){
+            if((null != models) && (models.size()>0)){
+                HomeSimpleMF<NotesListApi.Bean> marqueeFactory = new HomeSimpleMF<NotesListApi.Bean>(getContext(), view->{
+                    BrowserActivity.start(getContext(),view.detailUrl);
+                });
+                marqueeFactory.setData(models);
+                marquee.setMarqueeFactory(marqueeFactory);
+                marquee.startFlipping();
+            }
+        }
     }
+
 
     private final class HomeHeaderList extends AppAdapter<?>.ViewHolder {
 
@@ -303,53 +368,6 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         public void onBindView(int position) {
 
         }
-
-//        @Override
-//        public void onClick(View view) {
-//            super.onClick(view);
-//            switch (view.getId()){
-//                case R.id.ll_view_one:
-//                    getContext().startActivity(new Intent(getContext(), HallActivity.class));
-//                    break;
-//                case R.id.ll_view_two:
-//                    SimpleNewListActivity.start((BaseActivity) getContext(),"","");
-//                    break;
-//                case R.id.ll_view_three:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_four:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_five:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_six:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_seven:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_eight:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_3_1:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_3_2:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_3_3:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//                case R.id.ll_view_3_4:
-//                    ToastUtils.debugShow("功能正在书写");
-//                    break;
-//
-//                default:
-//
-//            }
-//
-//        }
     }
 
     public final class ViewNormalHolder extends AppAdapter<?>.ViewHolder {
