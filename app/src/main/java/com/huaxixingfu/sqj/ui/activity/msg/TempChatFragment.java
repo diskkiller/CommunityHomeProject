@@ -229,8 +229,14 @@ public abstract class TempChatFragment
     @Override
     protected void initData() {
         RequestMessageRecord messageRecord = new RequestMessageRecord();
-        messageRecord.from = SPManager.instance(AppApplication.getInstances()).getModel(Constants.USERDATA, UserData.class).userId;
-        messageRecord.to = targetUid;
+
+        if(!mIsGroup){
+            messageRecord.from = SPManager.instance(AppApplication.getInstances()).getModel(Constants.USERDATA, UserData.class).userId;
+            messageRecord.to = targetUid;
+        }else{
+            messageRecord.groupId = targetUid;
+        }
+
         messageRecord.cmd = WebSocketManager.COMMAND_GET_MESSAGE_REQ;
         messageRecord.current = page;
         messageRecord.size = 20;
@@ -459,7 +465,7 @@ public abstract class TempChatFragment
                 mRecyclerView.scrollToPosition(msgList.size() - 1);
             }
         }else{
-            if (msg.to == targetUid) {
+            if (msg.to == targetUid  || msg.from == targetUid) {
                 //区分时间戳，添加新消息
                 if (msg.systemTime - msgTime > 180000) {
                     msgTime = msg.systemTime;

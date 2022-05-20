@@ -44,7 +44,7 @@ public final class MailListApi implements IRequestApi {
      * title: 是否在群
      */
     public final static class Bean implements Serializable {
-        public String first;
+        public String first = "";
         public int chatFriendId;
         public int chatUserId;
         public int chatFriendUserType;

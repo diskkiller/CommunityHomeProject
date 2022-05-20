@@ -98,8 +98,12 @@ public class ResidentListActivity extends AppActivity implements
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
 
-        ChatSettingActivity.start(ResidentListActivity.this,mAdapter.getData().get(position).getUserId(),
-                mAdapter.getData().get(position).getResidentNickName(),null);
+        /*ChatSettingActivity.start(ResidentListActivity.this,mAdapter.getData().get(position).getUserId(),
+                mAdapter.getData().get(position).getResidentNickName(),null);*/
+
+        TempMessageActivity.show(getContext(),mAdapter.getData().get(position).getUserId(),
+                mAdapter.getData().get(position).getUserId()+"",
+                mAdapter.getData().get(position).getResidentNickName(),false);
 
     }
 

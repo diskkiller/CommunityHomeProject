@@ -29,7 +29,7 @@ public class FriendApplyDetailsActivity extends AppActivity {
     ImageView niv_avater;
     TextView tv_nickname;
     TextView address;
-    TextView content;
+    TextView tv_remark;
     FriendListApi.Bean model;
 
     long chatFriendApplyId;
@@ -76,7 +76,7 @@ public class FriendApplyDetailsActivity extends AppActivity {
         tv_nickname = findViewById(R.id.tv_nickname);
         address = findViewById(R.id.address);
         niv_avater = findViewById(R.id.niv_avater);
-        content = findViewById(R.id.content);
+        tv_remark = findViewById(R.id.tv_remark);
 
         setOnClickListener(R.id.tv_ok,R.id.tv_no);
     }
@@ -99,7 +99,8 @@ public class FriendApplyDetailsActivity extends AppActivity {
         chatFriendApplyId =  model.chatFriendApplyId;
         tv_nickname.setText(StringUtils.nullChanegEmpty(model.userNickName));
         address.setText(StringUtils.nullChanegEmpty(model.zoneRoomAddr));
-        content.setText(StringUtils.nullChanegEmpty(model.userSignName));
+        if(StringUtils.isNotEmpty(model.chatFriendApplyRemark))
+            tv_remark.setText(StringUtils.nullChanegEmpty(model.chatFriendApplyRemark));
 
     }
 
@@ -139,7 +140,7 @@ public class FriendApplyDetailsActivity extends AppActivity {
                         if(data.getData() != null){
                             boolean status = data.getData().status;
                             if(status){
-                                ToastUtils.show("申请添加用户成功");
+                                ToastUtils.show("添加好友成功");
                                 FriendApplyDetailsActivity.this.finish();
                             }else{
                                 ToastUtils.show(data.getData().message);

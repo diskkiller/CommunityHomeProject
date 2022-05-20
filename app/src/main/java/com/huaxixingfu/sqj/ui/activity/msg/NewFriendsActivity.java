@@ -51,6 +51,12 @@ public class NewFriendsActivity extends AppActivity implements View.OnClickListe
     }
 
     public void initData() {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getFriendList();
     }
 

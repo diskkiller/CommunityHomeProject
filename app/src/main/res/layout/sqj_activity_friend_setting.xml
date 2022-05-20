@@ -36,27 +36,30 @@
             android:layout_marginEnd="10dp"
             android:src="@mipmap/icon_logo" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+
             >
 
             <TextView
-                android:id="@+id/tv_remark"
+                android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="好友昵称"
                 android:textColor="#ff333333"
                 android:textSize="17sp" />
 
             <LinearLayout
+                android:id="@+id/ll_friend_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -64,10 +67,12 @@
                     android:layout_height="wrap_content"
                     android:text="昵称："
                     android:textColor="#ff999999"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    />
 
                 <TextView
-                    android:id="@+id/tv_nickname"
+                    android:id="@+id/tv_friend_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="好友昵称"
@@ -77,15 +82,15 @@
             </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/iv_rename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@mipmap/icon_more"
-            android:layout_marginRight="12dp"
+            android:background="@mipmap/icon_edite"
+            android:layout_marginRight="15dp"
             />
 
 
@@ -107,7 +112,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bar_leftText="居住地址"
-        />
+        >
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="20dp"
+            android:textColor="#ff999999"
+            android:text=""
+            />
+    </com.diskkiller.widget.layout.SettingBar>
 
 
     <com.diskkiller.widget.layout.SettingBar

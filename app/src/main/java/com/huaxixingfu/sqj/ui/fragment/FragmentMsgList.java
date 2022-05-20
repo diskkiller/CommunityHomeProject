@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.app.AppApplication;
 import com.huaxixingfu.sqj.app.TitleBarFragment;
 import com.huaxixingfu.sqj.bean.UserData;
 import com.huaxixingfu.sqj.commom.Constants;
@@ -37,6 +38,7 @@ import com.huaxixingfu.sqj.http.api.FriendApplyCountApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.push.bean.Conersation;
 import com.huaxixingfu.sqj.push.bean.ResponseConersationList;
+import com.huaxixingfu.sqj.push.bean.ResponseMessage;
 import com.huaxixingfu.sqj.push.manager.MessageListener;
 import com.huaxixingfu.sqj.push.manager.WebSocketManager;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
@@ -50,6 +52,7 @@ import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.TempMessageActivity;
 import com.huaxixingfu.sqj.ui.adapter.MsgListAdapter;
 import com.huaxixingfu.sqj.ui.dialog.InputDialog;
+import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
 
@@ -78,7 +81,7 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
     private ArrayList<Conersation> msgList = new ArrayList<>();
     private MessageListener.MessageObserver messageObserver;
     private ActivityResultLauncher<Intent> launcher;
-    private TextView tv_right_red,tv_gonggao_new,tv_mission_new;
+    private TextView tv_right_red,tv_gonggao_new,tv_mission_new,tv_gonggao_content,tv_renwu_content;
 
     public static FragmentMsgList newInstance() {
         return new FragmentMsgList();
@@ -114,6 +117,8 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
         ll_system.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tv_gonggao_new.setVisibility(View.GONE);
+                tv_gonggao_content.setText("暂无新的通知公告");
                 startActivity(new Intent(getActivity(), MsgNotesListActivity.class));
             }
         });
@@ -121,10 +126,15 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
         tv_gonggao_new = headerView.findViewById(R.id.tv_gonggao_new);
         tv_mission_new = headerView.findViewById(R.id.tv_mission_new);
 
+        tv_gonggao_content = headerView.findViewById(R.id.tv_gonggao_content);
+        tv_renwu_content = headerView.findViewById(R.id.tv_renwu_content);
+
         LinearLayout ll_msg_notes = headerView.findViewById(R.id.ll_renwu);
         ll_msg_notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tv_mission_new.setVisibility(View.GONE);
+                tv_renwu_content.setText("暂无新的任务消息");
                 startActivity(new Intent(getActivity(), MsgMissionListActivity.class));
             }
         });
@@ -161,6 +171,7 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
 
     @Override
     public void onRightClick(View view) {
+        tv_right_red.setVisibility(View.GONE);
         startActivity(new Intent(getContext(), MailListActivity.class));
     }
 
@@ -180,8 +191,23 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                 public void onNewMessage(String text) {
                     int command = WebSocketManager.getCommand(text);
                     if (command == WebSocketManager.RECENT_MESSAGE_RESP) {
+                        LogUtil.i("WebSocketManager", "会话列表收到消息---");
                         ResponseConersationList json = new Gson().fromJson(text, ResponseConersationList.class);
                         getActivity().runOnUiThread(() -> updateConversation(json.data.messageList, true));
+                    }else if(command == WebSocketManager.COMMAND_CHAT_REQ){
+                        //如果是单条消息
+                        ResponseMessage responseMessage = new Gson().fromJson(text, ResponseMessage.class);
+                        if(responseMessage.data.chatType == 2){
+
+                            List<Conersation> convList = new ArrayList<>();
+                            Conersation conersation = new Conersation();
+                            conersation.sessionId = responseMessage.data.sessionId;
+                            conersation.nickName = responseMessage.data.extras.nickName;
+                            conersation.chatBody = responseMessage.data;
+                            convList.add(conersation);
+                            getActivity().runOnUiThread(() -> updateConversation(convList, true));
+
+                        }
                     }
                 }
 
@@ -208,8 +234,10 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                 if(conv.unreadMsgNum > 0){
                     tv_gonggao_new.setVisibility(View.VISIBLE);
                     tv_gonggao_new.setText(conv.unreadMsgNum+"");
+                    tv_gonggao_content.setText("您有新的通知待查看");
                 }else{
                     tv_gonggao_new.setVisibility(View.GONE);
+                    tv_gonggao_content.setText("暂无新的通知公告");
                 }
                 continue;
             }
@@ -217,8 +245,10 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                 if(conv.unreadMsgNum > 0){
                     tv_mission_new.setVisibility(View.VISIBLE);
                     tv_mission_new.setText(conv.unreadMsgNum+"");
+                    tv_renwu_content.setText("您有新的任务消息待查看");
                 }else{
                     tv_mission_new.setVisibility(View.GONE);
+                    tv_renwu_content.setText("暂无新的任务消息");
                 }
                 continue;
             }
@@ -228,6 +258,7 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                 Conersation uiConv = msgList.get(j);
                 // UI 会话列表存在该会话，则替换
                 if (uiConv.sessionId.equals(conv.sessionId)) {
+                    LogUtil.i("WebSocketManager", "UI 会话列表存在该会话，则替换---");
                     msgList.set(j, conv);
                     isExit = true;
                     break;
@@ -235,11 +266,13 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
             }
             // UI 会话列表没有该会话，则新增
             if (!isExit) {
+                LogUtil.i("WebSocketManager", "UI 会话列表没有该会话，则新增---");
                 msgList.add(conv);
             }
         }
         // 4. 按照会话 lastMessage 的 systemTime 对 UI 会话列表做排序并更新界面
         if (needSort) {
+            LogUtil.i("WebSocketManager", "按照会话 lastMessage 的 systemTime 对 UI 会话列表做排序并更新界面---");
             Collections.sort(msgList, new Comparator<Conersation>() {
                 @Override
                 public int compare(Conersation o1, Conersation o2) {
@@ -323,8 +356,7 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
         } else {
             if(conersation.chatBody.chatType == 2){
                 isGroup = false;
-                targetUid = conersation.chatBody.from == SPManager.instance(getActivity()).
-                        getModel(Constants.USERDATA,UserData.class).userId ?
+                targetUid = conersation.chatBody.from == SPManager.instance(AppApplication.getInstances()).getModel(Constants.USERDATA,UserData.class).userId ?
                         conersation.chatBody.to : conersation.chatBody.from;
             }else if(conersation.chatBody.chatType == 1){
                 isGroup = true;

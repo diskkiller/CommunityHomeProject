@@ -273,8 +273,6 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
      */
     public void loginOut(Context context) {
         SPManager.instance(context).clearUserInfo();
-        WebSocketManager.getInstance().close();
-        WebSocketManager.release();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

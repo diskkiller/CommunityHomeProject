@@ -127,7 +127,8 @@ public class GroupAddMemberActivity extends AppActivity{
                             if((null != datas) && (datas.size()>0)){
                                 for (int i = 0,j= datas.size(); i < j; i++) {
                                     MailListApi.Bean item =  datas.get(i);
-                                    item.first = String.valueOf(Pinyin.toPinyin(item.chatFriendNiceName, "").charAt(0));
+                                    if(StringUtils.isNotEmpty(item.userNickName))
+                                        item.first = String.valueOf(Pinyin.toPinyin(item.userNickName, "").charAt(0));
                                 }
 
                                 contactsListBeans.clear();

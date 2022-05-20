@@ -16,13 +16,15 @@ import com.huaxixingfu.sqj.http.api.RequestFriendApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.utils.StringUtils;
+import com.huaxixingfu.sqj.widget.MyTextWatcher;
+
 import java.util.HashMap;
 
 public class AddFriendApplyActivity extends AppActivity {
 
     ImageView niv_avater;
-    EditText et_text;
-    TextView tv_nickname;
+    EditText et_content;
+    TextView tv_nickname,contentNum;
     long userId;
 
     public static void start(BaseActivity activity, long id, String name, String image,OnFinishResultListener listener) {
@@ -67,7 +69,14 @@ public class AddFriendApplyActivity extends AppActivity {
     protected void initView() {
         niv_avater = findViewById(R.id.niv_avater);
         tv_nickname = findViewById(R.id.tv_nickname);
-        et_text = findViewById(R.id.et_text);
+        et_content = findViewById(R.id.et_content);
+        contentNum = findViewById(R.id.content_num);
+        et_content.addTextChangedListener(new MyTextWatcher() {
+            @Override
+            public void afterTextChanged() {
+                contentNum.setText(et_content.getText().toString().length() + "/50");
+            }
+        });
         setOnClickListener(R.id.tv_submit);
     }
 
@@ -87,15 +96,9 @@ public class AddFriendApplyActivity extends AppActivity {
         int id = v.getId();
         if (id == R.id.tv_submit) {
             if(userId <=0)return;
-            String desc = et_text.getText().toString().trim();
-            String temp = "";
-            if((null != desc) && (desc.length() >0)){
-                if(!"请输入申请描述...".equals(desc)){
-                    temp = desc;
-                }
-            }
+            String desc = et_content.getText().toString();
 
-            requestFriend(userId,temp);
+            requestFriend(userId,StringUtils.isNotEmpty(desc)? desc : "" );
         }
     }
 

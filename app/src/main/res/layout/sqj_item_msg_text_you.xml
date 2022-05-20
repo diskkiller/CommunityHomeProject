@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_f7f7f7"
     android:orientation="vertical">
 
     <TextView
@@ -28,22 +27,39 @@
             android:layout_marginEnd="7dp"
             android:src="@mipmap/icon_logo" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="70dp"
-            android:layout_toEndOf="@id/niv_avater"
-            android:background="@drawable/sqj_bg_white_shap_7">
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/niv_avater">
 
             <TextView
-                android:id="@+id/tv_content"
+                android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="11dp"
-                android:text="你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好"
-                android:textColor="@color/color_181818"
-                android:textSize="14sp" />
-        </RelativeLayout>
+                android:layout_gravity="start"
+                android:textColor="#999999"
+                android:textSize="@dimen/sp_12"
+                android:text="群聊昵称"
+                android:layout_marginBottom="@dimen/dp_2"
+                />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="70dp"
+                android:background="@drawable/sqj_bg_white_shap_7">
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="11dp"
+                    android:text="你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好"
+                    android:textColor="@color/color_181818"
+                    android:textSize="14sp" />
+            </FrameLayout>
+        </LinearLayout>
 
 
     </RelativeLayout>

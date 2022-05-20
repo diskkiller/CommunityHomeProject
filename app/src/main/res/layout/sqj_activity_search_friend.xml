@@ -116,13 +116,14 @@
 
                     <TextView
                         android:id="@+id/tv_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/dp_120"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="#ff999999"
                         android:textSize="13sp"
-                        android:lines="1"
-                        android:maxLength="15"/>
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        />
                 </LinearLayout>
 
 

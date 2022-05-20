@@ -15,25 +15,45 @@
         />
 
 
-    <EditText
-        android:id="@+id/et_content"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="216dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/shape_r5_white_bg"
-        android:enabled="true"
-        android:gravity="top"
-        android:maxLines="10"
-        android:hint="请输入公告信息"
-        android:paddingLeft="15dp"
-        android:paddingTop="15dp"
-        android:scrollbars="vertical" />
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+
+        >
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/dp_15"
+            android:background="@color/white"
+            android:gravity="start"
+            android:hint="请输入申请描述..."
+            android:lineHeight="22dp"
+            android:text=""
+            android:maxLength="500"
+            android:minHeight="@dimen/dp_210"
+            android:padding="16dp"
+            android:textColor="#1A1A1A"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/content_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="22dp"
+            android:layout_gravity="end"
+            android:text="0/500" />
+    </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         />
 

@@ -1,13 +1,11 @@
 package com.huaxixingfu.sqj.ui.adapter;
 
-import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.bean.VGroupNotes;
-import com.huaxixingfu.sqj.bean.VNotes;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,8 +16,10 @@ import org.jetbrains.annotations.NotNull;
  */
 
 public class GroupNotesAdapter extends BaseQuickAdapter<VGroupNotes, BaseViewHolder> {
-    public GroupNotesAdapter(int layoutResId) {
+    boolean isOwner;
+    public GroupNotesAdapter(int layoutResId, boolean isOwner) {
         super(layoutResId);
+        this.isOwner = isOwner;
     }
 
     /**
@@ -42,6 +42,9 @@ public class GroupNotesAdapter extends BaseQuickAdapter<VGroupNotes, BaseViewHol
 
         itemContent.setText(model.chatGroupNoticeContent);
         itemTime.setText(model.createdAt);
+
+        baseViewHolder.setGone(R.id.item_tips,!isOwner);
+        baseViewHolder.setGone(R.id.item_del,!isOwner);
 
     }
 }

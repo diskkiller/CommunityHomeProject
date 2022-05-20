@@ -50,7 +50,7 @@ public class GroupSettingActivity extends AppActivity {
     private TextView tx_more;
     private long targetUid;
     private boolean isOwner;
-    private SettingBar sb_group_name,sb_group_my_nickname;
+    private SettingBar sb_group_name,sb_group_my_nickname,sb_group_transfer;
 
     public static void start(BaseActivity activity, long targetUid, OnFinishResultListener listener) {
         Intent intent = new Intent(activity, GroupSettingActivity.class);
@@ -95,6 +95,7 @@ public class GroupSettingActivity extends AppActivity {
         tx_more = findViewById(R.id.tx_more);
         sb_group_name = findViewById(R.id.sb_group_name);
         sb_group_my_nickname = findViewById(R.id.sb_group_my_nickname);
+        sb_group_transfer = findViewById(R.id.sb_group_transfer);
         setOnClickListener(R.id.tx_more,R.id.sb_group_name,R.id.sb_group_notice,R.id.sb_group_transfer,R.id.sb_group_my_nickname);
         initRV();
     }
@@ -108,7 +109,6 @@ public class GroupSettingActivity extends AppActivity {
     protected void onStart() {
         super.onStart();
         getGroupDetail();
-        getGroupMemerDetail();
     }
 
     private void getGroupDetail() {
@@ -126,6 +126,10 @@ public class GroupSettingActivity extends AppActivity {
                             GroupDetailBean groupDetailBean = data.getData();
 
                             isOwner = groupDetailBean.getIsChatGroupUserId();
+                            if(!isOwner){
+                                sb_group_transfer.setVisibility(View.GONE);
+                            }
+                            getGroupMemerDetail();
                         /*
                             //组装自己
                             GroupMemberBean self = new GroupMemberBean();
@@ -233,19 +237,23 @@ public class GroupSettingActivity extends AppActivity {
                                 }
                                 GroupMemberBean add = new GroupMemberBean();
                                 add.nickname = "+";
-                                GroupMemberBean minus = new GroupMemberBean();
-                                minus.nickname = "-";
                                 lessMemberBeans.add(add);
-                                lessMemberBeans.add(minus);
+                                if(isOwner){
+                                    GroupMemberBean minus = new GroupMemberBean();
+                                    minus.nickname = "-";
+                                    lessMemberBeans.add(minus);
+                                }
                                 groupMemberAdapter.setList(lessMemberBeans);
                             }else{
                                 tx_more.setVisibility(View.GONE);
                                 GroupMemberBean add = new GroupMemberBean();
                                 add.nickname = "+";
-                                GroupMemberBean minus = new GroupMemberBean();
-                                minus.nickname = "-";
                                 memberBeans.add(add);
-                                memberBeans.add(minus);
+                                if(isOwner){
+                                    GroupMemberBean minus = new GroupMemberBean();
+                                    minus.nickname = "-";
+                                    memberBeans.add(minus);
+                                }
                                 groupMemberAdapter.setList(memberBeans);
                             }
 
@@ -302,6 +310,17 @@ public class GroupSettingActivity extends AppActivity {
                 }else if(groupMemberAdapter.getItem(position).nickname.equals("-")){
                     groupMemberAdapter.setMinus(!groupMemberAdapter.isMinus());
                     groupMemberAdapter.notifyDataSetChanged();
+                }else{
+                    if(groupMemberAdapter.getItem(position).isFriend){
+                        FriendInfoActivity.start(GroupSettingActivity.this,
+                                groupMemberAdapter.getItem(position).userId, null);
+                    }else{
+                        AddFriendApplyActivity.start(GroupSettingActivity.this,
+                                groupMemberAdapter.getItem(position).userId,
+                                groupMemberAdapter.getItem(position).nickname,
+                                groupMemberAdapter.getItem(position).residentAvatarUrl,null);
+                    }
+
                 }
             }
         });
@@ -340,13 +359,19 @@ public class GroupSettingActivity extends AppActivity {
         if(id == R.id.tx_more){
             GroupMemberBean add = new GroupMemberBean();
             add.nickname = "+";
-            GroupMemberBean minus = new GroupMemberBean();
-            minus.nickname = "-";
             memberBeans.add(add);
-            memberBeans.add(minus);
+            if(isOwner){
+                GroupMemberBean minus = new GroupMemberBean();
+                minus.nickname = "-";
+                memberBeans.add(minus);
+            }
             groupMemberAdapter.setList(memberBeans);
             tx_more.setVisibility(View.GONE);
         }else if(id == R.id.sb_group_name){
+            if(!isOwner){
+                toast("不可修改");
+                return;
+            }
             new InputDialog.Builder(getContext())
                     .setTitle("群聊名称设置")
                     .setContent("")

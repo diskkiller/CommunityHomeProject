@@ -20,6 +20,7 @@ import com.huaxixingfu.sqj.http.api.ResetPasswordApi;
 import com.huaxixingfu.sqj.http.api.ResetPasswordCodeApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.Sm4Util;
 import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.HashMap;
@@ -117,15 +118,34 @@ public class PasswordResetActivity extends AppActivity {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_password_commit) {
-            if (!mFirstPassword.getText().toString().equals(mSecondPassword.getText().toString())) {
-                ToastUtils.show("两次输入的密码不一致");
-                return;
-            }
+
             String phone = SPManager.instance(getActivity()).getUserPhone();
             String code = et_password_code.getText().toString();
             String firstPassword = mFirstPassword.getText().toString();
             String secondPassword = mSecondPassword.getText().toString();
-            resetPassWord(phone,code,firstPassword,secondPassword);
+
+            if(StringUtils.isEmpty(firstPassword) || StringUtils.isEmpty(secondPassword)){
+                ToastUtils.show("请输入密码");
+                return;
+            }
+            if (!firstPassword.equals(secondPassword)) {
+                ToastUtils.show("两次输入的密码不一致");
+                return;
+            }
+
+
+            String cipher = "";
+            try {
+                System.out.println("开始****************************");
+                System.out.println("加密前："+firstPassword);
+                cipher = Sm4Util.encryptEcb(Sm4Util.KEY,firstPassword);//sm4加密
+                System.out.println("加密后："+cipher);
+                System.out.println("校验："+Sm4Util.verifyEcb(Sm4Util.KEY,cipher,firstPassword));//校验加密前后是否为同一数据
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            resetPassWord(phone,code,cipher.toUpperCase(),cipher.toUpperCase());
         }else if(id == R.id.cv_password_countdown){
 
             resetPasswordCode();

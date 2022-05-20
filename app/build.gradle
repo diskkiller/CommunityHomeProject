@@ -9,6 +9,10 @@ apply from : '../common.gradle'
 def HOST_WEBSOCKET_URL = "ws://192.168.34.34:10084/ws/?token="
 
 
+def HOST_PIC_FILE_URL = "http://192.168.1.31/f/"
+//def HOST_PIC_FILE_URL = "https://file1.shequj.cn/"
+
+
 android {
 
     // 资源目录存放指引：https://developer.android.google.cn/guide/topics/resources/providing-resources
@@ -32,6 +36,7 @@ android {
         // 测试服务器的主机地址
         buildConfigField('String', 'HOST_URL', '"' + HOST_URL + '"')
         buildConfigField('String', 'HOST_WEBSOCKET_URL', '"' + HOST_WEBSOCKET_URL + '"')
+        buildConfigField('String', 'HOST_PIC_FILE_URL', '"' + HOST_PIC_FILE_URL + '"')
     }
 
     signingConfigs {

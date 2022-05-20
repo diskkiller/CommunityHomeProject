@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.module.BaseUpFetchModule;
 import com.chad.library.adapter.base.module.UpFetchModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.huaxixingfu.sqj.BuildConfig;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.bean.Message;
 import com.huaxixingfu.sqj.utils.TimeUtils;
@@ -39,10 +40,11 @@ public class MsgAdapter extends BaseMultiItemQuickAdapter<Message, BaseViewHolde
             case Message.TEXT_ME:
             case Message.TEXT_YOU:
                 vh.setText(R.id.tv_content, message.msg.content)
-                        .setText(R.id.tv_time, TimeUtils.formatTime(message.msg.systemTime, TimeUtils.TIME_FORMAT_STYLE_YS));
+                        .setText(R.id.tv_time, TimeUtils.formatTime(message.msg.systemTime, TimeUtils.TIME_FORMAT_STYLE_YS))
+                        .setText(R.id.tv_nickname,message.msg.extras.nickName);
                 TextView tv_time = vh.getView(R.id.tv_time);
                 tv_time.setVisibility(message.timeFlag ? View.VISIBLE : View.GONE);
-                Glide.with(getContext()).load("").placeholder(R.mipmap.icon_logo)
+                Glide.with(getContext()).load(BuildConfig.HOST_PIC_FILE_URL+message.msg.extras.avatarUrl).placeholder(R.mipmap.icon_logo)
                         .error(R.mipmap.icon_logo).into((NiceImageView) vh.getView(R.id.niv_avater));
                 break;
         }

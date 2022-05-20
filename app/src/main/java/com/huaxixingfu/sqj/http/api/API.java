@@ -363,6 +363,16 @@ public class API {
      */
     public static final String CANCEL_AD_DETAIL = MAIN_URL + "sggl/mobile/home/v1.0/start/page/one";
 
+    /**
+     * 查看好友信息
+     */
+    public static final String CHAT_FRIEND_DETAIL = MAIN_URL + "sggl/mobile/chat/friend/v1.0/detail";
+
+    /**
+     * 群公告删除
+     */
+    public static final String CHAT_GROUP_NOTICE_DEL = MAIN_URL + "sggl/mobile/chat/group/v1.0/notice/del";
+
 
 
 

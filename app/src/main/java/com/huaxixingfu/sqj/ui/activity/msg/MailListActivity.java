@@ -26,6 +26,7 @@ import com.huaxixingfu.sqj.http.api.RequestFriendCountApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.adapter.MaillListAdapter;
 import com.huaxixingfu.sqj.ui.adapter.SectionItemDecoration;
+import com.huaxixingfu.sqj.utils.StringUtils;
 import com.huaxixingfu.sqj.widget.SideIndexBar;
 
 import java.util.ArrayList;
@@ -73,7 +74,8 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
                             if((null != datas) && (datas.size()>0)){
                                 for (int i = 0,j= datas.size(); i < j; i++) {
                                     MailListApi.Bean item =  datas.get(i);
-                                    item.first = String.valueOf(Pinyin.toPinyin(item.chatFriendNiceName, "").charAt(0));
+                                    if(StringUtils.isNotEmpty(item.userNickName))
+                                        item.first = String.valueOf(Pinyin.toPinyin(item.userNickName, "").charAt(0));
                                 }
 
                                 contactsListBeans.clear();
@@ -147,7 +149,11 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
         RelativeLayout rl_new_friends = titleView.findViewById(R.id.rl_new_friends);
         RelativeLayout rl_my_groups = titleView.findViewById(R.id.rl_my_groups);
         RelativeLayout rl_my_shegong = titleView.findViewById(R.id.rl_my_shegong);
+
+        tv_new = titleView.findViewById(R.id.tv_new);
+
         rl_new_friends.setOnClickListener(v -> {
+            tv_new.setVisibility(View.GONE);
             startActivity(new Intent(getActivity(), NewFriendsActivity.class));
         });
         rl_my_groups.setOnClickListener(v -> {
@@ -156,7 +162,7 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
         rl_my_shegong.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), ResidentListActivity.class));
         });
-        tv_new = titleView.findViewById(R.id.tv_new);
+
 
         mailListAdapter.setLayoutManager(llm);
         mailListAdapter.addHeaderView(titleView);
@@ -164,7 +170,7 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
         mailListAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                FriendInfoActivity.start(MailListActivity.this,contactsListBeans.get(position).chatToUserId,contactsListBeans.get(position).chatFriendNiceName,null);
+                FriendInfoActivity.start(MailListActivity.this,contactsListBeans.get(position).chatToUserId, null);
 
             }
         });

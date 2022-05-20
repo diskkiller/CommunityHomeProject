@@ -12,6 +12,8 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.bean.GroupMemberBean;
 import com.huaxixingfu.sqj.http.api.MailListApi;
+import com.huaxixingfu.sqj.http.glide.GlideApp;
+import com.shehuan.niv.NiceImageView;
 
 import java.util.List;
 
@@ -40,6 +42,11 @@ public final class GroupMemberListVerAdapter extends BaseQuickAdapter<GroupMembe
         } else {
             iv_select.setImageResource(R.mipmap.share_to_family_unselected);
         }
+
+        NiceImageView niv_avater = baseViewHolder.getView(R.id.niv_avater);
+        GlideApp.with(getContext())
+                .load(contactsListBean.userAvatarUrl)
+                .into(niv_avater);
     }
 
     public void setLayoutManager(LinearLayoutManager mLayoutManager) {
