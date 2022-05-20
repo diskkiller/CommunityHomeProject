@@ -542,10 +542,10 @@ public class ResidentActivity extends AppActivity {
             return;
         }
 
-//        if (roomCodeDesc != null && !StringUtils.isRealIDCard(roomCodeDesc)) {
-//            ToastUtils.show("身份证号码不能超过18位");
-//            return;
-//        }
+        if (roomCodeDesc != null && !StringUtils.isRealIDCard(roomCodeDesc)) {
+            ToastUtils.show("身份证号码错误");
+            return;
+        }
 
         if(null == communityVCommunity){
             ToastUtils.show("请选择社区");

@@ -158,7 +158,7 @@ public class CertificationActivity extends AppActivity {
         }
 
         if (cardNumber != null && !StringUtils.isRealIDCard(cardNumber)) {
-            ToastUtils.show("身份证号码不能超过18位");
+            ToastUtils.show("身份证号码错误");
             return;
         }
 
