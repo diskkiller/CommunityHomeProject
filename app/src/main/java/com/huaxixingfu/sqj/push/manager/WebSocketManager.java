@@ -7,9 +7,11 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.huaxixingfu.sqj.BuildConfig;
+import com.huaxixingfu.sqj.app.AppApplication;
 import com.huaxixingfu.sqj.push.bean.RequestHeartBeat;
 import com.huaxixingfu.sqj.push.bean.ResponseMessage;
 import com.huaxixingfu.sqj.utils.LogUtil;
+import com.huaxixingfu.sqj.utils.NetWorkUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -188,6 +190,7 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
 
     private List<MessageListener.MessageObserver> messageObserverList; //观察者List
 
+    private final static int MAX_HEART_NUM = 3;       // 最大心跳发送失败数数
     private final static int MAX_NUM = 10;       // 最大重连数
     private final static int MILLIS = 5000;     // 重连间隔时间，毫秒
     private static WebSocketManager mInstance = null;
@@ -200,12 +203,15 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
     private boolean isConnect = false;
     private int connectNum = 0;
 
+    private int sendHeartCount = 0;
+
     //心跳包发送时间计时
     private long sendTime = 0L;
     // 发送心跳包
-    private final Handler mHandler = new Handler();
+    private Handler mHandler = new Handler();
     // 每隔30秒发送一次心跳包，检测连接没有断开
     private static final long HEART_BEAT_RATE = 30 * 1000;
+
 
     private WebSocketManager() {
 
@@ -306,6 +312,10 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
     public static void release() {
         try {
             if (mInstance != null) {
+                if(mInstance.mHandler != null){
+                    mInstance.mHandler.removeCallbacksAndMessages(null);
+                    mInstance.mHandler = null;
+                }
                 mInstance = null;
             }
         } catch (Exception e) {
@@ -336,6 +346,19 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
                 sendTime = System.currentTimeMillis();
                 boolean isSend = sendMessage(heartBeat);
                 LogUtil.e("aaaaaaaWebSocketManager", "心跳是否发送成功---" + isSend);
+                if(!isSend){
+                    boolean networkFlag = NetWorkUtils.getInstances().isNetSystemUsable(AppApplication.getContext());
+                    if(sendHeartCount >= MAX_HEART_NUM & networkFlag ){
+                        LogUtil.e("aaaaaaaWebSocketManager", "心跳是否发送失败次数---" + sendHeartCount);
+                        LogUtil.e("aaaaaaaWebSocketManager", "开始进行重连---");
+                        reconnect();
+                        sendHeartCount = 0;
+                    }
+                    sendHeartCount++;
+                    LogUtil.e("aaaaaaaWebSocketManager", "心跳是否发送失败次数---" + sendHeartCount);
+                }else{
+                    sendHeartCount = 0;
+                }
             }
             mHandler.postDelayed(this, HEART_BEAT_RATE); //每隔一定的时间，对长连接进行一次心跳检测
         }
@@ -356,7 +379,7 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
      * 尝试重连
      */
     public WebSocketManager reconnect() {
-        if (connectNum <= MAX_NUM) {
+        /*if (connectNum <= MAX_NUM) {
             try {
                 Thread.sleep(MILLIS);
                 connect();
@@ -366,6 +389,14 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
             }
         } else {
             LogUtil.i("aaaaaaaWebSocketManager", "reconnect over " + MAX_NUM + ",please check url or network");
+        }*/
+
+        try {
+            Thread.sleep(MILLIS);
+            connect();
+            connectNum++;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return this;
     }

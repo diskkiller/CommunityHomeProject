@@ -15,6 +15,7 @@ import com.huaxixingfu.sqj.http.api.GetForgetCodeApi;
 import com.huaxixingfu.sqj.http.api.PasswordApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.utils.MatchUtils;
+import com.huaxixingfu.sqj.utils.Sm4Util;
 
 import java.util.HashMap;
 
@@ -75,10 +76,27 @@ public class ForgetPwdActivity extends AppActivity implements View.OnClickListen
                 ToastUtils.show(R.string.confirm_pwd_error);
                 return;
             }
+
             if (!MatchUtils.isRightPwd(confirmPwd)) {
                 ToastUtils.show(R.string.login_pwd_principle);
             }
-            reset(account, code, pwd, confirmPwd);
+
+            if (!pwd.equals(confirmPwd)) {
+                ToastUtils.show("两次输入的密码不一致");
+            }
+
+            String cipher = "";
+            try {
+                System.out.println("开始****************************");
+                System.out.println("加密前："+pwd);
+                cipher = Sm4Util.encryptEcb(Sm4Util.KEY,pwd);//sm4加密
+                System.out.println("加密后："+cipher);
+                System.out.println("校验："+Sm4Util.verifyEcb(Sm4Util.KEY,cipher,pwd));//校验加密前后是否为同一数据
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            reset(account, code, cipher.toUpperCase(), cipher.toUpperCase());
         } else if (id == R.id.iv_back) {
             finish();
         } else if (id == R.id.tv_get_code) {

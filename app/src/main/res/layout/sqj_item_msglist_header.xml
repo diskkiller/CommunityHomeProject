@@ -43,12 +43,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="11dp"
-                    android:text="通知公告"
+                    android:text="社区公告"
                     android:textColor="#ff333333"
                     android:textSize="17sp" />
 
                 <TextView
-                    android:id="@+id/tv_content"
+                    android:id="@+id/tv_gonggao_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -129,6 +129,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_renwu_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -136,7 +137,7 @@
                     android:layout_marginBottom="12dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="您有新的通知待查看"
+                    android:text="您有新的任务消息待查看"
                     android:textColor="#ff999999"
                     android:textSize="13sp" />
 
@@ -161,5 +162,9 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
 
 </LinearLayout>

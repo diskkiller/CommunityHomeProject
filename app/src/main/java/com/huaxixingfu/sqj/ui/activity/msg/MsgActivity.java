@@ -122,7 +122,7 @@ public class MsgActivity extends AppActivity {
 
     @Override
     public void onRightClick(View view) {
-        FriendInfoActivity.start(MsgActivity.this,targetUid,nickName,null);
+        //FriendInfoActivity.start(MsgActivity.this,targetUid,nickName,null);
     }
 
     private void initIntent() {

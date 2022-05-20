@@ -20,6 +20,7 @@ import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.push.bean.Conersation;
 import com.huaxixingfu.sqj.utils.TimeUtils;
+import com.shehuan.niv.NiceImageView;
 
 import java.util.List;
 
@@ -40,6 +41,12 @@ public final class MaillListAdapter extends BaseQuickAdapter<MailListApi.Bean,Ba
     @Override
     protected void convert(@NonNull BaseViewHolder baseViewHolder, MailListApi.Bean contactsListBean) {
         baseViewHolder.setText(R.id.tv_nickname, contactsListBean.userNickName);
+
+        NiceImageView niv_avater = baseViewHolder.getView(R.id.niv_avater);
+
+        GlideApp.with(getContext())
+                .load(contactsListBean.userAvatarUrl)
+                .into(niv_avater);
     }
 
     public void setLayoutManager(LinearLayoutManager mLayoutManager) {

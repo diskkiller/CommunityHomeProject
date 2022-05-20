@@ -73,7 +73,8 @@ public class CreatGroupActivity extends AppActivity implements SideIndexBar.OnIn
                             if((null != datas) && (datas.size()>0)){
                                 for (int i = 0,j= datas.size(); i < j; i++) {
                                     MailListApi.Bean item =  datas.get(i);
-                                    item.first = String.valueOf(Pinyin.toPinyin(item.chatFriendNiceName, "").charAt(0));
+                                    if(StringUtils.isNotEmpty(item.userNickName))
+                                        item.first = String.valueOf(Pinyin.toPinyin(item.userNickName, "").charAt(0));
                                 }
 
                                 contactsListBeans.clear();
@@ -84,6 +85,10 @@ public class CreatGroupActivity extends AppActivity implements SideIndexBar.OnIn
                                         return o1.getSection().charAt(0) - o2.getSection().charAt(0);
                                     }
                                 });
+
+                                if (contactsListBeans.size() > 0) {
+                                    rv_maillist.addItemDecoration(new SectionItemDecoration(getContext(), contactsListBeans));
+                                }
 
                                 creatGroupAdapter.setList(contactsListBeans);
 

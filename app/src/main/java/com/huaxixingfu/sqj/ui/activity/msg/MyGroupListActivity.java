@@ -23,6 +23,7 @@ import com.huaxixingfu.sqj.http.api.JoinGroupListApi;
 import com.huaxixingfu.sqj.http.api.NeverGroupApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.adapter.GroupListAdapter;
+import com.scwang.smart.refresh.layout.listener.OnStateChangedListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,11 +58,16 @@ public class MyGroupListActivity extends AppActivity {
     }
 
     public void initData() {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getApplyList();
         getCreatList();
         getJoinList();
     }
-
 
     private void getApplyList(){
         EasyHttp.post(this)

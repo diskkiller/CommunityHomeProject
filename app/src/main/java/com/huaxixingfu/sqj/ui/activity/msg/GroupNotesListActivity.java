@@ -25,6 +25,7 @@ import com.huaxixingfu.sqj.bean.VNotiesData;
 import com.huaxixingfu.sqj.commom.IntentKey;
 import com.huaxixingfu.sqj.http.api.GroupNotesListApi;
 import com.huaxixingfu.sqj.http.api.MsgNotesListApi;
+import com.huaxixingfu.sqj.http.api.MsgNotesListDelApi;
 import com.huaxixingfu.sqj.http.api.MsgNotesListEditeApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
@@ -110,7 +111,7 @@ public class GroupNotesListActivity extends AppActivity implements OnRefreshLoad
         srlNewFriends = findViewById(R.id.srl_new_friends);
         recycler = findViewById(R.id.recycler);
 
-        adapter = new GroupNotesAdapter(R.layout.sqj_activity_gonggao_group_item);
+        adapter = new GroupNotesAdapter(R.layout.sqj_activity_gonggao_group_item,isOwner);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL,
                 false);
@@ -133,13 +134,13 @@ public class GroupNotesListActivity extends AppActivity implements OnRefreshLoad
     @Override
     protected void onStart() {
         super.onStart();
-        toast("onStart");
+        getNotesColumn(10,page,Integer.parseInt(groupId+""),false);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getNotesColumn(10,page,Integer.parseInt(groupId+""),false);
     }
 
     private void getNotesColumn(int size, int page,int groupId, boolean isLoadMore){
@@ -189,20 +190,17 @@ public class GroupNotesListActivity extends AppActivity implements OnRefreshLoad
                     }
                 });
     }
-    private void editeNewsColumn(int id){
+    private void delNotes(int id){
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userMessageId",id);
+        map.put("chatGroupNoticeId",id);
         EasyHttp.post(this)
-                .api(new MsgNotesListEditeApi())
+                .api(new MsgNotesListDelApi())
                 .json(map)
                 .request(new HttpCallback<HttpData>(this) {
 
                     @Override
                     public void onSucceed(HttpData data) {
-                        if(data.getData() != null){
-
-
-                        }
+                        getNotesColumn(10,page,Integer.parseInt(groupId+""),false);
                     }
 
                     @Override
@@ -226,7 +224,8 @@ public class GroupNotesListActivity extends AppActivity implements OnRefreshLoad
 
     @Override
     public void onItemChildClick(@NonNull BaseQuickAdapter madapter, @NonNull View view, int position) {
-        if(view.getId() == R.id.item_find){
+        if(view.getId() == R.id.item_del){
+            delNotes(adapter.getData().get(position).chatGroupNoticeId);
             //editeNewsColumn(adapter.getData().get(position).userMessageId);
             //BrowserActivity.start(getContext(),adapter.getData().get(position).detailUrl);
         }

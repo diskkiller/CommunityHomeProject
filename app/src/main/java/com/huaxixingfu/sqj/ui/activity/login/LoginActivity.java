@@ -23,6 +23,7 @@ import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.ViewUtils;
+import com.huaxixingfu.sqj.utils.Sm4Util;
 
 import java.util.HashMap;
 
@@ -47,8 +48,6 @@ public class LoginActivity extends AppActivity{
         findViewById(R.id.private_btn).setOnClickListener(this);
         findViewById(R.id.about_btn).setOnClickListener(this);
 
-        findViewById(R.id.private_btn).setOnClickListener(this);
-        findViewById(R.id.about_btn).setOnClickListener(this);
         TextView privateNtn = findViewById(R.id.private_btn);
         TextView aboutNtn = findViewById(R.id.about_btn);
         ViewUtils.setAntiAlias(privateNtn);
@@ -90,7 +89,19 @@ public class LoginActivity extends AppActivity{
                 ToastUtils.show(R.string.agree_user_contract);
                 return;
             }
-            login(account, pwd);
+
+            String cipher = "";
+            try {
+                System.out.println("开始****************************");
+                System.out.println("加密前："+pwd);
+                cipher = Sm4Util.encryptEcb(Sm4Util.KEY,pwd);//sm4加密
+                System.out.println("加密后："+cipher);
+                System.out.println("校验："+Sm4Util.verifyEcb(Sm4Util.KEY,cipher,pwd));//校验加密前后是否为同一数据
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            login(account, cipher.toUpperCase());
         } else if (id == R.id.tv_register) {
             //调用注册
             startActivity(new Intent(getActivity(), RegisterActivity.class));

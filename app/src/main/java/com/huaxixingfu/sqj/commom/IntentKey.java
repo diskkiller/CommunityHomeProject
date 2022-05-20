@@ -60,6 +60,9 @@ public final class IntentKey {
      *昵称
      */
     public static String NICKNAME = "nickName";
+    public static String ADDREES = "address";
+    public static String CHATFRIENDREMARK = "chatFriendRemark";
+    public static String CHATFRIEND_NICKENAME = "chatFriendNickname";
 
 
     public static String KEY_IS_GROUP = "isGroup";

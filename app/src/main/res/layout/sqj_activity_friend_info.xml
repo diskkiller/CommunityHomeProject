@@ -26,37 +26,42 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="10dp"
-            android:src="@mipmap/icon_logo" />
+            android:src="@mipmap/icon_logo"
+            app:corner_radius="4dp"
+            />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
 
             <TextView
-                android:id="@+id/tv_remark"
+                android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="好友昵称"
                 android:textColor="#ff333333"
                 android:textSize="17sp" />
 
             <LinearLayout
+                android:id="@+id/ll_friend_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="昵称："
+                    android:text="备注："
                     android:textColor="#ff999999"
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/tv_nickname"
+                    android:id="@+id/tv_friend_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="好友昵称"
@@ -66,7 +71,7 @@
             </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -80,17 +85,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_gravity="center_vertical"
-            android:background="@mipmap/icon_address" />
-
-        <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
+            android:drawableLeft="@mipmap/icon_address"
+            android:drawablePadding="@dimen/dp_10"
             android:text="社区-小区-楼号-单元-楼层-房号"
             android:textColor="#ff333333"
             android:textSize="12sp" />
@@ -107,7 +107,7 @@
         android:id="@+id/sb_edite_friend_rename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:bar_leftText="修改备注"
+        app:bar_leftText="输入备注"
         app:bar_rightDrawable="@drawable/arrows_right_ic"
         app:bar_rightText="输入备注"
         app:bar_rightTextColor="#BBBBBB"

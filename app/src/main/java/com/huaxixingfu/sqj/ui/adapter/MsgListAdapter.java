@@ -1,6 +1,7 @@
 package com.huaxixingfu.sqj.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.huaxixingfu.sqj.BuildConfig;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
 import com.huaxixingfu.sqj.app.myAppAdapter;
@@ -51,7 +53,7 @@ public final class MsgListAdapter extends myAppAdapter<Conersation> {
         }*/
 
         GlideApp.with(getContext())
-                .load(bean.avatarUrl)
+                .load(BuildConfig.HOST_PIC_FILE_URL+bean.chatBody.extras.avatarUrl)
                 .into(niv_avater);
 
     }

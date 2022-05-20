@@ -25,6 +25,7 @@ import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.utils.MatchUtils;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.Sm4Util;
 import com.huaxixingfu.sqj.utils.ViewUtils;
 
 import java.util.HashMap;
@@ -97,11 +98,26 @@ public class RegisterActivity extends AppActivity implements View.OnClickListene
             if (!MatchUtils.isRightPwd(confirmPwd)) {
                 ToastUtils.show(R.string.login_pwd_principle);
             }
+            if (!pwd.equals(confirmPwd)) {
+                ToastUtils.show("两次输入的密码不一致");
+            }
             if (!checkContract.isChecked()) {
                 ToastUtils.show(R.string.agree_user_contract);
                 return;
             }
-            register(account, code, pwd, confirmPwd);
+
+            String cipher = "";
+            try {
+                System.out.println("开始****************************");
+                System.out.println("加密前："+pwd);
+                cipher = Sm4Util.encryptEcb(Sm4Util.KEY,pwd);//sm4加密
+                System.out.println("加密后："+cipher);
+                System.out.println("校验："+Sm4Util.verifyEcb(Sm4Util.KEY,cipher,pwd));//校验加密前后是否为同一数据
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            register(account, code, cipher.toUpperCase(), cipher.toUpperCase());
         } else if (id == R.id.tv_code_login) {
             finish();
         } else if (id == R.id.tv_get_code) {

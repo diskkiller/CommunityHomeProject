@@ -18,6 +18,7 @@ public class Sm4Util {
     public static final String ALGORITHM_NAME = "SM4";
     // PKCS5Padding  NoPadding 补位规则，PKCS5Padding缺位补0，NoPadding不补
     public static final String ALGORITHM_NAME_ECB_PADDING = "SM4/ECB/PKCS5Padding";
+    public static final String KEY = "FA17113405706F714D7B973DB89F0B47";
 
     /**
      * ECB加密模式，无向量
@@ -29,6 +30,8 @@ public class Sm4Util {
      * @throws Exception
      */
     private static Cipher generateEcbCipher(String algorithmName, int mode, byte[] key) throws Exception {
+        Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
+        Security.addProvider(new BouncyCastleProvider());
         Cipher cipher = Cipher.getInstance(algorithmName, BouncyCastleProvider.PROVIDER_NAME);
         Key sm4Key = new SecretKeySpec(key, ALGORITHM_NAME);
         cipher.init(mode, sm4Key);

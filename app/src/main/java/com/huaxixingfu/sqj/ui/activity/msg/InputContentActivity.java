@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.diskkiller.base.BaseActivity;
 import com.diskkiller.http.EasyHttp;
@@ -19,6 +20,7 @@ import com.huaxixingfu.sqj.http.api.EditFriendNameApi;
 import com.huaxixingfu.sqj.http.api.GroupNoteAddApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.utils.StringUtils;
+import com.huaxixingfu.sqj.widget.MyTextWatcher;
 
 import java.util.HashMap;
 
@@ -61,6 +63,7 @@ public class InputContentActivity extends AppActivity {
     private EditText et_content;
 
     private TitleBar tb_title;
+    private TextView contentNum;
 
     @SuppressLint("NewApi")
     @Override
@@ -72,6 +75,14 @@ public class InputContentActivity extends AppActivity {
         targetUid = getLong(IntentKey.TARGETUID);
 
         et_content = findViewById(R.id.et_content);
+        contentNum = findViewById(R.id.content_num);
+
+        et_content.addTextChangedListener(new MyTextWatcher() {
+            @Override
+            public void afterTextChanged() {
+                contentNum.setText(et_content.getText().toString().length() + "/500");
+            }
+        });
 
         setOnClickListener(R.id.tv_submit);
 
