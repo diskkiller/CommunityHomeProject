@@ -680,6 +680,8 @@ public class PersonalDataActivity extends AppActivity {
         }else{
 
             new CardNotifocationDialog.Builder(this)
+
+                    .setTitle("请完成实名认证后再操作")
                 // 确定按钮文本
                 .setConfirm(getString(R.string.common_agress))
                 // 设置 null 表示不显示取消按钮
