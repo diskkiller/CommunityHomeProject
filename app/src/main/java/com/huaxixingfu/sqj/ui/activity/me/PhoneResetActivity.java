@@ -68,7 +68,7 @@ public class PhoneResetActivity extends AppActivity {
                 }
 
                 resetPoneCode(etPhoneResetPhone.getText().toString());
-                cvPhoneResetCountdown.start();
+
 
                 break;
             case R.id.btn_phone_reset_commit:
@@ -97,8 +97,13 @@ public class PhoneResetActivity extends AppActivity {
                             VCode model = data.getData();
                             if(model.status){
                                 ToastUtils.show("发送成功");
+                                cvPhoneResetCountdown.start();
                             }else{
-                                ToastUtils.show("发送失败");
+                                if("手机号已存在".equals(model.message)){
+                                    ToastUtils.show("手机号已注册，请重新输入");
+                                }else{
+                                    ToastUtils.show("发送失败");
+                                }
                             }
                         }
                     }
