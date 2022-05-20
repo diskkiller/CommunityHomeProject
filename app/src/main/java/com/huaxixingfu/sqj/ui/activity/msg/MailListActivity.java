@@ -149,6 +149,7 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
         RelativeLayout rl_new_friends = titleView.findViewById(R.id.rl_new_friends);
         RelativeLayout rl_my_groups = titleView.findViewById(R.id.rl_my_groups);
         RelativeLayout rl_my_shegong = titleView.findViewById(R.id.rl_my_shegong);
+        RelativeLayout rl_my_zone = titleView.findViewById(R.id.rl_my_zone);
 
         tv_new = titleView.findViewById(R.id.tv_new);
 
@@ -161,6 +162,9 @@ public class MailListActivity extends AppActivity implements SideIndexBar.OnInde
         });
         rl_my_shegong.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), ResidentListActivity.class));
+        });
+        rl_my_zone.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), ZoneResidentListActivity.class));
         });
 
 

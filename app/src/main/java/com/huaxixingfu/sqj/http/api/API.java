@@ -383,6 +383,21 @@ public class API {
      */
     public static final String CHAT_GROUP_NOTICE_DEL = MAIN_URL + "sggl/mobile/chat/group/v1.0/notice/del";
 
+    /**
+     * 群转让
+     */
+    public static final String CHAT_GROUP_TRANSFER = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/transfer";
+
+    /**
+     * 业主架构
+     */
+    public static final String CHAT_ZONE_LIST = MAIN_URL + "sggl/mobile/chat/zone/v1.0/zone/list";
+
+    /**
+     * 业主架构居民列表
+     */
+    public static final String CHAT_RESIDENT_LIST = MAIN_URL + "sggl/mobile/chat/zone/v1.0/resident/list";
+
 
 
 

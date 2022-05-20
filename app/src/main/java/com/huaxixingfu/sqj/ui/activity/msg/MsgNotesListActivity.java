@@ -78,7 +78,7 @@ public class MsgNotesListActivity extends AppActivity implements OnRefreshLoadMo
     @Override
     protected void onStart() {
         super.onStart();
-        toast("onStart");
+        //toast("onStart");
     }
 
     @Override

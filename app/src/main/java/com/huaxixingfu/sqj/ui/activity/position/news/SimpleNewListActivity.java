@@ -18,7 +18,9 @@ import com.huaxixingfu.sqj.aop.CheckNet;
 import com.huaxixingfu.sqj.aop.Log;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.commom.IntentKey;
+import com.huaxixingfu.sqj.http.api.HomeCloumnContentNewsApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
+import com.huaxixingfu.sqj.http.api.NewsColumnApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.me.CertificationActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
@@ -129,7 +131,7 @@ public class SimpleNewListActivity extends AppActivity {
         map.put("page",page);
         map.put("newsColumnCode",requestKey);
         EasyHttp.post(this)
-                .api(new HomeContentNewsApi())
+                .api(new HomeCloumnContentNewsApi())
                 .json(map)
                 .request(new HttpCallback<HttpData<HomeContentNewsApi.Bean>>(this) {
 

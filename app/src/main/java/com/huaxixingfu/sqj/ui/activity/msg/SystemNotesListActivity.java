@@ -97,7 +97,7 @@ public class SystemNotesListActivity extends AppActivity implements OnRefreshLoa
                                 srlNewFriends.finishLoadMore();
                                 if(null != model) {
                                     List<VNotes> columns = model.content;
-                                    if ((null != columns) || (columns.size() > 0)) {
+                                    if ((null != columns) && (columns.size() > 0)) {
                                         adapter.addData(columns);
                                     }else{
                                         ToastUtils.show("暂无更多数据");
@@ -108,7 +108,7 @@ public class SystemNotesListActivity extends AppActivity implements OnRefreshLoa
                                 srlNewFriends.finishRefresh();
                                 if(null != model) {
                                     List<VNotes> columns = model.content;
-                                    if ((null != columns) || (columns.size() > 0)) {
+                                    if ((null != columns) && (columns.size() > 0)) {
                                         adapter.clearData();
                                         adapter.setList(columns);
                                     }else{
@@ -158,7 +158,7 @@ public class SystemNotesListActivity extends AppActivity implements OnRefreshLoa
         Object item = adapter.getItem(position);
         if(item instanceof VNotes){
             if(StringUtils.isNotEmpty(((VNotes)item).detailUrl)){
-                editeNewsColumn(((VNotes)item).userMessageId);
+                //editeNewsColumn(((VNotes)item).userMessageId);
                 BrowserActivity.start(getContext(),((VNotes)item).detailUrl);
             }
         }

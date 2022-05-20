@@ -19,6 +19,7 @@ import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.GroupMemberBean;
 import com.huaxixingfu.sqj.commom.IntentKey;
 import com.huaxixingfu.sqj.http.api.GroupMemberDetailApi;
+import com.huaxixingfu.sqj.http.api.GroupTransferApi;
 import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.api.msg.AddGroupMemberApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
@@ -161,13 +162,13 @@ public class GroupTransferActivity extends AppActivity{
         map.put("groupId",targetUid);
         map.put("chatUserId",memberId);
         EasyHttp.post(this)
-                .api(new AddGroupMemberApi())
+                .api(new GroupTransferApi())
                 .json(map)
                 .request(new HttpCallback<HttpData>(this) {
 
                     @Override
                     public void onSucceed(HttpData data) {
-                        toast("添加成功");
+                        toast("转让成功");
                         finish();
                     }
 
