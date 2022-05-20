@@ -18,7 +18,9 @@ import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.TitleBarFragment;
 import com.huaxixingfu.sqj.bean.PersonDataBean;
+import com.huaxixingfu.sqj.bean.VResident;
 import com.huaxixingfu.sqj.commom.Constants;
+import com.huaxixingfu.sqj.http.api.GetResidentInitApi;
 import com.huaxixingfu.sqj.http.api.PersonalDataApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.manager.ActivityManager;
@@ -28,7 +30,6 @@ import com.huaxixingfu.sqj.ui.activity.me.AccountSecurityActivity;
 import com.huaxixingfu.sqj.ui.activity.me.FamilyDateActivity;
 import com.huaxixingfu.sqj.ui.activity.me.FeedbackActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
-import com.huaxixingfu.sqj.ui.activity.me.ResidentActivity;
 import com.huaxixingfu.sqj.ui.activity.me.SettingActivity;
 import com.huaxixingfu.sqj.ui.dialog.CardNotifocationDialog;
 import com.huaxixingfu.sqj.utils.Encryption;
@@ -171,7 +172,7 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
     private void personAdressClick(){
 
         if("已认证".equals(personDataBean.getCardStartusName())){
-            startActivity(new Intent(getActivity(), FamilyDateActivity.class));
+            getResidentInit();
         }else{
 
             new CardNotifocationDialog.Builder(getActivity())
@@ -199,5 +200,54 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
                     .show();
         }
     }
+
+    private void getResidentInit(){
+        EasyHttp.post(this)
+                .api(new GetResidentInitApi())
+                .request(new HttpCallback<HttpData<VResident>>(this) {
+                    @Override
+                    public void onSucceed(HttpData<VResident> mdata) {
+                        if(mdata.getData() != null){
+                            VResident data = mdata.getData();
+                            if(null != data){
+                                //0未认证  /1待认证/2认证通过/3认证驳回
+                                int residentStatus = data.residentStatus;
+                                if(residentStatus == 2){
+                                    //2认证通过
+                                    startActivity(new Intent(getActivity(), FamilyDateActivity.class));
+                                }else{
+                                    new CardNotifocationDialog.Builder(getActivity())
+                                            // 确定按钮文本
+                                            .setConfirm(getString(R.string.common_agress))
+                                            // 设置 null 表示不显示取消按钮
+                                            .setCancel(getString(R.string.common_refuse))
+                                            .setCancelable(false)
+                                            //.setAutoDismiss(false)
+                                            .setCanceledOnTouchOutside(false)
+                                            .setListener(new CardNotifocationDialog.OnListener() {
+
+                                                @Override
+                                                public void onConfirm() {
+                                                    startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+                                                }
+
+                                                @Override
+                                                public void onCancel(BaseDialog dialog) {
+//                            finish();
+                                                }
+                                            })
+                                            .show();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
+    }
+
 
 }
