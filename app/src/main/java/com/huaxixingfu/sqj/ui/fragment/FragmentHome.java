@@ -56,7 +56,9 @@ import java.util.Observer;
 public class FragmentHome extends AppFragment<HomeActivity>  {
 
     private RecyclerView recycler;
-
+    private HomeContentNewsAdapter adapter;
+    private SmartRefreshLayout mRefreshLayout;
+    int page = 0;
     public static FragmentHome newInstance() {
         return new FragmentHome();
     }
@@ -142,9 +144,7 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
         initHomeContentNews(false);
     }
 
-    private HomeContentNewsAdapter adapter;
-    private SmartRefreshLayout mRefreshLayout;
-    int page = 0;
+
 
 
     public void initRv(){
@@ -188,7 +188,7 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
         HashMap<String, Object> map = new HashMap<>();
         map.put("size","10");
         map.put("page",page);
-        map.put("newsColumnCode","");
+        map.put("newsColumnCode","TONGZHIGONGGAO");
         EasyHttp.post(this)
                 .api(new HomeContentNewsApi())
                 .json(map)

@@ -202,7 +202,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         @Override
         public void onBindView(int position) {
             findViewById(R.id.move).setOnClickListener(view->{
-                SimpleNewListActivity.start((BaseActivity) getContext(),"","");
+                SimpleNewListActivity.start((BaseActivity) getContext(),"社区头条","TONGZHIGONGGAO");
             });
         }
     }
