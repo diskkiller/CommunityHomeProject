@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/dp_65"
-        android:background="@drawable/bg_add_pic_dash"
+        android:src="@mipmap/feedback_bg_closed"
         android:layout_width="20dp"
         android:layout_height="20dp" />
 

@@ -73,8 +73,12 @@ public class InputTextActivity extends AppActivity {
         switch (title){
 
             case "输入姓名":
+                et_input.setHint("请"+title);
+                et_input.setMaxHeight(20);
+                break;
             case "输入身份证号":
                 et_input.setHint("请"+title);
+                et_input.setMaxHeight(18);
                 break;
             case "职业信息":
             case "个性签名":
