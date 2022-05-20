@@ -58,21 +58,35 @@ public class FeedBackImageAdapter extends RecyclerView.Adapter<FeedBackImageAdap
 
                     case FeedBackImageBean.TYPE_DEFUALT:
                         holder.typeName.setImageResource(R.mipmap.ic_add_pic);
+                        holder.typeNameClose.setVisibility(View.GONE);
                         break;
                     case FeedBackImageBean.TYPE_IMAGE_LOCAL:
                         Glide.with(activity).load(typeBean.imageUrl).into(holder.typeName);
+                        holder.typeNameClose.setVisibility(View.VISIBLE);
                         break;
                     case FeedBackImageBean.TYPE_IMAGE_HTTP:
                         Glide.with(activity).load(typeBean.imageUrlHttp).into(holder.typeName);
-
+                        holder.typeNameClose.setVisibility(View.VISIBLE);
                         break;
                 }
                 holder.typeName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onItemClickListener(v,position,typeBean);
+                        if(typeBean.defualt == FeedBackImageBean.TYPE_DEFUALT){
+                            listener.onItemClickListener(v,position,typeBean);
+                        }
                     }
                 });
+                holder.typeNameClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(typeBean.defualt != FeedBackImageBean.TYPE_DEFUALT){
+                            listener.onItemClickListener(v,position,typeBean);
+                        }
+                    }
+                });
+
+
             }
         }
     }
@@ -84,9 +98,11 @@ public class FeedBackImageAdapter extends RecyclerView.Adapter<FeedBackImageAdap
 
     class TypeViewHolder extends RecyclerView.ViewHolder {
         ImageView typeName;
+        ImageView typeNameClose;
         public TypeViewHolder(@NonNull View itemView) {
             super(itemView);
             typeName = itemView.findViewById(R.id.iv_photo);
+            typeNameClose = itemView.findViewById(R.id.iv_close);
         }
     }
 

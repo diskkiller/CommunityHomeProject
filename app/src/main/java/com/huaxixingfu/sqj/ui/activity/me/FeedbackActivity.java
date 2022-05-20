@@ -230,7 +230,6 @@ public class FeedbackActivity extends AppActivity{
                                         feedBackImageBean.defualt =  FeedBackImageBean.TYPE_IMAGE_HTTP;
                                         loadUrl --;
                                         uploadFile();
-
                                     }
                                 }
                             }
