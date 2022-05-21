@@ -219,7 +219,7 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
 
                                 }else {
                                     mRefreshLayout.finishLoadMore();
-                                    ToastUtils.show("暂无更多数据");
+                                    //ToastUtils.show("暂无更多数据");
 
                                 }
                             }

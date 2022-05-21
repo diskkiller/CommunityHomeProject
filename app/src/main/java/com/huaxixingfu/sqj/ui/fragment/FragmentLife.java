@@ -19,6 +19,7 @@ import com.huaxixingfu.sqj.action.StatusAction;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.app.TitleBarFragment;
+import com.huaxixingfu.sqj.http.api.HomeCloumnContentNewsApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
@@ -105,7 +106,7 @@ public class FragmentLife extends TitleBarFragment<AppActivity> implements Statu
         map.put("page",page);
         map.put("newsColumnCode","SHENGHUOQUAN");
         EasyHttp.post(this)
-                .api(new HomeContentNewsApi())
+                .api(new HomeCloumnContentNewsApi())
                 .json(map)
                 .request(new HttpCallback<HttpData<HomeContentNewsApi.Bean>>(this) {
 

@@ -15,16 +15,25 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.diskkiller.base.BaseDialog;
 import com.diskkiller.base.FragmentPagerAdapter;
 import com.gyf.immersionbar.ImmersionBar;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.app.AppApplication;
 import com.huaxixingfu.sqj.app.AppFragment;
+import com.huaxixingfu.sqj.bean.PersonDataBean;
+import com.huaxixingfu.sqj.bean.UserData;
+import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.other.DoubleClickHelper;
 import com.huaxixingfu.sqj.push.manager.WebSocketManager;
 import com.huaxixingfu.sqj.push.service.ImService;
+import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
+import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.adapter.NavigationAdapter;
+import com.huaxixingfu.sqj.ui.dialog.InputDialog;
+import com.huaxixingfu.sqj.ui.dialog.MessageDialog;
 import com.huaxixingfu.sqj.ui.fragment.FragmentHome;
 import com.huaxixingfu.sqj.ui.fragment.FragmentLife;
 import com.huaxixingfu.sqj.ui.fragment.FragmentMsgList;
@@ -119,7 +128,7 @@ public final class HomeActivity extends AppActivity
 
     @Override
     public void onConnectFailed() {
-        runOnUiThread(() -> Toast.makeText(getContext(), "IM登录失败", Toast.LENGTH_SHORT).show());
+        //runOnUiThread(() -> Toast.makeText(getContext(), "IM登录失败", Toast.LENGTH_SHORT).show());
 
     }
 
@@ -154,11 +163,12 @@ public final class HomeActivity extends AppActivity
         super.onStart();
         //只有登录才尝试开启后台服务
         if (!isServiceRunning(ImService.class.getName(), getContext()) && SPManager.instance(getApplicationContext()).isLogin()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(new Intent(getContext(), ImService.class));
             } else {
                 startService(new Intent(getContext(), ImService.class));
-            }
+            }*/
+            startService(new Intent(getContext(), ImService.class));
         }
     }
 
@@ -212,8 +222,42 @@ public final class HomeActivity extends AppActivity
             case 1:
             case 2:
             case 3:
-                mViewPager.setCurrentItem(fragmentIndex);
-                mNavigationAdapter.setSelectedPosition(fragmentIndex);
+                if(fragmentIndex == 2){
+                    if(SPManager.instance(getContext()).isLogin()){
+                        if(SPManager.instance(AppApplication.getInstances()).
+                                getModel(Constants.USERINFO, PersonDataBean.class).
+                                getUserResidentCertStatus() == 2){
+                            mViewPager.setCurrentItem(fragmentIndex);
+                            mNavigationAdapter.setSelectedPosition(fragmentIndex);
+                        }else{
+
+                            new MessageDialog.Builder(getContext())
+                                    .setTitle("温馨提示")
+                                    .setMessage("请完成居民认证后再去操作")
+                                    .setCancelable(false)
+                                    .setListener(new MessageDialog.OnListener() {
+                                        @Override
+                                        public void onConfirm(BaseDialog dialog) {
+                                            startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+                                        }
+
+                                        @Override
+                                        public void onCancel(BaseDialog dialog) {
+
+                                        }
+                                    })
+                                    .show();
+
+                        }
+
+                    }else{
+                        ActivityManager.getInstance().finishAllActivities(LoginActivity.class);
+                    }
+                }else{
+
+                    mViewPager.setCurrentItem(fragmentIndex);
+                    mNavigationAdapter.setSelectedPosition(fragmentIndex);
+                }
                 break;
             default:
                 break;
@@ -225,13 +269,47 @@ public final class HomeActivity extends AppActivity
      */
 
     @Override
-    public boolean onNavigationItemSelected(int position) {
-        switch (position) {
+    public boolean onNavigationItemSelected(int fragmentIndex) {
+        switch (fragmentIndex) {
             case 0:
             case 1:
             case 2:
             case 3:
-                mViewPager.setCurrentItem(position);
+                if(fragmentIndex == 2){
+                    if(SPManager.instance(getContext()).isLogin()){
+                        if(SPManager.instance(AppApplication.getInstances()).
+                                getModel(Constants.USERINFO, PersonDataBean.class).
+                                getUserResidentCertStatus() == 2){
+                            mViewPager.setCurrentItem(fragmentIndex);
+                        }else{
+
+                            new MessageDialog.Builder(getContext())
+                                    .setTitle("温馨提示")
+                                    .setMessage("请完成居民认证后再去操作")
+                                    .setCancelable(false)
+                                    .setListener(new MessageDialog.OnListener() {
+                                        @Override
+                                        public void onConfirm(BaseDialog dialog) {
+                                            startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+                                        }
+
+                                        @Override
+                                        public void onCancel(BaseDialog dialog) {
+
+                                        }
+                                    })
+                                    .show();
+
+                        }
+
+                    }else{
+                        ActivityManager.getInstance().loginOut(getContext());
+                    }
+                }else{
+
+                    mViewPager.setCurrentItem(fragmentIndex);
+                }
+
                 return true;
             default:
                 return false;

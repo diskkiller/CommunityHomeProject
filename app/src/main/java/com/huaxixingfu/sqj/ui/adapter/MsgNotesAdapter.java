@@ -40,9 +40,11 @@ public class MsgNotesAdapter extends BaseQuickAdapter<VNotes, BaseViewHolder> {
         TextView itemContent = baseViewHolder.getView(R.id.item_content);
         TextView itemFind = baseViewHolder.getView(R.id.item_find);
         TextView itemTime = baseViewHolder.getView(R.id.item_time);
+        TextView item_title = baseViewHolder.getView(R.id.item_title);
         View item_point = baseViewHolder.getView(R.id.item_point);
 
         itemHint.setText(model.appGuideTitle);
+        item_title.setText(model.messageTypeName);
         item_point.setVisibility(View.INVISIBLE);
         if(model.messageStatus == 0)
             item_point.setVisibility(View.VISIBLE);

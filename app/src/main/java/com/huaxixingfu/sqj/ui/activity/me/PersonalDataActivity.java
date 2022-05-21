@@ -515,7 +515,7 @@ public class PersonalDataActivity extends AppActivity {
                     }
                 });
     }
-    private void editBir(String bir){
+    private void editBir(long bir){
         HashMap<String, Object> map = new HashMap<>();
         map.put("content", bir);
         EasyHttp.post(this)
@@ -608,8 +608,9 @@ public class PersonalDataActivity extends AppActivity {
                                         ToastUtils.show("时间不能大于当前日期");
                                         return;
                                     }
-                                    editBir(MyTime.geTime_yyyyMMdd(selTime));
                                     sbPersonalBirthday.setRightText(date);
+                                    Integer time = Integer.valueOf(String.valueOf(selTime.getTime()).substring(0,10));
+                                    editBir(time.intValue());
 
                                 } catch (Exception e) {
                                     e.printStackTrace();

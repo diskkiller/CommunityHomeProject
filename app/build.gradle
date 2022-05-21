@@ -5,12 +5,12 @@ apply from : '../common.gradle'
 
 
 
-//def HOST_WEBSOCKET_URL = "http://jm.shequj.cn/api/im/ws/?token="
-def HOST_WEBSOCKET_URL = "ws://192.168.34.34:10084/ws/?token="
+def HOST_WEBSOCKET_URL = "https://jm.shequj.cn/api/im/ws/?token="
+//def HOST_WEBSOCKET_URL = "ws://192.168.34.34:10084/ws/?token="
 
 
-def HOST_PIC_FILE_URL = "http://192.168.1.31/f/"
-//def HOST_PIC_FILE_URL = "https://file1.shequj.cn/"
+//def HOST_PIC_FILE_URL = "http://192.168.1.31/f/"
+def HOST_PIC_FILE_URL = "https://file1.shequj.cn/"
 
 
 android {
@@ -88,14 +88,14 @@ android {
 
         release {
             // 调试模式开关
-            debuggable false
+            debuggable true
             jniDebuggable false
             // 压缩对齐开关
             zipAlignEnabled true
             // 移除无用的资源
-            shrinkResources true
+            shrinkResources false
             // 代码混淆开关
-            minifyEnabled true
+            minifyEnabled false
             // 签名信息配置
             signingConfig signingConfigs.config
             // 添加清单占位符

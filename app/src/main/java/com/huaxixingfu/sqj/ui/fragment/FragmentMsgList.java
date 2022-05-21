@@ -363,12 +363,12 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                 targetUid = conersation.chatBody.groupId;
             }
 
-            toast(targetUid+"");
+            //toast(targetUid+"");
 
 
             HashMap<String, Object> map = new HashMap<>();
 
-            //WebSocketManager.getInstance().read(msgList.get(position).sessionId);
+            WebSocketManager.getInstance().read(msgList.get(position).sessionId);
             msgList.get(position).unreadMsgNum = 0;
             /**
              * java.lang.IllegalArgumentException: Called attach on a child which is not detached: ViewHolder

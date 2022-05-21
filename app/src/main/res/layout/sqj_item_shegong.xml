@@ -56,7 +56,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="申请描述："
+                    android:text="负责区域："
                     android:textColor="#ff999999"
                     android:textSize="13sp"
                     />
@@ -65,7 +65,7 @@
                     android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="描述文案"
+                    android:text=""
                     android:textColor="#ff999999"
                     android:textSize="13sp"
                     android:lines="1"

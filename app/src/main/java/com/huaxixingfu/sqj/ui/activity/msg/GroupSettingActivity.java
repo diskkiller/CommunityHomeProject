@@ -304,7 +304,7 @@ public class GroupSettingActivity extends AppActivity {
         groupMemberAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                toast(groupMemberAdapter.getItem(position).nickname);
+                //toast(groupMemberAdapter.getItem(position).nickname);
                 if(groupMemberAdapter.getItem(position).nickname.equals("+")){
                     GroupAddMemberActivity.start(GroupSettingActivity.this,targetUid,null);
                 }else if(groupMemberAdapter.getItem(position).nickname.equals("-")){

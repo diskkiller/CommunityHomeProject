@@ -43,7 +43,14 @@ public class ResidentListAdapter extends BaseQuickAdapter<ResidentListApi.Bean, 
         NiceImageView niv_avater = baseViewHolder.getView(R.id.niv_avater);
 
         tv_nickname.setText(model.getResidentNickName());
-        tv_content.setText(model.getZoneRoomAddr());
+        if(model.getZoneVOTreeVOList() != null && model.getZoneVOTreeVOList().size()>0){
+            for (ResidentListApi.Bean.ZoneVOTreeVOList zoneVOTreeVOList : model.getZoneVOTreeVOList()) {
+                if(zoneVOTreeVOList.getFlag() == 1){
+                    tv_content.setText(zoneVOTreeVOList.getZoneName());
+                }
+            }
+        }
+
 
         /*boolean isSelect = model.isSelect;
         ImageView iv_select = baseViewHolder.getView(R.id.iv_select);

@@ -124,5 +124,45 @@
             android:textColor="@color/color_ffffff"
             android:textSize="13sp" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_my_zone"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_ffffff"
+        >
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/niv_zone"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/icon_my_shegong" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/niv_zone"
+            android:text="业主架构"
+            android:textColor="#ff333333"
+            android:textSize="17sp" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_zone_new"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/sqj_bg_white_shap_30"
+            android:backgroundTint="@color/red"
+            android:gravity="center"
+            android:textColor="@color/color_ffffff"
+            android:textSize="13sp" />
+    </RelativeLayout>
 
 </LinearLayout>

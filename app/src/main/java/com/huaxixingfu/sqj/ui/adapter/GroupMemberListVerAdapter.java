@@ -45,7 +45,7 @@ public final class GroupMemberListVerAdapter extends BaseQuickAdapter<GroupMembe
 
         NiceImageView niv_avater = baseViewHolder.getView(R.id.niv_avater);
         GlideApp.with(getContext())
-                .load(contactsListBean.userAvatarUrl)
+                .load(contactsListBean.residentAvatarUrl)
                 .into(niv_avater);
     }
 

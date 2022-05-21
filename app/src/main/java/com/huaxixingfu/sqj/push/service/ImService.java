@@ -46,7 +46,7 @@ public class ImService extends Service {
     public void onCreate() {
         super.onCreate();
         initIM();
-        LogUtil.e("aaaaaaaImService", "已创建");
+        /*LogUtil.e("aaaaaaaImService", "已创建");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID;
             String channelName = BuildConfig.APPLICATION_ID + ".ImService";
@@ -60,7 +60,7 @@ public class ImService extends Service {
                     .build();
 
             startForeground(2, notification);
-        }
+        }*/
     }
 
     private void initIM() {
