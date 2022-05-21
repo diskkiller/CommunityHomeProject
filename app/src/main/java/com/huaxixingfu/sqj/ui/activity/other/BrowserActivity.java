@@ -42,7 +42,7 @@ public final class BrowserActivity extends AppActivity
         }
         Intent intent = new Intent(context, BrowserActivity.class);
         intent.putExtra(INTENT_KEY_IN_URL, url);
-        intent.putExtra(INTENT_KEY_IN_TITLE, title);
+        intent.putExtra(INTENT_KEY_IN_TITLE, "详情");
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -165,10 +165,10 @@ public final class BrowserActivity extends AppActivity
          */
         @Override
         public void onReceivedTitle(WebView view, String title) {
-           if (title == null || "about:blank".equals(title)) {
-                return;
-            }
-            setTitle(title);
+//           if (title == null || "about:blank".equals(title)) {
+//                return;
+//            }
+//            setTitle(title);
         }
 
         @Override

@@ -11,6 +11,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/dp_40"
         android:layout_marginStart="@dimen/dp_12"
+        android:paddingTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ImageView
@@ -20,10 +21,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/dp_40"
         android:layout_marginStart="@dimen/dp_12"
+        android:paddingTop="10dp"
         android:background="@drawable/bg_add_pic_dash"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:padding="4dp"/>
+
+
+    <ImageView
+        android:id="@+id/iv_close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/dp_65"
+        android:src="@mipmap/feedback_bg_closed"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
