@@ -197,8 +197,8 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
 
     private OkHttpClient client;
     private Request request;
-    private ConnectStateListener connectStateListener;
     private WebSocket mWebSocket;
+    private ConnectStateListener connectStateListener;
 
     private boolean isConnect = false;
     private int connectNum = 0;
@@ -315,6 +315,13 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
                 if(mInstance.mHandler != null){
                     mInstance.mHandler.removeCallbacksAndMessages(null);
                     mInstance.mHandler = null;
+                }
+                if(mInstance.connectStateListener != null){
+                    mInstance.connectStateListener = null;
+                }
+                if(mInstance.messageObserverList != null){
+                    mInstance.messageObserverList.clear();
+                    mInstance.messageObserverList = null;
                 }
                 mInstance = null;
             }
@@ -467,6 +474,7 @@ public final class WebSocketManager implements MessageListener.MessageObserverab
             mWebSocket.close(1001, "客户端主动关闭连接");
         }
     }
+
 
     private WebSocketListener createListener() {
         return new WebSocketListener() {
