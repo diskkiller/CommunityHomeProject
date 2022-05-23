@@ -66,10 +66,18 @@ ext {
             LOG_ENABLE = true
             BUGLY_ID = "请自行替换 Bugly 上面的 AppID"
             if (serverType == SERVER_TYPE_PREVIEW) {
+//                HOST_URL = "http://192.168.34.34:10085/"
+//                HOST_WEBSOCKET_URL = "ws://192.168.34.34:10084/ws/?token="
 
-
-
+                HOST_URL = "http://jm.shequj.cn/api/mobile/"
+                HOST_WEBSOCKET_URL = "http://jm.shequj.cn/api/im/ws/?token="
             } else {
+//                HOST_URL = "http://192.168.34.34:10085/"
+//                HOST_WEBSOCKET_URL = "ws://192.168.34.34:10084/ws/?token="
+
+                HOST_URL = "http://jm.shequj.cn/api/mobile/"
+                HOST_WEBSOCKET_URL = "http://jm.shequj.cn/api/im/ws/?token="
+
 
             }
             break
@@ -86,8 +94,8 @@ ext {
             minSdkVersion                 : 23,
             targetSdkVersion              : 29,
             versionCode                   : 24,
-            versionName                   : "2.5.4",
-            ucropVersionCode              : 22,
+//            versionName                   : "2.5.4",
+//            ucropVersionCode              : 22,
             ucropVersionName              : "2.2.0-native",
 
             //open version control
