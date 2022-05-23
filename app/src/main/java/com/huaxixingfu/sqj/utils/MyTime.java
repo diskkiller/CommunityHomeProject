@@ -41,6 +41,20 @@ public class MyTime {
         return formate.format(date);
     }
 
+
+    public static String geTime_yyyyMMddString(String string)  {
+        try {
+            SimpleDateFormat formate = new SimpleDateFormat("yyyyMMdd");
+
+            SimpleDateFormat formateResult = new SimpleDateFormat("yyyy-MM-dd");
+            return formateResult.format(formate.parse(string));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+
+    }
+
     public static String geTime(long time) {
         Date date = new Date(time);
         SimpleDateFormat formate = new SimpleDateFormat("MM-dd HH:mm:ss");
