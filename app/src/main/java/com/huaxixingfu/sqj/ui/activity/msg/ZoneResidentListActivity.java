@@ -132,7 +132,7 @@ public class ZoneResidentListActivity extends AppActivity implements View.OnClic
         residentZoneListAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-                toast(residentZoneListAdapter.getData().get(position).residentName);
+                //toast(residentZoneListAdapter.getData().get(position).residentName);
                 if(residentZoneListAdapter.getData().get(position).isFriend){
                     TempMessageActivity.show(getContext(),residentZoneListAdapter.getData().get(position).userId,
                             residentZoneListAdapter.getData().get(position).userId+"",

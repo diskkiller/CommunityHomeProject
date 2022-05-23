@@ -7,6 +7,24 @@ ext {
     def SERVER_TYPE_PRODUCT = "product"
 
 
+    HOST_URL = "https://jm.shequj.cn/api/mobile/"
+    HOST_PIC_FILE_URL = "https://file1.shequj.cn/"
+    HOST_WEBSOCKET_URL = "wss://jm.shequj.cn/api/im/ws/?token="
+
+
+    /*TEST_HOST_URL = "http://192.168.34.34:10085/"
+    TEST_HOST_WEBSOCKET_URL = "ws://192.168.34.34:10084/ws/?token="
+    TEST_HOST_PIC_FILE_URL = "http://192.168.1.31/f/"*/
+
+
+    //====================vpv===============================
+
+    TEST_HOST_URL = "http://10.8.0.6:10056/"
+    TEST_HOST_WEBSOCKET_URL = "ws://10.8.0.6:10057/ws/?token="
+    TEST_HOST_PIC_FILE_URL = "http://10.8.0.6:10051/f/"
+
+
+
 
     def taskName = project.gradle.startParameter.taskNames[0]
     if (taskName == null) {
@@ -59,14 +77,14 @@ ext {
 
                 HOST_URL = "http://jm.shequj.cn/api/mobile/"
                 HOST_WEBSOCKET_URL = "http://jm.shequj.cn/api/im/ws/?token="
+
+
             }
             break
         case SERVER_TYPE_PRODUCT:
             LOG_ENABLE = true
             BUGLY_ID = "请自行替换 Bugly 上面的 AppID"
-            HOST_URL = "https://jm.shequj.cn/api/mobile/"
-            HOST_WEBSOCKET_URL = "wss://jm.shequj.cn/api/im/ws/?token="
-            HOST_PIC_FILE_URL = "https://file1.shequj.cn/"
+
             break
     }
 
