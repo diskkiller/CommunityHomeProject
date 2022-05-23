@@ -94,8 +94,8 @@ ext {
             minSdkVersion                 : 23,
             targetSdkVersion              : 29,
             versionCode                   : 24,
-            versionName                   : "2.5.4",
-            ucropVersionCode              : 22,
+//            versionName                   : "2.5.4",
+//            ucropVersionCode              : 22,
             ucropVersionName              : "2.2.0-native",
 
             //open version control
