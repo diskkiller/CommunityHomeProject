@@ -131,8 +131,7 @@ public class PersonalDataActivity extends AppActivity {
                             if(personDataBean.getUserBir() != 0){
                                 Calendar c=Calendar.getInstance();
                                 int seconds = personDataBean.getUserBir();
-                                long millions=new Long(seconds).longValue()*1000;
-                                sbPersonalBirthday.setRightText(MyTime.getTime_3(millions));
+                                sbPersonalBirthday.setRightText(MyTime.geTime_yyyyMMddString(String.valueOf(seconds)));
                             }
 
 
@@ -609,8 +608,9 @@ public class PersonalDataActivity extends AppActivity {
                                         return;
                                     }
                                     sbPersonalBirthday.setRightText(date);
-                                    Integer time = Integer.valueOf(String.valueOf(selTime.getTime()).substring(0,10));
-                                    editBir(time.intValue());
+//                                    Integer time = Integer.valueOf(String.valueOf(selTime.getTime()).substring(0,10));
+//                                    editBir(time.intValue());
+                                    editBir(Integer.valueOf(MyTime.geTime_yyyyMMdd(selTime)));
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
