@@ -1,5 +1,4 @@
 package com.huaxixingfu.sqj.ui.activity;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -8,6 +7,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.diskkiller.base.BaseDialog;
 import com.diskkiller.base.FragmentPagerAdapter;
@@ -17,6 +23,7 @@ import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.app.AppApplication;
 import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.bean.PersonDataBean;
+import com.huaxixingfu.sqj.bean.UserData;
 import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.other.DoubleClickHelper;
@@ -25,6 +32,7 @@ import com.huaxixingfu.sqj.push.service.ImService;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.adapter.NavigationAdapter;
+import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 import com.huaxixingfu.sqj.ui.dialog.MessageDialog;
 import com.huaxixingfu.sqj.ui.fragment.FragmentHome;
 import com.huaxixingfu.sqj.ui.fragment.FragmentLife;
@@ -35,6 +43,13 @@ import com.huaxixingfu.sqj.utils.NetWorkUtils;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushManager;
+import com.tencent.imsdk.v2.V2TIMCallback;
+import com.tencent.imsdk.v2.V2TIMManager;
+import com.tencent.imsdk.v2.V2TIMSDKListener;
+import com.tencent.liteav.debug.GenerateTestUserSig;
+import com.tencent.liteav.trtccalling.TUICalling;
+import com.tencent.liteav.trtccalling.TUICallingImpl;
+import com.tencent.qcloud.tuicore.TUILogin;
 
 import java.util.List;
 
@@ -47,7 +62,8 @@ import androidx.viewpager.widget.ViewPager;
  *    desc   : 首页界面
  */
 public final class HomeActivity extends AppActivity
-        implements NavigationAdapter.OnNavigationListener ,WebSocketManager.ConnectStateListener{
+        implements NavigationAdapter.OnNavigationListener ,
+        WebSocketManager.ConnectStateListener {
 
     private static final String INTENT_KEY_IN_FRAGMENT_INDEX = "fragmentIndex";
     private static final String INTENT_KEY_IN_FRAGMENT_CLASS = "fragmentClass";
@@ -102,6 +118,7 @@ public final class HomeActivity extends AppActivity
         registerReceiver(networkConnectChangedReceiver, intentFilter);
     }
 
+    long userId;
     @Override
     protected void initData() {
         mPagerAdapter = new FragmentPagerAdapter<>(this);
@@ -131,7 +148,15 @@ public final class HomeActivity extends AppActivity
 
     private void initIM() {
         if (SPManager.instance(getActivity()).isLogin()) {
+            userId = SPManager.instance(AppApplication.getInstances()).getModel(Constants.USERDATA,UserData.class).userId;
+
             WebSocketManager.getInstance().init(SPManager.instance(getApplicationContext()).getToken(), this);
+
+            // 1.组件登录，
+            TUILogin.init(getApplicationContext(), GenerateTestUserSig.SDKAPPID, null,null);
+
+            TUILogin.login(userId+"", GenerateTestUserSig.genTestUserSig(userId+""), null);
+
         }
     }
 

@@ -64,6 +64,8 @@
 -keep public class java.nio.* { *; }
 #----------okhttp end--------------
 
+-keep class com.tencent.** { *; }
+
 #腾讯TPNS推送混淆忽略
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver

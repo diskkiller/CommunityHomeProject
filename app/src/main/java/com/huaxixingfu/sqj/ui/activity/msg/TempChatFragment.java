@@ -2,8 +2,6 @@ package com.huaxixingfu.sqj.ui.activity.msg;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-import static com.luck.picture.lib.thread.PictureThreadUtils.runOnUiThread;
-
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -53,6 +51,8 @@ import com.huaxixingfu.sqj.widget.tuita.airpanel.AirPanel;
 import com.huaxixingfu.sqj.widget.tuita.airpanel.Util;
 import com.huaxixingfu.sqj.widget.tuita.recycler.RecyclerAdapter;
 import com.luck.picture.lib.tools.ToastUtils;
+import com.tencent.liteav.trtccalling.TUICalling;
+import com.tencent.liteav.trtccalling.TUICallingImpl;
 
 
 import java.util.ArrayList;
@@ -254,7 +254,7 @@ public abstract class TempChatFragment
                 if (command == WebSocketManager.COMMAND_CHAT_REQ) {
                     //如果是单条消息
                     ResponseMessage responseMessage = new Gson().fromJson(text, ResponseMessage.class);
-                    runOnUiThread(new Runnable() {
+                    getAttachActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             boolean isExit = false;
@@ -277,7 +277,7 @@ public abstract class TempChatFragment
                     });
                 } else if (command == WebSocketManager.COMMAND_GET_MESSAGE_RESP) {
                     //如果是拉取历史记录
-                    runOnUiThread(new Runnable() {
+                    getAttachActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             //设置历史
@@ -431,7 +431,7 @@ public abstract class TempChatFragment
 
             //scrollToEnd(requestMessage);
         } else {
-            //onMoreClick();
+            onMoreClick();
         }
     }
 
@@ -485,6 +485,17 @@ public abstract class TempChatFragment
         mPanelFragment.showMore();
     }
 
+    @Override
+    public void onGotoCallVideo() {
+        TUICallingImpl.sharedInstance(getApplication()).enableFloatWindow(true);
+        TUICallingImpl.sharedInstance(getApplication()).call(new String[]{targetUid+""}, TUICalling.Type.VIDEO);
+    }
+
+    @Override
+    public void onGotoCallVoice() {
+        TUICallingImpl.sharedInstance(getApplication()).enableFloatWindow(true);
+        TUICallingImpl.sharedInstance(getApplication()).call(new String[]{targetUid+""}, TUICalling.Type.AUDIO);
+    }
 
     @Override
     public EditText getInputEditText() {

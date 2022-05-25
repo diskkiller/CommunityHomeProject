@@ -5,9 +5,9 @@ android {
     compileSdkVersion 31
     defaultConfig {
         // 最低安装版本
-        minSdkVersion 21
+        minSdkVersion 23
         // 目标适配版本
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionName rootProject.ext.versionName
         versionCode rootProject.ext.versionCode
     }

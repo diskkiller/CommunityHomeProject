@@ -71,14 +71,21 @@ android {
             addManifestPlaceholders([
                     'app_name'    :    '社区家 Debug 版'
             ])
-            // 调试模式下只保留一种架构的 so 库，提升打包速度
+            // 调试模式下只保留一种架构的 so 库，提升打包速度,录音时注释掉，
+            // 不然会初始化失败，因为lame编译了多种架构，而当前只有一种
+            // 解决：修改源码编译架构，保留与当前对应的架构
             ndk {
-                abiFilters 'armeabi-v7a'
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
             }
 
-            buildConfigField('String', 'HOST_URL', '"' + TEST_HOST_URL + '"')
+           /* buildConfigField('String', 'HOST_URL', '"' + TEST_HOST_URL + '"')
             buildConfigField('String', 'HOST_WEBSOCKET_URL', '"' + TEST_HOST_WEBSOCKET_URL + '"')
             buildConfigField('String', 'HOST_PIC_FILE_URL', '"' + TEST_HOST_PIC_FILE_URL + '"')
+          */
+
+            buildConfigField('String', 'HOST_URL', '"' + HOST_URL + '"')
+            buildConfigField('String', 'HOST_WEBSOCKET_URL', '"' + HOST_WEBSOCKET_URL + '"')
+            buildConfigField('String', 'HOST_PIC_FILE_URL', '"' + HOST_PIC_FILE_URL + '"')
 
         }
 
@@ -140,7 +147,7 @@ android {
     applicationVariants.all { variant ->
         // apk 输出文件名配置
         variant.outputs.all { output ->
-            outputFileName = rootProject.getName() + '_v' + variant.versionName + variant.versionCode + '_' + variant.buildType.name
+            outputFileName = rootProject.getName() + '_v' + variant.versionName + '_' + variant.buildType.name
             if (variant.buildType.name == buildTypes.release.getName()) {
                 outputFileName += '_' + new Date().format('MMdd')
             }
@@ -164,6 +171,9 @@ dependencies {
     implementation project(':library:picker')
 
     implementation project(':library:idcardcamera')
+
+    implementation project(':library:tuicalling')
+
 
     // 网络请求框架
     implementation project(':library:easyhttp')
@@ -262,6 +272,7 @@ dependencies {
 
     implementation 'com.github.Othershe:CombineBitmap:1.0.5'
 
+    // TPNS SDK 主工程依赖包
     //      腾讯TPNS推送库
     implementation 'com.tencent.tpns:tpns:1.3.3.3-release'
 

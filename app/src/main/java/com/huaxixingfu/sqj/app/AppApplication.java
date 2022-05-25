@@ -48,7 +48,7 @@ import timber.log.Timber;
 /**
  *    desc   : 应用入口
  */
-public final class AppApplication extends Application {
+public final class AppApplication extends Application/*com.longbei.im_push_service_sdk.common.app.Application*/ {
 
     private static AppApplication instances;
     private static Context mContext;
@@ -61,6 +61,8 @@ public final class AppApplication extends Application {
         mContext = this;
         getAppChannel();//渠道信息
         initSdk(this);
+        // 调用Factory进行初始化
+        //Factory.setup();
     }
 
     /**

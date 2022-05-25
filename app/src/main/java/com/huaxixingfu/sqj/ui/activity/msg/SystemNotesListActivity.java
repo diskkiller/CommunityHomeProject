@@ -18,7 +18,6 @@ import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.VNotes;
 import com.huaxixingfu.sqj.bean.VNotiesData;
-import com.huaxixingfu.sqj.databinding.SqjActivitySystemNotesListBinding;
 import com.huaxixingfu.sqj.http.api.ApplyFriendApi;
 import com.huaxixingfu.sqj.http.api.MsgNotesListEditeApi;
 import com.huaxixingfu.sqj.http.api.SysNotesListApi;
