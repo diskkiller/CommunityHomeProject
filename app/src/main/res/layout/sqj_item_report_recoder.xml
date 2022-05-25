@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/sqj_bg_white_shap_7"
+    tools:ignore="MissingConstraints"
+    android:paddingVertical="10dp"
+    android:layout_marginTop="10dp"
+    >
+
+    <TextView
+        android:id="@+id/item_title"
+        style="@style/lwhw"
+        android:text="系统通知"
+        android:textColor="@color/color_ff333333"
+        android:textSize="@dimen/sp_15"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/item_point"
+        android:layout_width="@dimen/dp_10"
+        android:layout_height="@dimen/dp_10"
+        android:background="@drawable/red_point_bg"
+        android:layout_marginStart="@dimen/dp_3"
+        android:layout_marginBottom="@dimen/dp_16"
+        app:layout_constraintLeft_toRightOf="@+id/item_title"
+        app:layout_constraintTop_toTopOf="@+id/item_title"
+        app:layout_constraintBottom_toBottomOf="@+id/item_title"
+        android:visibility="invisible"/>
+
+
+    <TextView
+        android:id="@+id/item_time"
+        style="@style/lwhw"
+        android:text="2022-02-22 14:22"
+        android:textColor="@color/color_ff999999"
+        android:textSize="@dimen/sp_13"
+        android:layout_marginRight="@dimen/dp_14"
+        app:layout_constraintTop_toTopOf="@+id/item_title"
+        app:layout_constraintBottom_toBottomOf="@+id/item_title"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible"/>
+
+    <View
+        android:id="@+id/item_divide"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/color_FFF2F2F2" />
+
+    <TextView
+        android:id="@+id/item_hint"
+        style="@style/lwhw"
+        android:textColor="@color/color_ff333330"
+        android:textSize="@dimen/sp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintLeft_toLeftOf="@+id/item_title"
+        app:layout_constraintTop_toBottomOf="@+id/item_divide"/>
+
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_ff999999"
+        android:text=""
+        android:textSize="@dimen/sp_14"
+        android:layout_marginTop="@dimen/dp_3"
+        app:layout_constraintLeft_toLeftOf="@+id/item_title"
+        app:layout_constraintTop_toBottomOf="@+id/item_divide"/>
+
+    <View
+        android:id="@+id/item_divide_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/dp_60"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_content"
+        android:background="@color/color_FFF2F2F2" />
+
+    <TextView
+        android:id="@+id/item_find"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingVertical="@dimen/dp_10"
+        android:paddingHorizontal="@dimen/dp_20"
+        android:gravity="center"
+        android:text="@string/report_act_my_tab_recorder"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_15"
+        android:background="@drawable/report_item_fing_bg"
+        app:layout_constraintTop_toBottomOf="@+id/item_divide_bottom"
+        app:layout_constraintRight_toRightOf="@+id/item_time"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
