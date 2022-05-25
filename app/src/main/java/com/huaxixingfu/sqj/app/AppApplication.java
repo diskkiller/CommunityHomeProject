@@ -10,23 +10,17 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
-
-import com.diskkiller.http.config.IRequestInterceptor;
+import com.diskkiller.http.EasyConfig;
 import com.diskkiller.http.config.IRequestServer;
-import com.diskkiller.http.model.HttpHeaders;
-import com.diskkiller.http.model.HttpParams;
-import com.diskkiller.http.request.HttpRequest;
+import com.diskkiller.umeng.UmengClient;
 import com.hjq.bar.TitleBar;
+import com.hjq.gson.factory.GsonFactory;
+import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.BuildConfig;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.Log;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.RequestHandler;
-import com.huaxixingfu.sqj.http.model.RequestServer;
 import com.huaxixingfu.sqj.http.server.ReleaseServer;
 import com.huaxixingfu.sqj.http.server.TestServer;
 import com.huaxixingfu.sqj.manager.ActivityManager;
@@ -38,15 +32,16 @@ import com.huaxixingfu.sqj.other.SmartBallPulseFooter;
 import com.huaxixingfu.sqj.other.TitleBarStyle;
 import com.huaxixingfu.sqj.other.ToastLogInterceptor;
 import com.huaxixingfu.sqj.other.ToastStyle;
-import com.hjq.gson.factory.GsonFactory;
-import com.diskkiller.http.EasyConfig;
-import com.hjq.toast.ToastUtils;
-import com.diskkiller.umeng.UmengClient;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mmkv.MMKV;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import okhttp3.OkHttpClient;
 import timber.log.Timber;
 
@@ -216,6 +211,10 @@ public final class AppApplication extends Application {
                 }
             });
         }
+
+        // TPNS推送初始化
+        XGPushConfig.enableDebug(application, BuildConfig.DEBUG);
+
     }
 
     //渠道名称

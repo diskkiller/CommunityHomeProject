@@ -1,4 +1,5 @@
 package com.huaxixingfu.sqj.ui.activity;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -6,14 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.diskkiller.base.BaseDialog;
 import com.diskkiller.base.FragmentPagerAdapter;
@@ -23,7 +17,6 @@ import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.app.AppApplication;
 import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.bean.PersonDataBean;
-import com.huaxixingfu.sqj.bean.UserData;
 import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.other.DoubleClickHelper;
@@ -32,17 +25,23 @@ import com.huaxixingfu.sqj.push.service.ImService;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.adapter.NavigationAdapter;
-import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 import com.huaxixingfu.sqj.ui.dialog.MessageDialog;
 import com.huaxixingfu.sqj.ui.fragment.FragmentHome;
 import com.huaxixingfu.sqj.ui.fragment.FragmentLife;
 import com.huaxixingfu.sqj.ui.fragment.FragmentMsgList;
 import com.huaxixingfu.sqj.ui.fragment.FragmentMy;
-import com.huaxixingfu.sqj.utils.LogUtil;
+import com.huaxixingfu.sqj.utils.AppLogMessageMgr;
 import com.huaxixingfu.sqj.utils.NetWorkUtils;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushManager;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  *    desc   : 首页界面
@@ -113,6 +112,21 @@ public final class HomeActivity extends AppActivity
         mViewPager.setAdapter(mPagerAdapter);
         onNewIntent(getIntent());
         initIM();
+
+//        进到首页证明已经登录 需要获取当前用户的推送token上报给服务端
+//        038c2aaa828ba557d65bc813b186c6ce1716
+        XGPushManager.registerPush(AppApplication.getContext(), new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object token, int i) {
+                AppLogMessageMgr.d("lsm-TPush", "注册成功，设备token为：" + token);
+            }
+
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                AppLogMessageMgr.d("lsm-TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+
+            }
+        });
     }
 
     private void initIM() {

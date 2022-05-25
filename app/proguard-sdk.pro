@@ -63,3 +63,11 @@
 -keep public class org.codehaus.* { *; }
 -keep public class java.nio.* { *; }
 #----------okhttp end--------------
+
+#腾讯TPNS推送混淆忽略
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep class com.tencent.android.tpush.** {*;}
+-keep class com.tencent.tpns.baseapi.** {*;}
+-keep class com.tencent.tpns.mqttchannel.** {*;}
+-keep class com.tencent.tpns.dataacquisition.** {*;}

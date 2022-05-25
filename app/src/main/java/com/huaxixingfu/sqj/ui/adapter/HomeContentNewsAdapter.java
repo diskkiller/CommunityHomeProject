@@ -1,58 +1,45 @@
 package com.huaxixingfu.sqj.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.diskkiller.base.BaseActivity;
-import com.diskkiller.base.BaseAdapter;
-import com.diskkiller.base.action.ClickAction;
 import com.diskkiller.http.EasyHttp;
-import com.diskkiller.http.config.IRequestApi;
 import com.diskkiller.http.listener.HttpCallback;
 import com.diskkiller.http.listener.OnHttpListener;
 import com.gongwen.marqueen.SimpleMarqueeView;
-import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
 import com.huaxixingfu.sqj.bean.VBanner;
-import com.huaxixingfu.sqj.bean.VNotes;
-import com.huaxixingfu.sqj.bean.VNotiesData;
 import com.huaxixingfu.sqj.http.api.BannerApi;
 import com.huaxixingfu.sqj.http.api.BarListApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.api.NotesListApi;
 import com.huaxixingfu.sqj.http.api.NotesSysListApi;
-import com.huaxixingfu.sqj.http.api.SysNotesListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
-import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
-import com.huaxixingfu.sqj.ui.activity.position.HallActivity;
 import com.huaxixingfu.sqj.ui.activity.position.news.SimpleNewListActivity;
 import com.huaxixingfu.sqj.ui.fragment.HomeSimpleMF;
 import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.StringUtils;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
-import com.youth.banner.config.BannerConfig;
 import com.youth.banner.holder.BannerImageHolder;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  *    desc   : 首页列表
@@ -321,7 +308,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         }
 
         /**
-         * 轮播图片请求并展示
+         * 金刚位请求并展示
          */
         private void initBar() {
             EasyHttp.post(lifecycleOwner)

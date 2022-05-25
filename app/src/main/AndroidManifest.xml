@@ -378,6 +378,19 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+
+        <activity android:name="com.huaxixingfu.sqj.push.activity.OpenPushActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data
+                    android:scheme="huaxixingfu"
+                    android:host="sqj"
+                    android:path="/open_push" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
     <queries>
