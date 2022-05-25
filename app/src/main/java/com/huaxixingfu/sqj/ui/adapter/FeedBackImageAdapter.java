@@ -61,11 +61,11 @@ public class FeedBackImageAdapter extends RecyclerView.Adapter<FeedBackImageAdap
                         holder.typeNameClose.setVisibility(View.GONE);
                         break;
                     case FeedBackImageBean.TYPE_IMAGE_LOCAL:
-                        Glide.with(activity).load(typeBean.imageUrl).into(holder.typeName);
+                        Glide.with(activity).load(typeBean.imageUrl).centerCrop().into(holder.typeName);
                         holder.typeNameClose.setVisibility(View.VISIBLE);
                         break;
                     case FeedBackImageBean.TYPE_IMAGE_HTTP:
-                        Glide.with(activity).load(typeBean.imageUrlHttp).into(holder.typeName);
+                        Glide.with(activity).load(typeBean.imageUrlHttp).centerCrop().into(holder.typeName);
                         holder.typeNameClose.setVisibility(View.VISIBLE);
                         break;
                 }

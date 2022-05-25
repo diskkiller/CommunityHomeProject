@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -13,11 +14,16 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import com.diskkiller.base.BaseDialog;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.action.StatusAction;
 import com.huaxixingfu.sqj.aop.CheckNet;
 import com.huaxixingfu.sqj.aop.Log;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.bean.VCommunity;
+import com.huaxixingfu.sqj.dialog.PickerHightDialog;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity;
+import com.huaxixingfu.sqj.ui.dialog.ReportDialog;
 import com.huaxixingfu.sqj.utils.StringUtils;
 import com.huaxixingfu.sqj.widget.BrowserView;
 import com.huaxixingfu.sqj.widget.StatusLayout;
@@ -74,17 +80,43 @@ public final class BrowserActivity extends AppActivity
         mBrowserView.setLifecycleOwner(this);
         // 设置网页刷新监听
         mRefreshLayout.setOnRefreshListener(this);
+
+
     }
 
     @Override
     protected void initData() {
         setTitle(getString(INTENT_KEY_IN_TITLE));
+        setRightIcon(getResources().getDrawable(R.mipmap.icon_title_more));
 
+        getTitleBar().getRightView().setOnClickListener(view->{
+            showMore();
+        });
         showLoading();
 
         mBrowserView.setBrowserViewClient(new AppBrowserViewClient());
         mBrowserView.setBrowserChromeClient(new AppBrowserChromeClient(mBrowserView));
         mBrowserView.loadUrl(getString(INTENT_KEY_IN_URL));
+    }
+
+    // 更多谈出框
+    private void  showMore(){
+
+        new ReportDialog.Builder(getContext())
+                .setGravity(Gravity.BOTTOM)
+                // 设置点击按钮后不关闭对话框
+                //.setAutoDismiss(false)
+                .setListener(new ReportDialog.OnListener() {
+                    @Override
+                    public void onConfirm() {
+                        ReportContentListActivity.start(BrowserActivity.this,"","");
+                    }
+
+                    @Override
+                    public void onCancel(BaseDialog dialog) {
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -153,6 +185,7 @@ public final class BrowserActivity extends AppActivity
             showComplete();
         }
     }
+
 
     private class AppBrowserChromeClient extends BrowserView.BrowserChromeClient {
 

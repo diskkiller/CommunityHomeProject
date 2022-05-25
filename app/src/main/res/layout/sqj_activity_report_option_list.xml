@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/report_act_option_title"/>
+
+
+    <TextView
+        android:id="@+id/tv_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/report_act_option_subtitle"
+        android:textSize="13sp"
+        android:paddingTop="@dimen/dp_17"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_10"
+        android:textColor="@color/color_ff666666"
+        app:layout_constraintTop_toBottomOf="@+id/tb_title"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        app:layout_constraintTop_toBottomOf="@+id/tv_report"
+        />
+
+</LinearLayout>

@@ -313,4 +313,30 @@
     <string name="news_simple_list_title">新闻列表</string>
     <string name="position_need_develop_toast">待开发功能</string>
 
+
+    <string name="report_dialog_more">更多</string>
+    <string name="report_dialog_report">举报</string>
+    <string name="report_dialog_cancel">取消</string>
+    <string name="report_act_option_subtitle">请选择哪一类违法内容：</string>
+    <string name="report_act_option_title">选择举报类型</string>
+
+    <string name="report_act_submit_btn">提交举报</string>
+    <string name="report_act_submit_title">补充举报说明(选填)</string>
+    <string name="report_act_submit_type">举报类型</string>
+    <string name="report_act_submit_image">举报截图</string>
+    <string name="report_act_submit_image_hint">上传举报内容截图，限制9张</string>
+    <string name="report_act_submit_desc">举报说明</string>
+    <string name="report_act_submit_desc_hint">举报详细说明</string>
+
+    <string name="report_act_details_title_result">举报成功</string>
+    <string name="report_act_details_title_details">举报详情</string>
+    <string name="report_act_details_title_num">举报单号</string>
+    <string name="report_act_details_title_obj">举报对象</string>
+    <string name="report_act_details_title_type">举报类型</string>
+    <string name="report_act_details_title_time">举报时间</string>
+    <string name="report_act_details_state">处理状态</string>
+    <string name="report_act_details_result">处理结果</string>
+    <string name="report_act_details_back">返回</string>
+<!--    <string name="position_need_develop_toast">待开发功能</string>-->
+
 </resources>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#F7F7F7"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/report_act_details_title_details"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:background="@color/color_ffffff"
+        >
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="@string/report_act_details_title_num"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            tools:text="@string/report_act_details_title_num"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:background="@color/color_ffffff"
+        android:layout_marginTop="10dp"
+        >
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/report_act_details_title_num"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_obj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="32dp"
+            android:paddingEnd="10dp"
+            tools:text="@string/report_act_details_title_num"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_ffffff"
+        >
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="@string/report_act_details_title_type"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            tools:text="@string/report_act_details_title_type"
+            />
+    </LinearLayout>
+    <View
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:background="@color/color_ffffff"
+        >
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="@string/report_act_details_title_time"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            tools:text="@string/report_act_details_title_time"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_ffffff"
+        >
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="@string/report_act_details_state"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            tools:text="@string/report_act_details_state"
+            />
+    </LinearLayout>
+    <View
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/color_ffffff">
+
+
+        <TextView
+            android:id="@+id/tv_result_title"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@string/report_act_details_result"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/tv_result_title"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="15dp"
+            tools:text="后台编辑的处理方式或者说明处理结果的内容"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="@dimen/dp_22"
+            android:background="@drawable/shape_r5_white_bg"
+            android:backgroundTint="@color/main"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/report_act_details_back"
+            android:textColor="#ffffffff"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
+
+
