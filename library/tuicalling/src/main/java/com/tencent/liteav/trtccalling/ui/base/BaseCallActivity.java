@@ -126,7 +126,7 @@ public class BaseCallActivity extends Activity {
     //创建C2C语音通话视图
     private BaseTUICallView createAudioView(TUICalling.Role role, TUICalling.Type type, String[] userIds,
                                             String sponsorID, String groupID, boolean isFromGroup) {
-        return new TUICallAudioView(this, role, type, userIds, sponsorID, groupID, isFromGroup) {
+        return new TUICallAudioView(getApplicationContext(), role, type, userIds, sponsorID, groupID, isFromGroup) {
             @Override
             public void finish() {
                 super.finish();
@@ -150,7 +150,7 @@ public class BaseCallActivity extends Activity {
     //创建群聊语音通话视图
     private BaseTUICallView createGroupAudioView(TUICalling.Role role, TUICalling.Type type, String[] userIds,
                                                  String sponsorID, String groupID, boolean isFromGroup) {
-        return new TUIGroupCallAudioView(this, role, type, userIds, sponsorID, groupID, isFromGroup) {
+        return new TUIGroupCallAudioView(getApplicationContext(), role, type, userIds, sponsorID, groupID, isFromGroup) {
             @Override
             public void finish() {
                 super.finish();
@@ -162,7 +162,7 @@ public class BaseCallActivity extends Activity {
     //创建群聊视频通话视图
     private BaseTUICallView createGroupVideoView(TUICalling.Role role, TUICalling.Type type, String[] userIds,
                                                  String sponsorID, String groupID, boolean isFromGroup) {
-        return new TUIGroupCallVideoView(this, role, type, userIds, sponsorID, groupID, isFromGroup) {
+        return new TUIGroupCallVideoView(getApplicationContext(), role, type, userIds, sponsorID, groupID, isFromGroup) {
             @Override
             public void finish() {
                 super.finish();

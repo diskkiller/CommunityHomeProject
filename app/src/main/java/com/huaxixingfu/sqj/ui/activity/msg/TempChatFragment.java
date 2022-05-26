@@ -485,16 +485,31 @@ public abstract class TempChatFragment
         mPanelFragment.showMore();
     }
 
+    public static final int TYPE_AUDIO_CALL       = 1;
+    public static final int TYPE_VIDEO_CALL       = 2;
+
     @Override
     public void onGotoCallVideo() {
-        TUICallingImpl.sharedInstance(getApplication()).enableFloatWindow(true);
-        TUICallingImpl.sharedInstance(getApplication()).call(new String[]{targetUid+""}, TUICalling.Type.VIDEO);
+        if(mIsGroup){
+            CreatGroupCallingActivity.start(getAttachActivity(),TYPE_VIDEO_CALL,null);
+
+        }else{
+
+            TUICallingImpl.sharedInstance(getApplication()).enableFloatWindow(true);
+            TUICallingImpl.sharedInstance(getApplication()).call(new String[]{targetUid+""}, TUICalling.Type.VIDEO);
+        }
     }
 
     @Override
     public void onGotoCallVoice() {
-        TUICallingImpl.sharedInstance(getApplication()).enableFloatWindow(true);
-        TUICallingImpl.sharedInstance(getApplication()).call(new String[]{targetUid+""}, TUICalling.Type.AUDIO);
+        if(mIsGroup){
+            CreatGroupCallingActivity.start(getAttachActivity(),TYPE_AUDIO_CALL,null);
+
+        }else{
+
+            TUICallingImpl.sharedInstance(getApplication()).enableFloatWindow(true);
+            TUICallingImpl.sharedInstance(getApplication()).call(new String[]{targetUid+""}, TUICalling.Type.AUDIO);
+        }
     }
 
     @Override
