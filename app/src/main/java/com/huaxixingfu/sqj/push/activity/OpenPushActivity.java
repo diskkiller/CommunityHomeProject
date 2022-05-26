@@ -27,7 +27,7 @@ public class OpenPushActivity extends AppActivity {
 
     @Override
     protected void initData() {
-//        huaxixingfu://sqj/open_push?openId=HOME&webPath=http://www.qq.com
+//        huaxixingfu://sqj/open_push?openId=0&webPath=http://www.qq.com
         Intent intent = getIntent();
         Uri data = intent.getData();  //
         AppLogMessageMgr.e("OpenPush", "DataString==========="+intent.getDataString());
