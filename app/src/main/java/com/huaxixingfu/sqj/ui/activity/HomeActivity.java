@@ -1,4 +1,5 @@
 package com.huaxixingfu.sqj.ui.activity;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -6,17 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.diskkiller.base.BaseDialog;
 import com.diskkiller.base.FragmentPagerAdapter;
+import com.diskkiller.http.EasyHttp;
+import com.diskkiller.http.listener.OnHttpListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
@@ -25,6 +21,8 @@ import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.bean.PersonDataBean;
 import com.huaxixingfu.sqj.bean.UserData;
 import com.huaxixingfu.sqj.commom.Constants;
+import com.huaxixingfu.sqj.http.api.PushTokenBind;
+import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.manager.ActivityManager;
 import com.huaxixingfu.sqj.other.DoubleClickHelper;
 import com.huaxixingfu.sqj.push.manager.WebSocketManager;
@@ -32,26 +30,36 @@ import com.huaxixingfu.sqj.push.service.ImService;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.adapter.NavigationAdapter;
-import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 import com.huaxixingfu.sqj.ui.dialog.MessageDialog;
 import com.huaxixingfu.sqj.ui.fragment.FragmentHome;
 import com.huaxixingfu.sqj.ui.fragment.FragmentLife;
 import com.huaxixingfu.sqj.ui.fragment.FragmentMsgList;
 import com.huaxixingfu.sqj.ui.fragment.FragmentMy;
-import com.huaxixingfu.sqj.utils.LogUtil;
+import com.huaxixingfu.sqj.utils.AppLogMessageMgr;
 import com.huaxixingfu.sqj.utils.NetWorkUtils;
 import com.huaxixingfu.sqj.utils.SPManager;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.liteav.debug.GenerateTestUserSig;
+import com.tencent.qcloud.tuicore.TUILogin;
 
+import java.util.HashMap;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  *    desc   : 首页界面
  */
 public final class HomeActivity extends AppActivity
-        implements NavigationAdapter.OnNavigationListener ,WebSocketManager.ConnectStateListener{
+        implements NavigationAdapter.OnNavigationListener ,
+        WebSocketManager.ConnectStateListener {
 
     private static final String INTENT_KEY_IN_FRAGMENT_INDEX = "fragmentIndex";
-    private static final String INTENT_KEY_IN_FRAGMENT_CLASS = "fragmentClass";
+    public static final String INTENT_KEY_IN_FRAGMENT_CLASS = "fragmentClass";
 
     private ViewPager mViewPager;
     private RecyclerView mNavigationView;
@@ -103,6 +111,7 @@ public final class HomeActivity extends AppActivity
         registerReceiver(networkConnectChangedReceiver, intentFilter);
     }
 
+    long userId;
     @Override
     protected void initData() {
         mPagerAdapter = new FragmentPagerAdapter<>(this);
@@ -113,11 +122,49 @@ public final class HomeActivity extends AppActivity
         mViewPager.setAdapter(mPagerAdapter);
         onNewIntent(getIntent());
         initIM();
+
+//        进到首页证明已经登录 需要获取当前用户的推送token上报给服务端
+//        038c2aaa828ba557d65bc813b186c6ce1716
+        XGPushManager.registerPush(AppApplication.getContext(), new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object token, int i) {
+                AppLogMessageMgr.d("lsm-TPush", "注册成功，设备token为：" + token);
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("thirdType","32");
+                map.put("accessToken", token);
+                EasyHttp.post(HomeActivity.this).json(map).api(new PushTokenBind())
+                        .request(new OnHttpListener<HttpData>() {
+                            @Override
+                            public void onSucceed(HttpData result) {
+                                AppLogMessageMgr.e("token上报结果：" + result.getMessage());
+                            }
+
+                            @Override
+                            public void onFail(Exception e) {
+                                AppLogMessageMgr.e(e.getMessage());
+                            }
+                        });
+            }
+
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                AppLogMessageMgr.d("lsm-TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+
+            }
+        });
     }
 
     private void initIM() {
         if (SPManager.instance(getActivity()).isLogin()) {
+            userId = SPManager.instance(AppApplication.getInstances()).getModel(Constants.USERDATA,UserData.class).userId;
+
             WebSocketManager.getInstance().init(SPManager.instance(getApplicationContext()).getToken(), this);
+
+            // 1.组件登录，
+            TUILogin.init(getApplicationContext(), GenerateTestUserSig.SDKAPPID, null,null);
+
+            TUILogin.login(userId+"", GenerateTestUserSig.genTestUserSig(userId+""), null);
+
         }
     }
 

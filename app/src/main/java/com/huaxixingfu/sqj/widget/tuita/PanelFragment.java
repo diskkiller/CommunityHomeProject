@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +36,7 @@ public class PanelFragment extends AppFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_panel;
+        return R.layout.sqj_fragment_panel;
     }
 
     @Override
@@ -156,6 +155,9 @@ public class PanelFragment extends AppFragment {
         final View attachPanel = mAttachPanel = findViewById(R.id.lay_panel_attach);
         final View im_add_pic = attachPanel.findViewById(R.id.im_add_pic);
         final View im_take_photo = attachPanel.findViewById(R.id.im_take_photo);
+
+        final View im_call_video = attachPanel.findViewById(R.id.im_call_video);
+        final View im_call_voice = attachPanel.findViewById(R.id.im_call_voice);
         im_add_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,6 +176,28 @@ public class PanelFragment extends AppFragment {
                     return;
 
                 callback.onGotoCamera();
+            }
+        });
+
+        im_call_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PanelCallback callback = mCallback;
+                if (callback == null)
+                    return;
+
+                callback.onGotoCallVideo();
+            }
+        });
+
+        im_call_voice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PanelCallback callback = mCallback;
+                if (callback == null)
+                    return;
+
+                callback.onGotoCallVoice();
             }
         });
 
@@ -233,6 +257,9 @@ public class PanelFragment extends AppFragment {
         void onSendGallery(String[] paths);
         void onGotoGallery();
         void onGotoCamera();
+
+        void onGotoCallVideo();
+        void onGotoCallVoice();
 
         // 返回录音文件和时常
         void onRecordDone(File file, long time);

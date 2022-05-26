@@ -5,6 +5,8 @@ import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.net.URI;
 import java.security.Key;
 import java.security.Security;
 import java.util.Arrays;
@@ -125,7 +127,7 @@ public class Sm4Util {
 
     public static void main(String[] args) {
         try {
-            System.out.println("开始****************************");
+            /*System.out.println("开始****************************");
             String json = "123456";
             System.out.println("加密前："+json);
             //自定义的32位16进制秘钥
@@ -137,7 +139,17 @@ public class Sm4Util {
             //cipher = "jiami";
             json =decryptEcb(key,cipher);//解密
             System.out.println("解密后："+json);
-            System.out.println("结束****************************");
+            System.out.println("结束****************************");*/
+
+            String server = "wss://jm.shequj.cn/api/im/ws/?token=c930f9c4-ecd5-482b-a15a-0b044e637773";
+            URI uri;
+            uri = URI.create(server);
+            String host = uri.getHost();
+            int port = uri.getPort();
+            System.out.println("uri=========："+uri.toString());
+            System.out.println("host=========："+host);
+            System.out.println("port=========："+port);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

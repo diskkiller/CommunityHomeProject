@@ -24,7 +24,7 @@
         />-->
 
     <include
-        layout="@layout/lay_panel_attach"
+        layout="@layout/sqj_lay_panel_attach"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

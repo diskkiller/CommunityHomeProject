@@ -173,6 +173,7 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
     public void onRightClick(View view) {
         tv_right_red.setVisibility(View.GONE);
         startActivity(new Intent(getContext(), MailListActivity.class));
+
     }
 
     public void initData() {

@@ -32,7 +32,8 @@ public final class CreatGroupAdapter extends BaseQuickAdapter<MailListApi.Bean,B
 
     @Override
     protected void convert(@NonNull BaseViewHolder baseViewHolder, MailListApi.Bean contactsListBean) {
-        baseViewHolder.setText(R.id.tv_nickname, contactsListBean.chatFriendNiceName);
+
+        baseViewHolder.setText(R.id.tv_nickname, contactsListBean.userNickName);
         boolean isSelect = contactsListBean.isSelect;
         ImageView iv_select = baseViewHolder.getView(R.id.iv_select);
         if (isSelect) {
