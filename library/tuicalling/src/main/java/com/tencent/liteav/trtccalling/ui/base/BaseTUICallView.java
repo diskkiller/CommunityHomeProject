@@ -249,7 +249,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
     @Override
     public void onError(int code, String msg) {
         //发生了错误，报错并退出该页面
-        ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_call_error_msg, code, msg));
+        //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_call_error_msg, code, msg));
         finish();
     }
 
@@ -267,7 +267,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
         }
         //有用户退出时,需提示"**结束通话";
         if (null != userInfo && !TextUtils.isEmpty(userInfo.userName)) {
-            ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_end, userInfo.userName));
+            //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_end, userInfo.userName));
         } else {
             showUserToast(userId, R.string.trtccalling_toast_user_end);
         }
@@ -283,7 +283,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
         }
         //用户拒接时,需提示"**拒绝通话"
         if (null != userInfo && !TextUtils.isEmpty(userInfo.userName)) {
-            ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_reject_call, userInfo.userName));
+            //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_reject_call, userInfo.userName));
         } else {
             showUserToast(userId, R.string.trtccalling_toast_user_reject_call);
         }
@@ -299,7 +299,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
         }
         //用户无响应时,需提示"**无响应"
         if (null != userInfo && !TextUtils.isEmpty(userInfo.userName)) {
-            ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_not_response, userInfo.userName));
+            //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_not_response, userInfo.userName));
         } else {
             showUserToast(userId, R.string.trtccalling_toast_user_not_response);
         }
@@ -315,7 +315,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
         }
         //用户忙线时,需提示"**忙线"
         if (null != userInfo && !TextUtils.isEmpty(userInfo.userName)) {
-            ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_busy, userInfo.userName));
+            //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_busy, userInfo.userName));
         } else {
             showUserToast(userId, R.string.trtccalling_toast_user_busy);
         }
@@ -325,7 +325,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
     public void onCallingCancel() {
         //主叫取消了通话,被叫提示"主叫取消通话"
         if (mSponsorUserInfo != null) {
-            ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_cancel_call, mSponsorUserInfo.userName));
+            //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_cancel_call, mSponsorUserInfo.userName));
         }
         finish();
     }
@@ -334,7 +334,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
     public void onCallingTimeout() {
         //被叫超时,主叫/被叫都提示"通话超时",群聊不提示.
         if (!isGroupCall()) {
-            ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_timeout, ""));
+            //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_timeout, ""));
         }
         finish();
     }
@@ -343,7 +343,7 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
     public void onCallEnd() {
         //通话结束退房,被叫提示"主叫结束通话"
         if (mSponsorUserInfo != null) {
-            ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_end, mSponsorUserInfo.userName));
+            //ToastUtils.showLong(mContext.getString(R.string.trtccalling_toast_user_end, mSponsorUserInfo.userName));
         }
         finish();
     }
@@ -479,13 +479,13 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
             public void onNotifyEvent(String key, String subKey, Map<String, Object> param) {
                 if (TUIConstants.TUILogin.EVENT_LOGIN_STATE_CHANGED.equals(key)
                         && TUIConstants.TUILogin.EVENT_SUB_KEY_USER_KICKED_OFFLINE.equals(subKey)) {
-                    ToastUtils.showShort(mContext.getString(R.string.trtccalling_user_kicked_offline));
+                    //ToastUtils.showShort(mContext.getString(R.string.trtccalling_user_kicked_offline));
                     mTRTCCalling.hangup();
                     finish();
                 }
                 if (TUIConstants.TUILogin.EVENT_LOGIN_STATE_CHANGED.equals(key)
                         && TUIConstants.TUILogin.EVENT_SUB_KEY_USER_SIG_EXPIRED.equals(subKey)) {
-                    ToastUtils.showShort(mContext.getString(R.string.trtccalling_user_sig_expired));
+                    //ToastUtils.showShort(mContext.getString(R.string.trtccalling_user_sig_expired));
                     mTRTCCalling.hangup();
                     finish();
                 }
@@ -510,15 +510,15 @@ public abstract class BaseTUICallView extends FrameLayout implements TRTCCalling
                     @Override
                     public void onSuccess(UserModel model) {
                         if (null == model || TextUtils.isEmpty(model.userName)) {
-                            ToastUtils.showLong(mContext.getString(msgId, userId));
+                            //ToastUtils.showLong(mContext.getString(msgId, userId));
                         } else {
-                            ToastUtils.showLong(mContext.getString(msgId, model.userName));
+                            //ToastUtils.showLong(mContext.getString(msgId, model.userName));
                         }
                     }
 
                     @Override
                     public void onFailed(int code, String msg) {
-                        ToastUtils.showLong(mContext.getString(msgId, userId));
+                        //ToastUtils.showLong(mContext.getString(msgId, userId));
                     }
                 });
     }

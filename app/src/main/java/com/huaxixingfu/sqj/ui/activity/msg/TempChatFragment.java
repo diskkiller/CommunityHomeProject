@@ -491,7 +491,7 @@ public abstract class TempChatFragment
     @Override
     public void onGotoCallVideo() {
         if(mIsGroup){
-            CreatGroupCallingActivity.start(getAttachActivity(),TYPE_VIDEO_CALL,null);
+            CreatGroupCallingActivity.start(getAttachActivity(),TYPE_VIDEO_CALL,targetUid,null);
 
         }else{
 
@@ -503,7 +503,7 @@ public abstract class TempChatFragment
     @Override
     public void onGotoCallVoice() {
         if(mIsGroup){
-            CreatGroupCallingActivity.start(getAttachActivity(),TYPE_AUDIO_CALL,null);
+            CreatGroupCallingActivity.start(getAttachActivity(),TYPE_AUDIO_CALL,targetUid,null);
 
         }else{
 

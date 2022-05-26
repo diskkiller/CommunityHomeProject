@@ -295,6 +295,12 @@ public class BaseCallActivity extends Activity {
         if (null != mHomeWatcher) {
             mHomeWatcher.stopWatch();
         }
+        if (null != mFloatView) {
+            mFloatView = null;
+        }
+        if (null != mCallView) {
+            mCallView = null;
+        }
         Status.mBeginTime = 0;
     }
 }

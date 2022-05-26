@@ -18,12 +18,16 @@ import com.github.promeg.pinyinhelper.Pinyin;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.app.AppApplication;
+import com.huaxixingfu.sqj.bean.GroupMemberBean;
 import com.huaxixingfu.sqj.bean.PersonDataBean;
 import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.commom.IntentKey;
+import com.huaxixingfu.sqj.http.api.GroupMemberDetailApi;
 import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.api.msg.CreatGroutApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.ui.adapter.CallingSectionItemDecoration;
+import com.huaxixingfu.sqj.ui.adapter.CreatCallingGroupAdapter;
 import com.huaxixingfu.sqj.ui.adapter.CreatGroupAdapter;
 import com.huaxixingfu.sqj.ui.adapter.GroupAddMemberHorAdapter;
 import com.huaxixingfu.sqj.ui.adapter.SectionItemDecoration;
@@ -38,17 +42,18 @@ import com.tencent.liteav.trtccalling.TUICallingImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class CreatGroupCallingActivity extends AppActivity implements SideIndexBar.OnIndexTouchedChangedListener{
 
-    private RecyclerView rv_maillist,rv_member;
+    private RecyclerView rv_maillist;
     private SideIndexBar sib_maillist;
     private TextView tv_overlay;
-    private CreatGroupAdapter creatGroupAdapter;
-    private GroupAddMemberHorAdapter groupAddMemberHorAdapter;
-    private ArrayList<MailListApi.Bean> contactsListBeans = new ArrayList<>();;
-    private ArrayList<MailListApi.Bean> addmemberList = new ArrayList<>();
+    private CreatCallingGroupAdapter creatCallingGroupAdapter;
+
+    private ArrayList<GroupMemberBean> memberBeans = new ArrayList<>();
+    private long targetUid;
 
     private int callingType;
 
@@ -59,9 +64,10 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
 
     private static final int MULTI_CALL_MAX_NUM        = 8; //C2C多人通话最大人数是9(需包含自己)
 
-    public static void start(BaseActivity activity, int callingType, OnFinishResultListener listener) {
+    public static void start(BaseActivity activity, int callingType,long targetUid, OnFinishResultListener listener) {
         Intent intent = new Intent(activity, CreatGroupCallingActivity.class);
         intent.putExtra(IntentKey.TYPE, callingType);
+        intent.putExtra(IntentKey.TARGETUID, targetUid);
         activity.startActivityForResult(intent, (resultCode, data) -> {
             if (listener == null) {
                 return;
@@ -98,11 +104,10 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
     @Override
     protected void initView() {
         callingType = getInt(IntentKey.TYPE);
-
+        targetUid = getLong(IntentKey.TARGETUID);
 
 
         rv_maillist = findViewById(R.id.rv_maillist);
-        rv_member = findViewById(R.id.rv_member);
         sib_maillist = findViewById(R.id.sib_maillist);
         tv_overlay = findViewById(R.id.tv_overlay);
         setOnClickListener(R.id.tv_creat_group);
@@ -110,44 +115,57 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
     }
 
     public void initData() {
-        getMailList();
-        //getFriendCount();
+        getGroupMemerDetail();
     }
 
-    private void getMailList(){
+    private void getGroupMemerDetail() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("groupId",targetUid);
+        map.put("niceName","");
         EasyHttp.post(this)
-                .api(new MailListApi())
-                .json("")
-                .request(new HttpCallback<HttpData<List<MailListApi.Bean>>>(this) {
+                .api(new GroupMemberDetailApi())
+                .json(map)
+                .request(new HttpCallback<HttpData<List<GroupMemberBean>>>(this) {
 
                     @Override
-                    public void onSucceed(HttpData<List<MailListApi.Bean>> data) {
+                    public void onSucceed(HttpData<List<GroupMemberBean>> data) {
                         if(data.getData() != null){
-                            List<MailListApi.Bean> datas = data.getData();
-                            if((null != datas) && (datas.size()>0)){
-                                for (int i = 0,j= datas.size(); i < j; i++) {
-                                    MailListApi.Bean item =  datas.get(i);
+
+                            memberBeans = (ArrayList<GroupMemberBean>) data.getData();
+                            GroupMemberBean owner = null;
+
+
+                            if((null != memberBeans) && (memberBeans.size()>0)){
+
+                                for (int i = 0,j= memberBeans.size(); i < j; i++) {
+                                    GroupMemberBean item =  memberBeans.get(i);
                                     if(StringUtils.isNotEmpty(item.userNickName))
                                         item.first = String.valueOf(Pinyin.toPinyin(item.userNickName, "").charAt(0));
+                                    if(item.userId == SPManager.instance(AppApplication.getInstances()).
+                                            getModel(Constants.USERINFO, PersonDataBean.class).getUserId()){
+                                        item.isAdd = true;
+                                    }
                                 }
 
-                                contactsListBeans.clear();
-                                contactsListBeans.addAll(datas);
-                                Collections.sort(contactsListBeans, new Comparator<MailListApi.Bean>() {
+
+                                Collections.sort(memberBeans, new Comparator<GroupMemberBean>() {
                                     @Override
-                                    public int compare(MailListApi.Bean o1, MailListApi.Bean o2) {
+                                    public int compare(GroupMemberBean o1, GroupMemberBean o2) {
                                         return o1.getSection().charAt(0) - o2.getSection().charAt(0);
                                     }
                                 });
 
-                                if (contactsListBeans.size() > 0) {
-                                    rv_maillist.addItemDecoration(new SectionItemDecoration(getContext(), contactsListBeans));
+                                if (memberBeans.size() > 0) {
+                                    rv_maillist.addItemDecoration(new CallingSectionItemDecoration(getContext(), memberBeans));
                                 }
 
-                                creatGroupAdapter.setList(contactsListBeans);
+                                creatCallingGroupAdapter.setList(memberBeans);
 
                             }
+
                         }
+
+
                     }
 
                     @Override
@@ -158,6 +176,7 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
     }
 
 
+
     private String memberId = "";
     private void initRV() {
 
@@ -166,18 +185,21 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
         rv_maillist.setLayoutManager(llm);
 
 
-        creatGroupAdapter = new CreatGroupAdapter(contactsListBeans);
+        creatCallingGroupAdapter = new CreatCallingGroupAdapter(memberBeans);
 
-        creatGroupAdapter.setLayoutManager(llm);
+        creatCallingGroupAdapter.setLayoutManager(llm);
 
-        creatGroupAdapter.setOnItemClickListener(new OnItemClickListener() {
+        creatCallingGroupAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 //FriendInfoActivity.start(CreatGroupActivity.this,contactsListBeans.get(position).chatUserId,contactsListBeans.get(position).chatFriendNiceName,null);
-                MailListApi.Bean dataBean = contactsListBeans.get(position);
+                GroupMemberBean dataBean = memberBeans.get(position);
+
+                if(dataBean.isAdd) return;
+
                 boolean isSelect = dataBean.isSelect;
 
-                String chooseId = dataBean.chatToUserId + "";
+                String chooseId = dataBean.userId + "";
 
                 if (!isSelect) {
 
@@ -190,7 +212,7 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
                         memberId = memberId + "," + chooseId;
                     }
 
-                    creatGroupAdapter.setList(contactsListBeans);
+                    creatCallingGroupAdapter.setList(memberBeans);
                 } else {
 
                     //groupAddMemberHorAdapter.remove(dataBean);
@@ -210,29 +232,19 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
                     }
                     memberId = again;
                 }
-                creatGroupAdapter.setList(contactsListBeans);
+                creatCallingGroupAdapter.setList(memberBeans);
                 LogUtil.e("diskkiller","选中的ID :"+memberId);
 
             }
         });
-        rv_maillist.setAdapter(creatGroupAdapter);
+        rv_maillist.setAdapter(creatCallingGroupAdapter);
 
-
-        /*rv_member.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        groupAddMemberHorAdapter = new GroupAddMemberHorAdapter(addmemberList);
-        groupAddMemberHorAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-
-            }
-        });
-        rv_member.setAdapter(groupAddMemberHorAdapter);*/
 
     }
 
     @Override
     public void onIndexChanged(String index, int position) {
-        creatGroupAdapter.scrollToSection(index);
+        creatCallingGroupAdapter.scrollToSection(index);
     }
 
     @Override
@@ -257,26 +269,6 @@ public class CreatGroupCallingActivity extends AppActivity implements SideIndexB
             finish();
 
         }
-    }
-
-    private void creatGroup(CreatGroutApi.Bean modle) {
-        String json = GsonUtil.gsonString(modle);
-        EasyHttp.post(this)
-                .api(new CreatGroutApi())
-                .json(json)
-                .request(new HttpCallback<HttpData>(this) {
-
-                    @Override
-                    public void onSucceed(HttpData data) {
-                        toast("添加成功");
-                        finish();
-                    }
-
-                    @Override
-                    public void onFail(Exception e) {
-                        super.onFail(e);
-                    }
-                });
     }
 
 

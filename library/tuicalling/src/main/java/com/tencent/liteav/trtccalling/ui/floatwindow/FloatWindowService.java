@@ -77,6 +77,8 @@ public class FloatWindowService extends Service {
             // 移除悬浮窗口
             mWindowManager.removeView(mCallView);
             mCallView = null;
+            mWindowManager = null;
+            mContext = null;
         }
     }
 
