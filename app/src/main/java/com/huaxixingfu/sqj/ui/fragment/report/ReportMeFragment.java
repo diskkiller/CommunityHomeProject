@@ -19,7 +19,6 @@ import com.huaxixingfu.sqj.http.api.HomeCloumnContentNewsApi;
 import com.huaxixingfu.sqj.http.api.ReportListNewsApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.me.report.MyReportActivity;
-import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitActivity;
 import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitDetailsActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter;

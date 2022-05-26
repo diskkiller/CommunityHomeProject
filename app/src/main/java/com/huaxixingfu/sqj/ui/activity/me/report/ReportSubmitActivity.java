@@ -59,7 +59,7 @@ public class ReportSubmitActivity extends AppActivity{
     private int dictCode = NEWSTYPE;
 //    private String typeCodeString = "";
     private MutableLiveData<String> typeCodeStringLiveData = new MutableLiveData();
-    private int typeCode = 0;
+    private int typeCode = -1;
     private long targetID = 0;
 
     private List<FeedBackImageBean> listImage = new ArrayList<>();
@@ -69,6 +69,7 @@ public class ReportSubmitActivity extends AppActivity{
     public static  final String TITLE_REQUEST_TYPE_CODE = "TITLE_REQUEST_TYPE_CODE";
     public static  final String TITLE_REQUEST_TARGET = "TITLE_REQUEST_TARGET";
 
+    private boolean isFirst = false;
     @CheckNet
 //    @Log
     public static void start(BaseActivity activity, int dictCode,long targetID) {
@@ -115,6 +116,17 @@ public class ReportSubmitActivity extends AppActivity{
         typeCode = intent.getIntExtra(TITLE_REQUEST_TYPE_CODE,-1);
         String typeCodeString = intent.getStringExtra(TITLE_REQUEST_TYPE_CODE_STRING);
         typeCodeStringLiveData.setValue(typeCodeString);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isFirst){
+            if(typeCode == -1){
+                finish();
+            }
+        }
+        isFirst = true;
     }
 
     public void initData() {

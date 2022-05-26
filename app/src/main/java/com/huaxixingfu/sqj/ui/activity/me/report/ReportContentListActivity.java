@@ -30,7 +30,7 @@ public class ReportContentListActivity extends AppActivity {
 
 
 //    举报类型code 3000-新闻举报类型 4000-私聊举报类型 5000群聊举报类型
-    public static  final int  CHATSETTING = 3000;
+    public static  final int  CHATSETTING = 4000;
     public static  final int  GROUPSETTING = 5000;
     public static  final int  NEWSTYPE = 3000;
 
