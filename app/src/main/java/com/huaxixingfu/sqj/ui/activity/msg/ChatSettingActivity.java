@@ -19,6 +19,9 @@ import com.huaxixingfu.sqj.http.api.ChatFriendDetailApi;
 import com.huaxixingfu.sqj.http.api.EditFriendNameApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitActivity;
+import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 import com.huaxixingfu.sqj.utils.StringUtils;
 import com.shehuan.niv.NiceImageView;
@@ -87,7 +90,7 @@ public class ChatSettingActivity extends AppActivity {
         sb_address = findViewById(R.id.sb_address);
         tv_address = findViewById(R.id.tv_address);
         iv_rename = findViewById(R.id.iv_rename);
-        setOnClickListener(R.id.iv_rename);
+        setOnClickListener(R.id.iv_rename,R.id.sb_chat_report);
     }
 
     @Override
@@ -126,6 +129,8 @@ public class ChatSettingActivity extends AppActivity {
                         }
                     })
                     .show();
+        }else if(id == R.id.sb_chat_report){
+            ReportSubmitActivity.start(ChatSettingActivity.this,ReportContentListActivity.CHATSETTING,targetUid);
         }
 
 

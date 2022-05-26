@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/rl_refresh"
+        style="@style/lmhm">
+
+        <com.diskkiller.widget.layout.WrapRecyclerView
+            android:id="@+id/rv_list"
+            style="@style/lmhm" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    <com.huaxixingfu.sqj.widget.StatusLayout
+        android:id="@+id/hl_status_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </com.huaxixingfu.sqj.widget.StatusLayout>
+
+</RelativeLayout>

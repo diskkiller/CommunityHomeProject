@@ -151,7 +151,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
                                                     .into(holder.imageView);
                                             holder.imageView.setOnClickListener(view->{
 
-                                                BrowserActivity.start(getContext(),data.appGuideUrl);
+                                                BrowserActivity.start(getContext(),data.appGuideUrl,data.appGuideId);
 
                                             });
                                         }
@@ -162,7 +162,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
                                         @Override
                                         public void OnBannerClick(Object data, int position) {
                                             if(StringUtils.isNotEmpty(models.get(position).appGuideUrl))
-                                                BrowserActivity.start(getContext(),models.get(position).appGuideUrl);
+                                                BrowserActivity.start(getContext(),models.get(position).appGuideUrl,models.get(position).appGuideId);
                                         }
                                     });
                                 }
@@ -284,7 +284,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         private void  susseccControl(List<NotesListApi.Bean> models){
             if((null != models) && (models.size()>0)){
                 HomeSimpleMF<NotesListApi.Bean> marqueeFactory = new HomeSimpleMF<NotesListApi.Bean>(getContext(), view->{
-                    BrowserActivity.start(getContext(),view.detailUrl);
+                    BrowserActivity.start(getContext(),view.detailUrl,view.appGuideId);
                 });
                 marqueeFactory.setData(models);
                 marquee.setMarqueeFactory(marqueeFactory);
