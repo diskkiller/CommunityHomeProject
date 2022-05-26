@@ -30,6 +30,11 @@ import java.util.List;
 public class ReportContentListActivity extends AppActivity {
 
 
+
+    public static  final int  CHATSETTING = 1;
+    public static  final int  GROUPSETTING = 2;
+    public static  final int  NEWSTYPE = 3;
+
     private ReportContentListAdapter adapter;
     private RecyclerView recycler;
     int page = 0;
@@ -39,7 +44,7 @@ public class ReportContentListActivity extends AppActivity {
 
     @CheckNet
 //    @Log
-    public static void start(BaseActivity activity, String title, String content) {
+    public static void start(BaseActivity activity, String title, int content) {
         Intent intent = new Intent(activity, ReportContentListActivity.class);
         intent.putExtra(TITLE_KEY, title);
         intent.putExtra(TITLE_REQUEST, content);
@@ -49,10 +54,10 @@ public class ReportContentListActivity extends AppActivity {
 //    @CheckNet
 //    @Log
     public static void start(BaseActivity activity) {
-       start(activity,"","");
+       start(activity,"",NEWSTYPE);
     }
 
-    private String requestKey = "";
+    private int requestKey = NEWSTYPE;
 
     @Override
     protected int getLayoutId() {
@@ -63,11 +68,7 @@ public class ReportContentListActivity extends AppActivity {
     protected void initView() {
 
         String title = getString(TITLE_KEY);
-        requestKey = getString(TITLE_REQUEST);
-
-        if(StringUtils.isEmpty(requestKey)){
-            requestKey = "";
-        }
+        requestKey = getInt(TITLE_REQUEST);
         TitleBar tb_title = findViewById(R.id.tb_title);
         if(StringUtils.isEmpty(title)){
             tb_title.setTitle(getString(R.string.report_act_option_title));

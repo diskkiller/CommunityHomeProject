@@ -109,7 +109,7 @@ public final class BrowserActivity extends AppActivity
                 .setListener(new ReportDialog.OnListener() {
                     @Override
                     public void onConfirm() {
-                        ReportContentListActivity.start(BrowserActivity.this,"","");
+                        ReportContentListActivity.start(BrowserActivity.this,"",ReportContentListActivity.NEWSTYPE);
                     }
 
                     @Override

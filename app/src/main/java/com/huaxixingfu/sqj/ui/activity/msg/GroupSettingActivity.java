@@ -31,6 +31,7 @@ import com.huaxixingfu.sqj.http.api.GroupDetailApi;
 import com.huaxixingfu.sqj.http.api.GroupMemberDetailApi;
 import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity;
 import com.huaxixingfu.sqj.ui.adapter.GroupMemberAdapter;
 import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 
@@ -96,7 +97,7 @@ public class GroupSettingActivity extends AppActivity {
         sb_group_name = findViewById(R.id.sb_group_name);
         sb_group_my_nickname = findViewById(R.id.sb_group_my_nickname);
         sb_group_transfer = findViewById(R.id.sb_group_transfer);
-        setOnClickListener(R.id.tx_more,R.id.sb_group_name,R.id.sb_group_notice,R.id.sb_group_transfer,R.id.sb_group_my_nickname);
+        setOnClickListener(R.id.tx_more,R.id.sb_group_name,R.id.sb_group_notice,R.id.sb_group_transfer,R.id.sb_group_my_nickname,R.id.sb_chat_report);
         initRV();
     }
 
@@ -414,6 +415,8 @@ public class GroupSettingActivity extends AppActivity {
                         }
                     })
                     .show();
+        }else if(id == R.id.sb_chat_report){
+            ReportContentListActivity.start(GroupSettingActivity.this,"",ReportContentListActivity.GROUPSETTING);
         }
     }
 

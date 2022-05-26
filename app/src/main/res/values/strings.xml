@@ -343,6 +343,7 @@
     <string name="report_act_my_tab_0">我的举报</string>
     <string name="report_act_my_tab_1">违规记录</string>
     <string name="report_act_my_tab_recorder">查看详情</string>
+    <string name="report_act_chat_setting_report">举报</string>
 <!--    <string name="position_need_develop_toast">待开发功能</string>-->
 
 </resources>
