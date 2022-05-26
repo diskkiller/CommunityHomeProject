@@ -138,7 +138,6 @@ public class ReportSubmitActivity extends AppActivity{
                         if(mdata.isRequestSucceed()){
                             ToastUtils.show("感谢您的反馈,我们会及时处理");
                             ReportSubmitActivity.this.finish();
-                            ReportSubmitDetailsActivity.start(ReportSubmitActivity.this,"xx",true);
 
                         }else{
                             if(mdata.getData() != null) {
@@ -149,7 +148,7 @@ public class ReportSubmitActivity extends AppActivity{
                                     if(isstatus){
                                         ToastUtils.show("感谢您的反馈,我们会及时处理");
                                         ReportSubmitActivity.this.finish();
-                                        ReportSubmitDetailsActivity.start(ReportSubmitActivity.this,"xx",true);
+                                        ReportSubmitDetailsActivity.start(ReportSubmitActivity.this,-1,true);
                                     }else{
                                         String message = data.message;
                                         if(!TextUtils.isEmpty(message)){

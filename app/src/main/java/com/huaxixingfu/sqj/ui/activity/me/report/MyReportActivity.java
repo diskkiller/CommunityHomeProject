@@ -49,7 +49,7 @@ public class MyReportActivity extends AppActivity implements  ViewPager.OnPageCh
 
 
         mTabLayout.post(()->{
-            mPagerAdapter.addFragment(ReportMeFragment.newInstance(""), getString(R.string.report_act_my_tab_0));
+            mPagerAdapter.addFragment(ReportMeFragment.newInstance(), getString(R.string.report_act_my_tab_0));
             mPagerAdapter.addFragment(ReportRecordFragment.newInstance(""), getString(R.string.report_act_my_tab_1));
 //            setIndicator(mTabLayout, 20, 40);
 

@@ -31,7 +31,7 @@ public class ReportSubmitDetailsActivity extends AppActivity{
         tv_report_state, tv_result_title;
     @CheckNet
 //    @Log
-    public static void start(BaseActivity activity, String content,boolean result) {
+    public static void start(BaseActivity activity, long content,boolean result) {
         Intent intent = new Intent(activity, ReportSubmitDetailsActivity.class);
         intent.putExtra(TITLE_REQUEST, content);
         intent.putExtra(TITLE_RESULT, result);

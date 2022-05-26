@@ -16,8 +16,11 @@ import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.http.api.HomeCloumnContentNewsApi;
+import com.huaxixingfu.sqj.http.api.ReportListNewsApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.me.report.MyReportActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitDetailsActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -40,14 +43,13 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
     private SmartRefreshLayout mRefreshLayout;
     private WrapRecyclerView mRecyclerView;
 
-    static String mNewsColumnCode;
 
     int page = 0;
 
-    public static ReportMeFragment newInstance(String newsColumnCode) {
+    public static ReportMeFragment newInstance() {
         ReportMeFragment fragment = new ReportMeFragment();
         Bundle args = new Bundle();
-        args.putString("newsColumnCode", newsColumnCode);
+//        args.putString("newsColumnCode", newsColumnCode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,10 +60,6 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
     }
 
     public void initView() {
-
-        if (getArguments() != null) {
-            mNewsColumnCode = getArguments().getString("newsColumnCode");
-        }
 
         mRefreshLayout = findViewById(R.id.rl_refresh);
         mRecyclerView = findViewById(R.id.rv_list);
@@ -78,25 +76,23 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
     public void initData() {
         getHomeContentNews(
                 10,
-                page,
-                mNewsColumnCode,false);
+                page,false);
     }
 
-    public void getHomeContentNews(int size,int page,String newsColumnCode,boolean isLoadMore){
+    public void getHomeContentNews(int size,int page,boolean isLoadMore){
         HashMap<String, Object> map = new HashMap<>();
         map.put("size",size);
         map.put("page",page);
-        map.put("newsColumnCode",newsColumnCode);
         EasyHttp.post(this)
-                .api(new HomeCloumnContentNewsApi())
+                .api(new ReportListNewsApi())
                 .json(map)
-                .request(new HttpCallback<HttpData<HomeCloumnContentNewsApi.Bean>>(this) {
+                .request(new HttpCallback<HttpData<ReportListNewsApi.Bean>>(this) {
                     @Override
-                    public void onSucceed(HttpData<HomeCloumnContentNewsApi.Bean> data) {
+                    public void onSucceed(HttpData<ReportListNewsApi.Bean> data) {
                         if(data.getData() != null){
-                            HomeCloumnContentNewsApi.Bean model = data.getData();
+                            ReportListNewsApi.Bean model = data.getData();
                             if (null != model) {
-                                List<HomeCloumnContentNewsApi.Bean.VContentNew> news = model.content;
+                                List<ReportListNewsApi.Bean.VContentReport> news = model.content;
                                 if ((null != news) && (news.size() > 0)) {
 
                                     if(isLoadMore){
@@ -129,8 +125,8 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
 
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-        HomeCloumnContentNewsApi.Bean.VContentNew model = adapter.getItem(position);
-        BrowserActivity.start(getActivity(), model.newsUrl);
+        ReportListNewsApi.Bean.VContentReport model = adapter.getItem(position);
+        ReportSubmitDetailsActivity.start(getAttachActivity(),model.appReportId,false);
     }
 
     @Override
@@ -138,8 +134,7 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
         page++;
         getHomeContentNews(
                 10,
-                page,
-                mNewsColumnCode,true);
+                page,true);
     }
 
     @Override
@@ -147,7 +142,6 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
         page = 0;
         getHomeContentNews(
                 10,
-                page,
-                mNewsColumnCode,false);
+                page,false);
     }
 }
