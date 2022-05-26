@@ -241,7 +241,6 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.activity.me.report.ReportContentListActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
          <activity
@@ -251,7 +250,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.activity.me.report.ReportSubmitActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
 

@@ -20,6 +20,7 @@ import com.huaxixingfu.sqj.http.api.EditFriendNameApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 import com.huaxixingfu.sqj.utils.StringUtils;
@@ -129,7 +130,7 @@ public class ChatSettingActivity extends AppActivity {
                     })
                     .show();
         }else if(id == R.id.sb_chat_report){
-            ReportContentListActivity.start(ChatSettingActivity.this,"",ReportContentListActivity.CHATSETTING);
+            ReportSubmitActivity.start(ChatSettingActivity.this,ReportContentListActivity.CHATSETTING,targetUid);
         }
 
 

@@ -71,6 +71,7 @@ public class ReportSubmitDetailsActivity extends AppActivity{
 
         if(resultType){
             tv_submit.setVisibility(View.VISIBLE);
+            setTitle(R.string.report_act_details_title_result);
         }else{
             tv_submit.setVisibility(View.INVISIBLE);
         }

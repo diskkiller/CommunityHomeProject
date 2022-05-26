@@ -81,6 +81,14 @@ public class API {
      * 首页-新闻
      */
     public static final String HOME_CONTENT_NEW = MAIN_URL + "sggl/mobile/home/v1.0/news/top/page";
+  /**
+     * 获取 举报类型
+     */
+    public static final String REPORT_TYPE_LIST = MAIN_URL + "sggl/mobile/mycenter/v1.0/report/type";
+    /**
+     * 提交举报
+     */
+    public static final String REPORT_SUBMIT = MAIN_URL +"sggl/mobile/mycenter/v1.0/report/submit";
 
     /**
      * 首页-新闻-分类

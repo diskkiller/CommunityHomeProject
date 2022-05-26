@@ -1,5 +1,7 @@
 package com.huaxixingfu.sqj.ui.activity.me.report;
 
+import static com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity.NEWSTYPE;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
@@ -10,6 +12,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +29,7 @@ import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.FeedBackImageBean;
 import com.huaxixingfu.sqj.bean.VSucess;
 import com.huaxixingfu.sqj.http.api.FeedBackApi;
+import com.huaxixingfu.sqj.http.api.ReportSubmitApi;
 import com.huaxixingfu.sqj.http.api.UpdateImageApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.adapter.FeedBackImageAdapter;
@@ -50,18 +56,36 @@ public class ReportSubmitActivity extends AppActivity{
     private String feedbackText;
     private FeedBackImageAdapter imageAdapter;
 
-    private int selectTypeBean = -1;
-    private String selectTypeBeanType = "";
+    private int dictCode = NEWSTYPE;
+//    private String typeCodeString = "";
+    private MutableLiveData<String> typeCodeStringLiveData = new MutableLiveData();
+    private int typeCode = 0;
+    private int targetID = 0;
 
     private List<FeedBackImageBean> listImage = new ArrayList<>();
 
-    public static  final String TITLE_REQUEST = "TITLE_REQUEST";
+    public static  final String TITLE_REQUEST_DICT_CODE = "TITLE_REQUEST_DICT_CODE";
+    public static  final String TITLE_REQUEST_TYPE_CODE_STRING = "TITLE_REQUEST_TYPE_CODE_STRING";
+    public static  final String TITLE_REQUEST_TYPE_CODE = "TITLE_REQUEST_TYPE_CODE";
+    public static  final String TITLE_REQUEST_TARGET = "TITLE_REQUEST_TARGET";
 
     @CheckNet
 //    @Log
-    public static void start(BaseActivity activity, String content) {
+    public static void start(BaseActivity activity, int dictCode,long targetID) {
         Intent intent = new Intent(activity, ReportSubmitActivity.class);
-        intent.putExtra(TITLE_REQUEST, content);
+        intent.putExtra(TITLE_REQUEST_DICT_CODE, dictCode);
+        intent.putExtra(TITLE_REQUEST_TARGET, targetID);
+        activity.startActivity(intent);
+    }
+
+
+    @CheckNet
+//    @Log
+    public static void start(BaseActivity activity, int typeCode,String typeCodeString) {
+
+        Intent intent = new Intent(activity, ReportSubmitActivity.class);
+        intent.putExtra(TITLE_REQUEST_TYPE_CODE_STRING, typeCodeString);
+        intent.putExtra(TITLE_REQUEST_TYPE_CODE, typeCode);
         activity.startActivity(intent);
     }
 
@@ -75,8 +99,21 @@ public class ReportSubmitActivity extends AppActivity{
     @Override
     protected void initView() {
 
-        selectTypeBeanType = getIntent().getStringExtra(TITLE_REQUEST);
+        dictCode = getIntent().getIntExtra(TITLE_REQUEST_DICT_CODE,NEWSTYPE);
+        String typeCodeString = getIntent().getStringExtra(TITLE_REQUEST_TYPE_CODE_STRING);
+        typeCode = getIntent().getIntExtra(TITLE_REQUEST_TYPE_CODE,-1);
         initEvent();
+        if(typeCode == -1 && StringUtils.isEmpty(typeCodeString)){
+            ReportContentListActivity.start(this,dictCode);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        typeCode = intent.getIntExtra(TITLE_REQUEST_TYPE_CODE,-1);
+        String typeCodeString = intent.getStringExtra(TITLE_REQUEST_TYPE_CODE_STRING);
+        typeCodeStringLiveData.setValue(typeCodeString);
     }
 
     public void initData() {
@@ -84,34 +121,47 @@ public class ReportSubmitActivity extends AppActivity{
     }
 
 
-    private void feedback(int sysFeedbackType,String sysFeedbackContent, List<String> sysFeedbackImageList){
+    private void feedback(String sysFeedbackContent, List<String> sysFeedbackImageList){
         HashMap<String, Object> map = new HashMap<>();
-        map.put("sysFeedbackType", sysFeedbackType);
-        map.put("sysFeedbackContent", sysFeedbackContent);
-        map.put("sysFeedbackImageList", sysFeedbackImageList);
+        map.put("dictCode", dictCode);
+        map.put("code", typeCode);
+        map.put("id", targetID);
+        map.put("reportContent", sysFeedbackContent);
+        map.put("reportImages", sysFeedbackImageList);
         EasyHttp.post(this)
-                .api(new FeedBackApi())
+                .api(new ReportSubmitApi())
                 .json(map)
                 .request(new HttpCallback<HttpData<VSucess>>(this) {
 
                     @Override
                     public void onSucceed(HttpData<VSucess> mdata) {
-                        if(mdata.getData() != null){
-                            VSucess data = mdata.getData();
+                        if(mdata.isRequestSucceed()){
+                            ToastUtils.show("感谢您的反馈,我们会及时处理");
+                            ReportSubmitActivity.this.finish();
+                            ReportSubmitDetailsActivity.start(ReportSubmitActivity.this,"xx",true);
 
-                            if(null != data){
-                                boolean isstatus = data.status;
-                                if(isstatus){
-                                    ToastUtils.show("感谢您的反馈,我们会及时处理");
-                                    new Handler().postDelayed(()->{
+                        }else{
+                            if(mdata.getData() != null) {
+
+                                VSucess data = mdata.getData();
+                                if(null != data){
+                                    boolean isstatus = data.status;
+                                    if(isstatus){
+                                        ToastUtils.show("感谢您的反馈,我们会及时处理");
                                         ReportSubmitActivity.this.finish();
-                                    },2000);
-                                }else{
-                                    String message = data.message;
-
-                                    if(!TextUtils.isEmpty(message)){
-                                        ToastUtils.show(message);
+                                        ReportSubmitDetailsActivity.start(ReportSubmitActivity.this,"xx",true);
+                                    }else{
+                                        String message = data.message;
+                                        if(!TextUtils.isEmpty(message)){
+                                            ToastUtils.show(message);
+                                        }
                                     }
+                                }
+
+                            }else{
+                                String message = mdata.getMessage();
+                                if (!TextUtils.isEmpty(message)) {
+                                    ToastUtils.show(message);
                                 }
                             }
                         }
@@ -126,12 +176,19 @@ public class ReportSubmitActivity extends AppActivity{
 
     private void initEvent() {
         findViewById(R.id.tv_submit).setOnClickListener(this);
+        findViewById(R.id.tvQuestionType).setOnClickListener(this);
         setRvImageInit();
         etDescribe = findViewById(R.id.et_describe);
         TextView tvHint = findViewById(R.id.tvHint);
 
         TextView tvQuestionType = findViewById(R.id.tvQuestionType);
-        tvQuestionType.setText(selectTypeBeanType);
+        typeCodeStringLiveData.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                tvQuestionType.setText(s);
+            }
+        });
+
 
         etDescribe.addTextChangedListener(new TextWatcher() {
             @Override
@@ -218,20 +275,17 @@ public class ReportSubmitActivity extends AppActivity{
     @Override
     public void onClick(View v) {
         int id = v.getId();
-
-        // TODO 结果
-        ReportSubmitDetailsActivity.start(this,"xx",true);
         if (id == R.id.tv_submit) {
-            if (TextUtils.isEmpty(feedbackText)) {
-                ToastUtils.show("举报详细说明不能为空");
-                return;
-            }
+//            if (TextUtils.isEmpty(feedbackText)) {
+//                ToastUtils.show("举报详细说明不能为空");
+//                return;
+//            }
             if (feedbackText != null && feedbackText.length() > 500) {
                 ToastUtils.show("字数限制最多500字");
                 return;
             }
 
-            if(selectTypeBean == -1 ){
+            if(dictCode == -1 ){
                 ToastUtils.show("请选择举报类型");
                 return;
             }
@@ -242,8 +296,11 @@ public class ReportSubmitActivity extends AppActivity{
                     sysFeedbackImageList.add(item.imageUrlHttp);
                 }
             }
-            feedback(selectTypeBean,feedbackText,sysFeedbackImageList);
+            feedback(feedbackText,sysFeedbackImageList);
 
+        }else if(id == R.id.tvQuestionType){
+
+            ReportContentListActivity.start(this,dictCode);
         }
 
     }

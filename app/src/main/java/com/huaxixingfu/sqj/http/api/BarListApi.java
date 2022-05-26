@@ -15,6 +15,7 @@ public final class BarListApi implements IRequestApi {
 
     public final static class Bean {
         public int sysBarType;
+        public int appGuideId;
         public String sysBarTitle;
         public String appGuideImageUrl;
         public String sysBarImageUrl;
@@ -22,5 +23,6 @@ public final class BarListApi implements IRequestApi {
         public String sysBarUrl;
         public boolean isLoginFlag;
         public String newsColumnCode;
+
     }
 }

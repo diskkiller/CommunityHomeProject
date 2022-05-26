@@ -17,7 +17,6 @@ import com.huaxixingfu.sqj.aop.CheckNet;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.http.api.ReportOptionApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
-import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.HashMap;
@@ -30,10 +29,10 @@ import java.util.List;
 public class ReportContentListActivity extends AppActivity {
 
 
-
-    public static  final int  CHATSETTING = 1;
-    public static  final int  GROUPSETTING = 2;
-    public static  final int  NEWSTYPE = 3;
+//    举报类型code 3000-新闻举报类型 4000-私聊举报类型 5000群聊举报类型
+    public static  final int  CHATSETTING = 3000;
+    public static  final int  GROUPSETTING = 5000;
+    public static  final int  NEWSTYPE = 3000;
 
     private ReportContentListAdapter adapter;
     private RecyclerView recycler;
@@ -41,20 +40,24 @@ public class ReportContentListActivity extends AppActivity {
 
     public static  final String TITLE_KEY = "TITLE_KEY";
     public static  final String TITLE_REQUEST = "TITLE_REQUEST";
+    public static  final String TITLE_REQUEST_MODEL = "TITLE_REQUESTreportItemBean";
 
+    ReportOptionApi.ReportItemBean child;
     @CheckNet
 //    @Log
-    public static void start(BaseActivity activity, String title, int content) {
+    public static void start(BaseActivity activity,  int content) {
         Intent intent = new Intent(activity, ReportContentListActivity.class);
-        intent.putExtra(TITLE_KEY, title);
         intent.putExtra(TITLE_REQUEST, content);
         activity.startActivity(intent);
     }
 
 //    @CheckNet
 //    @Log
-    public static void start(BaseActivity activity) {
-       start(activity,"",NEWSTYPE);
+    public static void start(BaseActivity activity, String title, ReportOptionApi.ReportItemBean reportItemBean) {
+        Intent intent = new Intent(activity, ReportContentListActivity.class);
+        intent.putExtra(TITLE_KEY, title);
+        intent.putExtra(TITLE_REQUEST_MODEL, reportItemBean);
+        activity.startActivity(intent);
     }
 
     private int requestKey = NEWSTYPE;
@@ -69,6 +72,13 @@ public class ReportContentListActivity extends AppActivity {
 
         String title = getString(TITLE_KEY);
         requestKey = getInt(TITLE_REQUEST);
+
+        if(requestKey == 0){
+            Object obj = getIntent().getSerializableExtra(TITLE_REQUEST_MODEL);
+            if(obj instanceof ReportOptionApi.ReportItemBean){
+                child = (ReportOptionApi.ReportItemBean)obj;
+            }
+        }
         TitleBar tb_title = findViewById(R.id.tb_title);
         if(StringUtils.isEmpty(title)){
             tb_title.setTitle(getString(R.string.report_act_option_title));
@@ -86,8 +96,12 @@ public class ReportContentListActivity extends AppActivity {
         adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-                ReportOptionApi.Bean1.VContentNew model = adapter.getData().get(position);
-                ReportSubmitActivity.start(ReportContentListActivity.this,model.newsTile);
+                ReportOptionApi.ReportItemBean model = adapter.getData().get(position);
+                if(model != null && (model.children ==null || model.children.size()==0)){
+                    ReportSubmitActivity.start(ReportContentListActivity.this,model.code,model.name);
+                }else{
+                    start(ReportContentListActivity.this,model.name,model);
+                }
             }
 
         });
@@ -97,31 +111,34 @@ public class ReportContentListActivity extends AppActivity {
         recycler.setLayoutManager(linearLayoutManager);
         recycler.setAdapter(adapter);
         page = 0;
-        initHomeContentNews();
+        if(child != null){
+            adapter.clearData();
+            adapter.setData(child.children);
+            adapter.notifyDataSetChanged();
+        }else{
+            requestReportListType();
+        }
     }
 
 
     /**
      * 头像请求并展示
      */
-    private void initHomeContentNews() {
+    private void requestReportListType() {
 
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("size","10");
-        map.put("page",page);
-        map.put("newsColumnCode",requestKey);
+        map.put("dictCode",requestKey);
         EasyHttp.post(this)
                 .api(new ReportOptionApi())
                 .json(map)
-                .request(new HttpCallback<HttpData<ReportOptionApi.Bean1>>(this) {
+                .request(new HttpCallback<HttpData<List<ReportOptionApi.ReportItemBean>>>(this) {
 
                     @Override
-                    public void onSucceed(HttpData<ReportOptionApi.Bean1> data) {
-                        if(data.getData() != null){
-                            ReportOptionApi.Bean1 model = data.getData();
+                    public void onSucceed(HttpData<List<ReportOptionApi.ReportItemBean>> model) {
+                        if(model.getData() != null){
                             if(null != model){
-                                List<ReportOptionApi.Bean1.VContentNew> news = model.content;
+                                List<ReportOptionApi.ReportItemBean> news = model.getData();
                                 if((null != news) && (news.size()>0)){
 
 

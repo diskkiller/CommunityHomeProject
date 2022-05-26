@@ -32,6 +32,7 @@ import com.huaxixingfu.sqj.http.api.GroupMemberDetailApi;
 import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitActivity;
 import com.huaxixingfu.sqj.ui.adapter.GroupMemberAdapter;
 import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 
@@ -416,7 +417,8 @@ public class GroupSettingActivity extends AppActivity {
                     })
                     .show();
         }else if(id == R.id.sb_chat_report){
-            ReportContentListActivity.start(GroupSettingActivity.this,"",ReportContentListActivity.GROUPSETTING);
+            ReportSubmitActivity.start(GroupSettingActivity.this,ReportContentListActivity.GROUPSETTING,targetUid);
+
         }
     }
 

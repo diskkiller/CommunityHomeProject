@@ -13,7 +13,7 @@ import com.huaxixingfu.sqj.http.api.ReportOptionApi;
 /**
  *    desc   : 选择举报类型 simple列表
  */
-public final class ReportContentListAdapter extends AppAdapter<ReportOptionApi.Bean1.VContentNew> {
+public final class ReportContentListAdapter extends AppAdapter<ReportOptionApi.ReportItemBean> {
 
     public ReportContentListAdapter(Context context) {
         super(context);
@@ -44,8 +44,8 @@ public final class ReportContentListAdapter extends AppAdapter<ReportOptionApi.B
 
         @Override
         public void onBindView(int position) {
-            ReportOptionApi.Bean1.VContentNew bean = getItem(position);
-            itemTitle.setText(bean.newsTile);
+            ReportOptionApi.ReportItemBean bean = getItem(position);
+            itemTitle.setText(bean.name);
         }
     }
 }
