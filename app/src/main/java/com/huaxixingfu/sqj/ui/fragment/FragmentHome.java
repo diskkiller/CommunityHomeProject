@@ -169,7 +169,7 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
                 HomeContentNewsApi.Bean.VContentNew model = adapter.getData().get(position);
                 if(model != null && StringUtils.isNotEmpty(model.newsUrl)){
-                    BrowserActivity.start(getActivity(),model.newsUrl);
+                    BrowserActivity.start(getActivity(),model.newsUrl,model.newsId);
                 }
             }
 

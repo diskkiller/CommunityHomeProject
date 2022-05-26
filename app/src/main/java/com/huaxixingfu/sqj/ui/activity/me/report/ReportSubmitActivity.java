@@ -29,6 +29,7 @@ import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.FeedBackImageBean;
 import com.huaxixingfu.sqj.bean.VSucess;
 import com.huaxixingfu.sqj.http.api.FeedBackApi;
+import com.huaxixingfu.sqj.http.api.ReportDetailsNewsApi;
 import com.huaxixingfu.sqj.http.api.ReportSubmitApi;
 import com.huaxixingfu.sqj.http.api.UpdateImageApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
@@ -53,14 +54,13 @@ public class ReportSubmitActivity extends AppActivity{
 
     private RecyclerView rc_image;
     private EditText etDescribe;
-    private String feedbackText;
     private FeedBackImageAdapter imageAdapter;
 
     private int dictCode = NEWSTYPE;
 //    private String typeCodeString = "";
     private MutableLiveData<String> typeCodeStringLiveData = new MutableLiveData();
     private int typeCode = 0;
-    private int targetID = 0;
+    private long targetID = 0;
 
     private List<FeedBackImageBean> listImage = new ArrayList<>();
 
@@ -99,6 +99,7 @@ public class ReportSubmitActivity extends AppActivity{
     @Override
     protected void initView() {
 
+        targetID = getIntent().getLongExtra(TITLE_REQUEST_TARGET,-1);
         dictCode = getIntent().getIntExtra(TITLE_REQUEST_DICT_CODE,NEWSTYPE);
         String typeCodeString = getIntent().getStringExtra(TITLE_REQUEST_TYPE_CODE_STRING);
         typeCode = getIntent().getIntExtra(TITLE_REQUEST_TYPE_CODE,-1);
@@ -131,39 +132,27 @@ public class ReportSubmitActivity extends AppActivity{
         EasyHttp.post(this)
                 .api(new ReportSubmitApi())
                 .json(map)
-                .request(new HttpCallback<HttpData<VSucess>>(this) {
+                .request(new HttpCallback<HttpData<ReportDetailsNewsApi.Bean>>(this) {
 
                     @Override
-                    public void onSucceed(HttpData<VSucess> mdata) {
-                        if(mdata.isRequestSucceed()){
-                            ToastUtils.show("感谢您的反馈,我们会及时处理");
-                            ReportSubmitActivity.this.finish();
+                    public void onSucceed(HttpData<ReportDetailsNewsApi.Bean> mdata) {
+
+                        if(mdata.isRequestSucceed() && mdata.getData() != null) {
+                            ReportDetailsNewsApi.Bean data = mdata.getData();
+                            if(null != data){
+
+                                ToastUtils.show("感谢您的反馈,我们会及时处理");
+                                ReportSubmitActivity.this.finish();
+                                ReportSubmitDetailsActivity.start(ReportSubmitActivity.this,data.appReportId,true);
+                            }
 
                         }else{
-                            if(mdata.getData() != null) {
-
-                                VSucess data = mdata.getData();
-                                if(null != data){
-                                    boolean isstatus = data.status;
-                                    if(isstatus){
-                                        ToastUtils.show("感谢您的反馈,我们会及时处理");
-                                        ReportSubmitActivity.this.finish();
-                                        ReportSubmitDetailsActivity.start(ReportSubmitActivity.this,-1,true);
-                                    }else{
-                                        String message = data.message;
-                                        if(!TextUtils.isEmpty(message)){
-                                            ToastUtils.show(message);
-                                        }
-                                    }
-                                }
-
-                            }else{
-                                String message = mdata.getMessage();
-                                if (!TextUtils.isEmpty(message)) {
-                                    ToastUtils.show(message);
-                                }
+                            String message = mdata.getMessage();
+                            if (!TextUtils.isEmpty(message)) {
+                                ToastUtils.show(message);
                             }
                         }
+
                     }
 
                     @Override
@@ -199,7 +188,7 @@ public class ReportSubmitActivity extends AppActivity{
             }
             @Override
             public void afterTextChanged(Editable s) {
-                feedbackText = etDescribe.getText().toString();
+                String feedbackText = etDescribe.getText().toString();
                 if (TextUtils.isEmpty(feedbackText)) {
                     tvHint.setVisibility(View.VISIBLE);
                 }
@@ -279,6 +268,7 @@ public class ReportSubmitActivity extends AppActivity{
 //                ToastUtils.show("举报详细说明不能为空");
 //                return;
 //            }
+            String feedbackText = etDescribe.getText().toString();
             if (feedbackText != null && feedbackText.length() > 500) {
                 ToastUtils.show("字数限制最多500字");
                 return;

@@ -62,11 +62,23 @@ public class FeedBackImageAdapter extends RecyclerView.Adapter<FeedBackImageAdap
                         break;
                     case FeedBackImageBean.TYPE_IMAGE_LOCAL:
                         Glide.with(activity).load(typeBean.imageUrl).centerCrop().into(holder.typeName);
-                        holder.typeNameClose.setVisibility(View.VISIBLE);
+
+
+                        if(typeBean.del){
+                            holder.typeNameClose.setVisibility(View.VISIBLE);
+                        }else{
+                            holder.typeNameClose.setVisibility(View.INVISIBLE);
+                            holder.typeName.setImageResource(R.color.color_ffffff);
+                        }
                         break;
                     case FeedBackImageBean.TYPE_IMAGE_HTTP:
                         Glide.with(activity).load(typeBean.imageUrlHttp).centerCrop().into(holder.typeName);
-                        holder.typeNameClose.setVisibility(View.VISIBLE);
+                        if(typeBean.del){
+                            holder.typeNameClose.setVisibility(View.VISIBLE);
+                        }else{
+                            holder.typeNameClose.setVisibility(View.INVISIBLE);
+                            holder.typeName.setImageResource(R.color.color_ffffff);
+                        }
                         break;
                 }
                 holder.typeName.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +97,6 @@ public class FeedBackImageAdapter extends RecyclerView.Adapter<FeedBackImageAdap
                         }
                     }
                 });
-
 
             }
         }

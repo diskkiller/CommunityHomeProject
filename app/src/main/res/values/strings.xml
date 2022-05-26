@@ -332,11 +332,13 @@
     <string name="report_act_details_title_details">举报详情</string>
     <string name="report_act_details_title_num">举报单号</string>
     <string name="report_act_details_title_obj">举报对象</string>
+    <string name="report_act_details_title_thing">举报证据</string>
     <string name="report_act_details_title_type">举报类型</string>
     <string name="report_act_details_title_time">举报时间</string>
     <string name="report_act_details_state">处理状态</string>
     <string name="report_act_list_state">举报状态</string>
     <string name="report_act_details_result">处理结果</string>
+    <string name="report_act_details_result_defualt">等待官方处理结果</string>
     <string name="report_act_details_back">返回</string>
 
     <string name="report_act_my_btn">我的举报</string>

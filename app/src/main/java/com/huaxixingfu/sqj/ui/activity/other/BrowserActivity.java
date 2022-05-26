@@ -40,7 +40,7 @@ public final class BrowserActivity extends AppActivity
 
     @CheckNet
     @Log
-    public static void start(Context context, String url,int newsID) {
+    public static void start(Context context, String url,long newsID) {
         if (StringUtils.isEmpty(url)) {
             return;
         }
@@ -64,7 +64,7 @@ public final class BrowserActivity extends AppActivity
     private ProgressBar mProgressBar;
     private SmartRefreshLayout mRefreshLayout;
     private BrowserView mBrowserView;
-    private int targetId;
+    private long targetId;
 
     @Override
     protected int getLayoutId() {
@@ -89,8 +89,8 @@ public final class BrowserActivity extends AppActivity
     @Override
     protected void initData() {
         setTitle("详情");
-        targetId = getInt(INTENT_KEY_IN_NEW_ID);
-        if(SPManager.instance(getContext()).isLogin() && targetId == -1){
+        targetId = getLong(INTENT_KEY_IN_NEW_ID,-1);
+        if(SPManager.instance(getContext()).isLogin() && targetId != -1){
 
             setRightIcon(R.mipmap.icon_title_more);
             getTitleBar().getRightView().setOnClickListener(view->{

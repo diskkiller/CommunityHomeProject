@@ -15,7 +15,7 @@ public final class BarListApi implements IRequestApi {
 
     public final static class Bean {
         public int sysBarType;
-        public int appGuideId;
+        public long appGuideId;
         public String sysBarTitle;
         public String appGuideImageUrl;
         public String sysBarImageUrl;

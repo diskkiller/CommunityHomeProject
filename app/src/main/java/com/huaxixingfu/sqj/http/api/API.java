@@ -90,6 +90,11 @@ public class API {
      */
     public static final String REPORT_MY_LIST = MAIN_URL + "sggl/mobile/mycenter/v1.0/report/page";
     /**
+     * 获取 我的举报详情
+     */
+    public static final String REPORT_MY_DETAILS = MAIN_URL + "sggl/mobile/mycenter/v1.0/report/detail";
+
+    /**
      * 提交举报
      */
     public static final String REPORT_SUBMIT = MAIN_URL +"sggl/mobile/mycenter/v1.0/report/submit";

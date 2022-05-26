@@ -129,7 +129,7 @@ public class NewsColumnFragment extends AppFragment<AppActivity>
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
         HomeCloumnContentNewsApi.Bean.VContentNew model = adapter.getItem(position);
-        BrowserActivity.start(getActivity(), model.newsUrl);
+        BrowserActivity.start(getActivity(), model.newsUrl,model.newsId);
     }
 
     @Override

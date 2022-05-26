@@ -44,6 +44,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_no_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="15dp"
-            android:text="@string/report_act_details_title_num"
+            android:text="@string/report_act_details_title_obj"
             />
 
         <TextView
@@ -70,6 +71,61 @@
             android:paddingEnd="10dp"
             tools:text="@string/report_act_details_title_num"
             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:background="@color/color_ffffff"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="@string/report_act_details_title_obj"
+                />
+
+            <TextView
+                android:id="@+id/tv_report_obj_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                tools:text="@string/report_act_details_title_num"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp"
+            android:text="@string/report_act_details_title_thing"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-10dp"
+            android:orientation="horizontal"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -133,8 +189,8 @@
             />
     </LinearLayout>
 
-
     <LinearLayout
+        android:id="@+id/ll_result_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -142,6 +198,7 @@
         android:paddingLeft="15dp"
         android:layout_marginTop="10dp"
         android:background="@color/color_ffffff"
+        android:visibility="invisible"
         >
 
 
@@ -163,17 +220,21 @@
             />
     </LinearLayout>
     <View
+
+        android:id="@+id/ll_result_line"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-
+        android:layout_height="1dp"
+        android:visibility="invisible"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ll_result_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/color_ffffff">
+        android:background="@color/color_ffffff"
+        android:visibility="invisible">
 
 
         <TextView
