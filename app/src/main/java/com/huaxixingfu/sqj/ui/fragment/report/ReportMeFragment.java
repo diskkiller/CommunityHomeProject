@@ -56,7 +56,7 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
 
     @Override
     protected int getLayoutId() {
-        return R.layout.sqj_fragment_news_columns;
+        return R.layout.sqj_fragment_report_my;
     }
 
     public void initView() {

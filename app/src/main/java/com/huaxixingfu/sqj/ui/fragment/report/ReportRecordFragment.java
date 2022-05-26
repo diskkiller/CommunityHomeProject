@@ -21,6 +21,7 @@ import com.huaxixingfu.sqj.ui.activity.me.report.MyReportActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.adapter.HomeColumnContentNewsAdapter;
 import com.huaxixingfu.sqj.ui.adapter.ReportRecordeAdapter;
+import com.huaxixingfu.sqj.widget.StatusLayout;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
@@ -45,6 +46,8 @@ public class ReportRecordFragment extends AppFragment<MyReportActivity>
 
     int page = 0;
 
+    private StatusLayout mStatusLayout;
+
     public static ReportRecordFragment newInstance(String newsColumnCode) {
         ReportRecordFragment fragment = new ReportRecordFragment();
         Bundle args = new Bundle();
@@ -55,7 +58,7 @@ public class ReportRecordFragment extends AppFragment<MyReportActivity>
 
     @Override
     protected int getLayoutId() {
-        return R.layout.sqj_fragment_news_columns;
+        return R.layout.sqj_fragment_report_my;
     }
 
     public void initView() {
@@ -63,6 +66,8 @@ public class ReportRecordFragment extends AppFragment<MyReportActivity>
         if (getArguments() != null) {
             mNewsColumnCode = getArguments().getString("newsColumnCode");
         }
+
+        mStatusLayout = findViewById(R.id.hl_status_hint);
 
         mRefreshLayout = findViewById(R.id.rl_refresh);
         mRecyclerView = findViewById(R.id.rv_list);
