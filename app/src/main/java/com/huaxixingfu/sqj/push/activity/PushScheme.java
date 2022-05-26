@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
+import com.huaxixingfu.sqj.ui.activity.msg.MsgMissionListActivity;
+import com.huaxixingfu.sqj.ui.activity.msg.MsgNotesListActivity;
 import com.huaxixingfu.sqj.ui.fragment.FragmentLife;
 import com.huaxixingfu.sqj.ui.fragment.FragmentMsgList;
+import com.tencent.liteav.trtccalling.model.util.BrandUtil;
 
 /**
  * Created by lsm on 2022/5/25.
@@ -52,24 +55,24 @@ public class PushScheme {
                 intent.putExtra(HomeActivity.INTENT_KEY_IN_FRAGMENT_CLASS, FragmentMsgList.class);
 
                 break;
-            case VIDEO_CHAT: // VOICE_CHAT
+            case VIDEO_CHAT:
+//            case VOICE_CHAT:
                 match = true;
                 intent.putExtra(HomeActivity.INTENT_KEY_IN_FRAGMENT_CLASS, FragmentMsgList.class);
 
                 break;
+            // 社区公告
             case NOTICE:
-
+                match = true;
+                intent.setClass(context, MsgNotesListActivity.class);
                 break;
+            // 任务消息
             case QUESTIONNAIRE:
-
-                break;
             case ACTIVITY:
-
-                break;
             case VOTE:
-
-                break;
             case CUSTOMER_FORM:
+                match = true;
+                intent.setClass(context, MsgMissionListActivity.class);
 
                 break;
 
@@ -88,6 +91,24 @@ public class PushScheme {
             context.startActivity(intent);
         }
         return match;
+    }
+
+    /**
+     * 根据设备厂商返回对应的类型
+     */
+    public static String getThirdType(){
+        if (BrandUtil.isBrandHuawei()){
+            return "34";
+        }else if (BrandUtil.isBrandXiaoMi()){
+            return "33";
+        }else if (BrandUtil.isBrandVivo()){
+            return "37";
+        }else if (BrandUtil.isBrandOppo()){
+            return "36";
+        }else if (BrandUtil.isBrandMeizu()){
+            return "35";
+        }
+        return "32";
     }
 
 //    enum APNSMsgType: Int, Decodable {
