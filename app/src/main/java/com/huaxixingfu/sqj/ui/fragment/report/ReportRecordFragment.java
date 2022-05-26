@@ -89,47 +89,47 @@ public class ReportRecordFragment extends AppFragment<MyReportActivity>
     }
 
     public void getHomeContentNews(int size,int page,String newsColumnCode,boolean isLoadMore){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("size",size);
-        map.put("page",page);
-        map.put("newsColumnCode",newsColumnCode);
-        EasyHttp.post(this)
-                .api(new HomeCloumnContentNewsApi())
-                .json(map)
-                .request(new HttpCallback<HttpData<HomeCloumnContentNewsApi.Bean>>(this) {
-                    @Override
-                    public void onSucceed(HttpData<HomeCloumnContentNewsApi.Bean> data) {
-                        if(data.getData() != null){
-                            HomeCloumnContentNewsApi.Bean model = data.getData();
-                            if (null != model) {
-                                List<HomeCloumnContentNewsApi.Bean.VContentNew> news = model.content;
-                                if ((null != news) && (news.size() > 0)) {
-
-                                    if(isLoadMore){
-
-                                        adapter.addData(news);
-                                        mRefreshLayout.finishLoadMore();
-
-                                    }else{
-                                        adapter.clearData();
-                                        adapter.setData(news);
-                                        mRefreshLayout.finishRefresh();
-                                    }
-
-                                } else {
-                                    if (null != adapter) {
-                                        ToastUtils.show("暂无更多数据");
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFail(Exception e) {
-                        super.onFail(e);
-                    }
-                });
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("size",size);
+//        map.put("page",page);
+//        map.put("newsColumnCode",newsColumnCode);
+//        EasyHttp.post(this)
+//                .api(new HomeCloumnContentNewsApi())
+//                .json(map)
+//                .request(new HttpCallback<HttpData<HomeCloumnContentNewsApi.Bean>>(this) {
+//                    @Override
+//                    public void onSucceed(HttpData<HomeCloumnContentNewsApi.Bean> data) {
+//                        if(data.getData() != null){
+//                            HomeCloumnContentNewsApi.Bean model = data.getData();
+//                            if (null != model) {
+//                                List<HomeCloumnContentNewsApi.Bean.VContentNew> news = model.content;
+//                                if ((null != news) && (news.size() > 0)) {
+//
+//                                    if(isLoadMore){
+//
+//                                        adapter.addData(news);
+//                                        mRefreshLayout.finishLoadMore();
+//
+//                                    }else{
+//                                        adapter.clearData();
+//                                        adapter.setData(news);
+//                                        mRefreshLayout.finishRefresh();
+//                                    }
+//
+//                                } else {
+//                                    if (null != adapter) {
+//                                        ToastUtils.show("暂无更多数据");
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFail(Exception e) {
+//                        super.onFail(e);
+//                    }
+//                });
     }
 
 
