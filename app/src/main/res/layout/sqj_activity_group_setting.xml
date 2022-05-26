@@ -163,6 +163,17 @@
                 />
 
 
+            <com.diskkiller.widget.layout.SettingBar
+                android:id="@+id/sb_chat_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:bar_leftText="@string/report_act_chat_setting_report"
+                app:bar_rightDrawable="@drawable/arrows_right_ic"
+                app:bar_lineVisible="false"
+                />
+
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

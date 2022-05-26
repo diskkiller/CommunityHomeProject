@@ -10,8 +10,12 @@
     <com.hjq.bar.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:rightIconHeight="@dimen/dp_20"
-        app:title="@string/web_title" />
+        app:rightIconHeight="@dimen/dp_4"
+        app:rightIconWidth="@dimen/dp_20"
+        app:title="@string/web_title" >
+
+
+    </com.hjq.bar.TitleBar>
 
     <ProgressBar
         android:id="@+id/pb_browser_progress"

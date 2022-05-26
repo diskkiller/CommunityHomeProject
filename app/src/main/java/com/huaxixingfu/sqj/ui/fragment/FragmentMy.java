@@ -31,6 +31,7 @@ import com.huaxixingfu.sqj.ui.activity.me.FamilyDateActivity;
 import com.huaxixingfu.sqj.ui.activity.me.FeedbackActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.activity.me.SettingActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.MyReportActivity;
 import com.huaxixingfu.sqj.ui.dialog.CardNotifocationDialog;
 import com.huaxixingfu.sqj.utils.Encryption;
 import com.huaxixingfu.sqj.utils.MyTime;
@@ -91,7 +92,7 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
 
        setOnClickListener(R.id.ll_header,R.id.tv_user_date,
                R.id.tv_logout,R.id.sb_user_setting_family,
-               R.id.sb_user_account_security,R.id.sb_user_feedback,R.id.sb_user_setting);
+               R.id.sb_user_account_security,R.id.sb_user_feedback,R.id.sb_user_setting,R.id.sb_user_report);
 
        if(SPManager.instance(getContext()).isLogin()){
            icIcon.setVisibility(View.VISIBLE);
@@ -159,6 +160,9 @@ public class FragmentMy extends TitleBarFragment<HomeActivity> {
             startActivity(new Intent(getActivity(), FeedbackActivity.class));
         }else if(viewId == R.id.sb_user_setting){
             startActivity(new Intent(getActivity(), SettingActivity.class));
+
+        }else if(viewId == R.id.sb_user_report){
+            startActivity(new Intent(getActivity(), MyReportActivity.class));
 
         }else if(viewId == R.id.tv_logout){
             ActivityManager.getInstance().loginOut(getActivity());

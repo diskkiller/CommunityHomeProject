@@ -130,6 +130,22 @@
             app:bar_rightDrawable="@drawable/arrows_right_ic"
             app:bar_leftDrawable="@mipmap/ic_user_feedback"
             />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F7F7F7"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
+    <com.diskkiller.widget.layout.SettingBar
+        android:id="@+id/sb_user_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/report_act_my_btn"
+        app:bar_rightDrawableSize="20dp"
+        app:bar_rightDrawable="@drawable/arrows_right_ic"
+        app:bar_leftDrawable="@mipmap/ic_user_report"
+        />
 
 
     <com.diskkiller.widget.layout.SettingBar

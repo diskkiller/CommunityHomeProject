@@ -83,7 +83,7 @@ public class FragmentLife extends TitleBarFragment<AppActivity> implements Statu
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
                 HomeContentNewsApi.Bean.VContentNew model = adapter.getData().get(position);
-                BrowserActivity.start(getActivity(),model.newsUrl);
+                BrowserActivity.start(getActivity(),model.newsUrl,model.newsId);
             }
 
         });

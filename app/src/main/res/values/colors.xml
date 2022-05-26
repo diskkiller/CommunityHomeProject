@@ -23,6 +23,11 @@
     <color name="common_confirm_text_color">#EC3937</color>
     <!-- 对话框取消按钮的文本颜色 -->
     <color name="common_cancel_text_color">#000</color>
+    <color name="common_cancel_text_color_blue">@color/col_007aff</color>
+    <color name="col_007aff">#007AFF</color>
+    <color name="col_fe0000">#FE0000</color>
+    <color name="col_888888">#888888</color>
+    <color name="col_cccccc">#CCCCCC</color>
 
 
     <color name="color_transparent_black">#77333333</color>

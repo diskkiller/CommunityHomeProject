@@ -106,7 +106,7 @@ public class SimpleNewListActivity extends AppActivity {
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
                 HomeContentNewsApi.Bean.VContentNew model = adapter.getData().get(position);
-                BrowserActivity.start(getActivity(),model.newsUrl);
+                BrowserActivity.start(getContext(),model.newsUrl,model.newsId);
             }
 
         });

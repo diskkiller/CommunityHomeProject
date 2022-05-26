@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -13,11 +12,16 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import com.diskkiller.base.BaseDialog;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.action.StatusAction;
 import com.huaxixingfu.sqj.aop.CheckNet;
 import com.huaxixingfu.sqj.aop.Log;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitActivity;
+import com.huaxixingfu.sqj.ui.dialog.ReportDialog;
+import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
 import com.huaxixingfu.sqj.widget.BrowserView;
 import com.huaxixingfu.sqj.widget.StatusLayout;
@@ -32,17 +36,17 @@ public final class BrowserActivity extends AppActivity
         implements StatusAction, OnRefreshListener {
 
     private static final String INTENT_KEY_IN_URL = "url";
-    private static final String INTENT_KEY_IN_TITLE = "title";
+    private static final String INTENT_KEY_IN_NEW_ID = "INTENT_KEY_IN_NEW_ID";
 
     @CheckNet
     @Log
-    public static void start(Context context, String url,String title) {
+    public static void start(Context context, String url,long newsID) {
         if (StringUtils.isEmpty(url)) {
             return;
         }
         Intent intent = new Intent(context, BrowserActivity.class);
         intent.putExtra(INTENT_KEY_IN_URL, url);
-        intent.putExtra(INTENT_KEY_IN_TITLE, "详情");
+        intent.putExtra(INTENT_KEY_IN_NEW_ID, newsID);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -50,13 +54,17 @@ public final class BrowserActivity extends AppActivity
     }
 
     public static void start(Context context, String url) {
-        start(context,url,"详情");
+        start(context,url,-1);
+    }
+    public static void start(Context context, String url,String title) {
+        start(context,url,-1);
     }
 
     private StatusLayout mStatusLayout;
     private ProgressBar mProgressBar;
     private SmartRefreshLayout mRefreshLayout;
     private BrowserView mBrowserView;
+    private long targetId;
 
     @Override
     protected int getLayoutId() {
@@ -74,17 +82,49 @@ public final class BrowserActivity extends AppActivity
         mBrowserView.setLifecycleOwner(this);
         // 设置网页刷新监听
         mRefreshLayout.setOnRefreshListener(this);
+
+
     }
 
     @Override
     protected void initData() {
-        setTitle(getString(INTENT_KEY_IN_TITLE));
+        setTitle("详情");
+        targetId = getLong(INTENT_KEY_IN_NEW_ID,-1);
+        if(SPManager.instance(getContext()).isLogin() && targetId != -1){
+
+            setRightIcon(R.mipmap.icon_title_more);
+            getTitleBar().getRightView().setOnClickListener(view->{
+                showMore();
+            });
+        }
+
 
         showLoading();
 
         mBrowserView.setBrowserViewClient(new AppBrowserViewClient());
         mBrowserView.setBrowserChromeClient(new AppBrowserChromeClient(mBrowserView));
         mBrowserView.loadUrl(getString(INTENT_KEY_IN_URL));
+    }
+
+    // 更多谈出框
+    private void  showMore(){
+
+        new ReportDialog.Builder(getContext())
+                .setGravity(Gravity.BOTTOM)
+                // 设置点击按钮后不关闭对话框
+                //.setAutoDismiss(false)
+                .setListener(new ReportDialog.OnListener() {
+                    @Override
+                    public void onConfirm() {
+
+                        ReportSubmitActivity.start(BrowserActivity.this,ReportContentListActivity.NEWSTYPE,targetId);
+                    }
+
+                    @Override
+                    public void onCancel(BaseDialog dialog) {
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -153,6 +193,7 @@ public final class BrowserActivity extends AppActivity
             showComplete();
         }
     }
+
 
     private class AppBrowserChromeClient extends BrowserView.BrowserChromeClient {
 

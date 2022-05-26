@@ -109,7 +109,7 @@ public final class HomeContentPositionAdapter extends AppAdapter<BarListApi.Bean
                    case H5_STATIC_2:
                    case H5_PARAM_1:
                        if(StringUtils.isNotEmpty(bean.sysBarUrl)){
-                           BrowserActivity.start(getContext(),bean.sysBarUrl,bean.sysBarTitle);
+                           BrowserActivity.start(getContext(),bean.sysBarUrl,bean.appGuideId);
                        }
                        break;
                    case EMPTY_PAGE_DEVELOP_4:
