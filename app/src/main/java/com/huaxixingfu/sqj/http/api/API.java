@@ -1,7 +1,5 @@
 package com.huaxixingfu.sqj.http.api;
 
-import com.huaxixingfu.sqj.BuildConfig;
-
 public class API {
 
     /*
@@ -398,6 +396,15 @@ public class API {
      */
     public static final String CHAT_RESIDENT_LIST = MAIN_URL + "sggl/mobile/chat/zone/v1.0/resident/list";
 
+    /** 推送token上报
+     * 账号绑定：/sggl/mobile/user/v1.0/third/tpns/bind
+     * {
+     *     "thirdType": 32, -- 32：安卓，33：小米"，34：华为，35：魅族，OPPO:36，VIVO:37
+     *     "accessToken": "aaaaaaaaaaaaaaaaaa" -- token
+     * }
+     */
+
+    public static final String PUSH_TOKEN_BIND = MAIN_URL + "sggl/mobile/user/v1.0/third/tpns/bind";
 
 
 
