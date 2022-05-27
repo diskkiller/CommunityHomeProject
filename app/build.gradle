@@ -155,35 +155,7 @@ android {
     }
 
 
-    //project配置完成后回调
-    afterEvaluate {
 
-        android.applicationVariants.all { variant ->
-            variant.assemble.doLast {
-                if (variant.buildType.name == ('release')) {
-                    def apkPath = variant.outputs.first().outputFile as File
-                    def apkFolderPath = apkPath.getParent()
-                    def apkstor = android.signingConfigs.config.storeFile.absoluteFile
-                    def base = project.rootDir.absolutePath + '/jiagu/jiagu.jar'
-                    def shPath = project.rootDir.absolutePath + '/jiagu/jiagu.sh'
-                    def jiaguRoot = project.rootDir.absolutePath + '/jiagu'
-                    println "================shPath================${shPath}"
-                    println "================base================${base}"
-                    println "================apkPath================${apkPath}"
-                    println "=================apkFolderPath===============${apkFolderPath}"
-                    println "=================jiaguRoot===============${jiaguRoot}"
-                    println ".keyPassword  ===============${android.signingConfigs.config.storeFile.absoluteFile}"
-
-                    exec {
-                        ignoreExitValue true
-                        println "=======开始执行shell========"
-                        commandLine "sh", shPath, apkPath, apkFolderPath, apkstor, base,jiaguRoot
-
-                    }
-                }
-            }
-        }
-    }
 
 }
 
