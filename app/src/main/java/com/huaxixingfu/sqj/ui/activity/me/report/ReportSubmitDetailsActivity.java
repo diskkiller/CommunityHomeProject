@@ -73,7 +73,6 @@ public class ReportSubmitDetailsActivity extends AppActivity{
 
     @Override
     protected void initView() {
-        SqjActivityReportDetailsBinding.inflate(LayoutInflater.from(this));
         selectTypeBeanType = getIntent().getLongExtra(TITLE_REQUEST ,-1);
         resultType = getIntent().getBooleanExtra(TITLE_RESULT,false);
         initEvent();
@@ -105,13 +104,15 @@ public class ReportSubmitDetailsActivity extends AppActivity{
                                 initRv(data.appReportImages);
                                 switch (data.appReportStatus) {
                                     case STATE_WILL_DO_0:
-                                        tv_report_state.setText(R.string.report_act_will_do);
+//                                        tv_report_state.setText(R.string.report_act_will_do);
+                                        tv_report_state.setText(data.appReportStatusName);
                                         tv_report_state.setTextColor(getColor(R.color.main));
                                         tv_report_result.setText(R.string.report_act_details_result_defualt);
                                         break;
                                     case STATE_DONE_OK_1:
                                     case STATE_DONE_NOT_2:
-                                        tv_report_state.setText(R.string.report_act_done);
+//                                        tv_report_state.setText(R.string.report_act_done);
+                                        tv_report_state.setText(data.appReportStatusName);
                                         tv_report_state.setTextColor(getColor(R.color.color_333333));
                                         tv_report_result.setText(data.appExamineDesc);
                                         break;
@@ -185,7 +186,7 @@ public class ReportSubmitDetailsActivity extends AppActivity{
         for (int i = 0; i < stringList.size(); i++) {
 
             FeedBackImageBean feedBackImageBean = new FeedBackImageBean();
-            feedBackImageBean.imageUrl = stringList.get(i);
+            feedBackImageBean.imageUrlHttp = stringList.get(i);
             feedBackImageBean.defualt = FeedBackImageBean.TYPE_IMAGE_HTTP;
             feedBackImageBean.del = false;
             listImage.add(0,feedBackImageBean);
