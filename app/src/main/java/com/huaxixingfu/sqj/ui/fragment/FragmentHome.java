@@ -22,6 +22,7 @@ import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.api.PersonalDataApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.home.HomeCenterActivity;
+import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.ui.adapter.HomeContentNewsAdapter;
@@ -123,7 +124,7 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
      * 处理网络请求
      */
     public void initData(){
-        //initHomeContentNews(false);
+        initHomeContentNews(false);
     }
 
 
@@ -231,8 +232,7 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.right_icon:
-                //startActivity(new Intent(getActivity(), SystemNotesListActivity.class));
-                startActivity(new Intent(getActivity(), HomeCenterActivity.class));
+                startActivity(new Intent(getActivity(), SystemNotesListActivity.class));
 
 
 

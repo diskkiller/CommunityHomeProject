@@ -36,7 +36,7 @@ public class HomeCenterActivity extends AppActivity{
     private int sysBarId;
 
     public static void start(BaseActivity activity, String sysBarTitle,String newsColumnCode,int sysBarId,  HomeCenterGroupListActivity.OnFinishResultListener listener) {
-        Intent intent = new Intent(activity, HomeCenterGroupListActivity.class);
+        Intent intent = new Intent(activity, HomeCenterActivity.class);
         intent.putExtra(IntentKey.TITLE, sysBarTitle);
         intent.putExtra(IntentKey.CODE, newsColumnCode);
         intent.putExtra(IntentKey.ID, sysBarId);
