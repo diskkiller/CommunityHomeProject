@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.diskkiller.base.BaseActivity;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
 import com.huaxixingfu.sqj.http.api.HomeCloumnContentNewsApi;
 import com.huaxixingfu.sqj.http.api.ReportListNewsApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitDetailsActivity;
 
 /**
  *    desc   : 我的举报
@@ -69,8 +71,11 @@ public final class ReportMyAdapter extends AppAdapter<ReportListNewsApi.Bean.VCo
                     itemHint.setVisibility(View.VISIBLE);
                     break;
                 default:
-
             }
+            getItemView().setOnClickListener(v->{
+
+                ReportSubmitDetailsActivity.start((BaseActivity) getContext(),bean.appReportId,false);
+            });
         }
     }
 }
