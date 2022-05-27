@@ -14,6 +14,7 @@ import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
 import com.huaxixingfu.sqj.http.api.BarListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
+import com.huaxixingfu.sqj.ui.activity.home.HomeCenterActivity;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.ResidentListActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
@@ -82,7 +83,10 @@ public final class HomeContentPositionAdapter extends AppAdapter<BarListApi.Bean
                 }
                switch (bean.sysBarType){
                    case NATIVE_0:
-                       if("/sggl/mobile/home/v1.0/news/page".equals(bean.sysBarUrl) && StringUtils.isNotEmpty(bean.sysBarCode)){
+                       if ("WENHUAZHONGXIN".equals(bean.sysBarCode) || "DANGJIANZHONGXIN".equals(bean.sysBarCode)){
+                           HomeCenterActivity.start((BaseActivity) getContext(), bean.sysBarTitle, bean.sysBarCode,
+                                   bean.sysBarId, null);
+                       }else if("/sggl/mobile/home/v1.0/news/page".equals(bean.sysBarUrl) && StringUtils.isNotEmpty(bean.sysBarCode)){
                            SimpleNewListActivity.start((BaseActivity) getContext(),bean.sysBarTitle,bean.sysBarCode);
                        }else{
 
