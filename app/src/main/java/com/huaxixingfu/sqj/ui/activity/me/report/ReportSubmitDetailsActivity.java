@@ -186,7 +186,7 @@ public class ReportSubmitDetailsActivity extends AppActivity{
         for (int i = 0; i < stringList.size(); i++) {
 
             FeedBackImageBean feedBackImageBean = new FeedBackImageBean();
-            feedBackImageBean.imageUrl = stringList.get(i);
+            feedBackImageBean.imageUrlHttp = stringList.get(i);
             feedBackImageBean.defualt = FeedBackImageBean.TYPE_IMAGE_HTTP;
             feedBackImageBean.del = false;
             listImage.add(0,feedBackImageBean);

@@ -72,13 +72,19 @@ public class FeedBackImageAdapter extends RecyclerView.Adapter<FeedBackImageAdap
                         }
                         break;
                     case FeedBackImageBean.TYPE_IMAGE_HTTP:
-                        Glide.with(activity).load(typeBean.imageUrlHttp).centerCrop().into(holder.typeName);
                         if(typeBean.del){
                             holder.typeNameClose.setVisibility(View.VISIBLE);
                         }else{
                             holder.typeNameClose.setVisibility(View.INVISIBLE);
                             holder.typeName.setImageResource(R.color.color_ffffff);
                         }
+                        if(StringUtils.isNotEmpty(typeBean.httpHost )){
+
+                            Glide.with(activity).load(typeBean.httpHost + typeBean.imageUrlHttp).centerCrop().into(holder.typeName);
+                        }else{
+                            Glide.with(activity).load( typeBean.imageUrlHttp).centerCrop().into(holder.typeName);
+                        }
+
                         break;
                 }
                 holder.typeName.setOnClickListener(new View.OnClickListener() {
