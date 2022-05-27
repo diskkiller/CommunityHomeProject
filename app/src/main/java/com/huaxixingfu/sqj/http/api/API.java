@@ -413,6 +413,11 @@ public class API {
      */
     public static final String CHAT_RESIDENT_LIST = MAIN_URL + "sggl/mobile/chat/zone/v1.0/resident/list";
 
+    /**
+     * 首页中心数据
+     */
+    public static final String HOME_CENTER_LIST = MAIN_URL + "sggl/mobile/v1.0/sys/bar/access/query";
+
     /** 推送token上报
      * 账号绑定：/sggl/mobile/user/v1.0/third/tpns/bind
      * {

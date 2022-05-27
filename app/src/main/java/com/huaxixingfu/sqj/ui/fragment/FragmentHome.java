@@ -1,9 +1,7 @@
 package com.huaxixingfu.sqj.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Looper;
-import android.os.MessageQueue;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,44 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.diskkiller.base.BaseAdapter;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
-import com.diskkiller.widget.layout.WrapRecyclerView;
-import com.gongwen.marqueen.SimpleMF;
-import com.gongwen.marqueen.SimpleMarqueeView;
-import com.gongwen.marqueen.util.OnItemClickListener;
-import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.bean.PersonDataBean;
-import com.huaxixingfu.sqj.bean.VBanner;
 import com.huaxixingfu.sqj.bean.VResident;
-import com.huaxixingfu.sqj.http.api.BannerApi;
 import com.huaxixingfu.sqj.http.api.GetResidentInitApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
-import com.huaxixingfu.sqj.http.api.NotesListApi;
 import com.huaxixingfu.sqj.http.api.PersonalDataApi;
-import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
-import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
+import com.huaxixingfu.sqj.ui.activity.home.HomeCenterActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.ui.adapter.HomeContentNewsAdapter;
-import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
-import com.youth.banner.Banner;
-import com.youth.banner.adapter.BannerImageAdapter;
-import com.youth.banner.holder.BannerImageHolder;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 public class FragmentHome extends AppFragment<HomeActivity>  {
 
@@ -141,7 +123,7 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
      * 处理网络请求
      */
     public void initData(){
-        initHomeContentNews(false);
+        //initHomeContentNews(false);
     }
 
 
@@ -249,7 +231,10 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.right_icon:
-                startActivity(new Intent(getActivity(), SystemNotesListActivity.class));
+                //startActivity(new Intent(getActivity(), SystemNotesListActivity.class));
+                startActivity(new Intent(getActivity(), HomeCenterActivity.class));
+
+
 
                 /*User user = new User();
                 user.setId("123");

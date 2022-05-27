@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="12dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/color_ffffff"
+        android:orientation="horizontal">
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/niv_avater"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/icon_logo"
+            app:corner_radius="4dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="好友昵称"
+            android:textColor="#ff333333"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/tv_group_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="进群聊天"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_r13_white_bg"
+                android:backgroundTint="#FF6C2A"
+                android:paddingHorizontal="@dimen/dp_17"
+                android:paddingVertical="8dp"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="60dp"
+        android:background="#f2f2f2" />
+
+</LinearLayout>

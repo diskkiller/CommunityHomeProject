@@ -17,7 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hjq.permissions.Permission;
 import com.huaxixingfu.sqj.R;
+import com.huaxixingfu.sqj.aop.Permissions;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.commom.IntentKey;
 import com.tencent.liteav.basic.IntentUtils;
@@ -105,6 +107,7 @@ public class TempMessageActivity extends AppActivity {
                 .commit();
     }
 
+    @Permissions({Permission.CAMERA,Permission.RECORD_AUDIO})
     @Override
     protected void initData() {
 
