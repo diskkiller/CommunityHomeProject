@@ -123,6 +123,12 @@ public final class HomeActivity extends AppActivity
         onNewIntent(getIntent());
         initIM();
 
+        if (SPManager.instance(getContext()).isLogin()){
+            publishPushToken();
+        }
+    }
+
+    private void publishPushToken(){
 //        进到首页证明已经登录 需要获取当前用户的推送token上报给服务端
 //        038c2aaa828ba557d65bc813b186c6ce1716
         XGPushManager.registerPush(AppApplication.getContext(), new XGIOperateCallback() {
