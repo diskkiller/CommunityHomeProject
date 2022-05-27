@@ -6,41 +6,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.diskkiller.base.BaseActivity;
-import com.diskkiller.http.EasyHttp;
-import com.diskkiller.http.listener.HttpCallback;
 import com.diskkiller.http.listener.OnHttpListener;
-import com.gongwen.marqueen.SimpleMarqueeView;
 import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
-import com.huaxixingfu.sqj.bean.VBanner;
-import com.huaxixingfu.sqj.http.api.BannerApi;
 import com.huaxixingfu.sqj.http.api.BarListApi;
-import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
-import com.huaxixingfu.sqj.http.api.NotesListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
-import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.ResidentListActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.activity.position.HallActivity;
 import com.huaxixingfu.sqj.ui.activity.position.news.SimpleNewListActivity;
-import com.huaxixingfu.sqj.ui.fragment.HomeSimpleMF;
-import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
-import com.youth.banner.Banner;
-import com.youth.banner.adapter.BannerImageAdapter;
-import com.youth.banner.holder.BannerImageHolder;
-import com.youth.banner.listener.OnBannerListener;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  *    desc   : 首页金刚位列表
@@ -99,8 +82,8 @@ public final class HomeContentPositionAdapter extends AppAdapter<BarListApi.Bean
                 }
                switch (bean.sysBarType){
                    case NATIVE_0:
-                       if("/sggl/mobile/home/v1.0/news/page".equals(bean.sysBarUrl) && StringUtils.isNotEmpty(bean.newsColumnCode)){
-                           SimpleNewListActivity.start((BaseActivity) getContext(),bean.sysBarTitle,bean.newsColumnCode);
+                       if("/sggl/mobile/home/v1.0/news/page".equals(bean.sysBarUrl) && StringUtils.isNotEmpty(bean.sysBarCode)){
+                           SimpleNewListActivity.start((BaseActivity) getContext(),bean.sysBarTitle,bean.sysBarCode);
                        }else{
 
                            nativeFoward(bean.sysBarUrl);
@@ -109,7 +92,7 @@ public final class HomeContentPositionAdapter extends AppAdapter<BarListApi.Bean
                    case H5_STATIC_2:
                    case H5_PARAM_1:
                        if(StringUtils.isNotEmpty(bean.sysBarUrl)){
-                           BrowserActivity.start(getContext(),bean.sysBarUrl,bean.appGuideId);
+                           BrowserActivity.start(getContext(),bean.sysBarUrl,bean.sysBarPosition);
                        }
                        break;
                    case EMPTY_PAGE_DEVELOP_4:

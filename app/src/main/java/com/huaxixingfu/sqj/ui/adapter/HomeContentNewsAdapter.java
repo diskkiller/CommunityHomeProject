@@ -298,13 +298,12 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
 
         private LifecycleOwner lifecycleOwner;
         private OnHttpListener listener;
-        HomeContentPositionAdapter adapter;
+//        HomeContentPositionAdapter adapter;
         private HomeHeaderList(LifecycleOwner lifecycleOwner,OnHttpListener listener) {
             super(R.layout.sqj_fragment_home_list_item);
             this.lifecycleOwner = lifecycleOwner;
             this.listener = listener;
             initBar();
-            initRv();
         }
 
         /**
@@ -313,13 +312,24 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         private void initBar() {
             EasyHttp.post(lifecycleOwner)
                     .api(new BarListApi())
-                    .request(new HttpCallback<HttpData<List<BarListApi.Bean>>>(listener) {
+                    .request(new HttpCallback<HttpData<List<List<BarListApi.Bean>>>>(listener) {
 
                         @Override
-                        public void onSucceed(HttpData<List<BarListApi.Bean>> data) {
+                        public void onSucceed(HttpData<List<List<BarListApi.Bean>>> data) {
                             if(data != null && data.getData() != null){
-                                adapter.setData(data.getData());
-                                adapter.notifyDataSetChanged();
+                                List<List<BarListApi.Bean>> lists = data.getData();
+                                if (lists.size() > 0){
+                                    RecyclerView recycler = findViewById(R.id.recycler);
+                                    initRv(recycler, lists.get(0));
+                                }
+                                if (lists.size() > 1){
+                                    RecyclerView recycler2 = findViewById(R.id.recycler2);
+                                    initRv(recycler2, lists.get(1));
+                                }
+                                if (lists.size() > 2){
+                                    RecyclerView recycler3 = findViewById(R.id.recycler3);
+                                    initRv(recycler3, lists.get(2));
+                                }
                             }
                         }
 
@@ -331,9 +341,10 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         }
 
 
-        public void initRv(){
-            RecyclerView recycler = findViewById(R.id.recycler);
-            adapter = new HomeContentPositionAdapter(getContext(),lifecycleOwner,listener);
+        public void initRv(RecyclerView recycler, List<BarListApi.Bean> list){
+//            RecyclerView recycler = findViewById(R.id.recycler);
+            HomeContentPositionAdapter adapter = new HomeContentPositionAdapter(getContext(),lifecycleOwner,listener);
+            adapter.setData(list);
 //            adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
