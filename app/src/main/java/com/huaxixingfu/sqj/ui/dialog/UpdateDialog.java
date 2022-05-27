@@ -14,9 +14,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.FileProvider;
-
 import com.diskkiller.base.BaseDialog;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.OnDownloadListener;
@@ -29,6 +26,9 @@ import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.other.AppConfig;
 
 import java.io.File;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
 
 /**
  *    author : diskkiller
@@ -46,6 +46,7 @@ public final class UpdateDialog {
 
         private final TextView mUpdateView;
         private final TextView mCloseView;
+        private final TextView tvUpdateTitle;
 
         /** Apk 文件 */
         private File mApkFile;
@@ -61,6 +62,8 @@ public final class UpdateDialog {
         /** 当前是否下载完毕 */
         private boolean mDownloadComplete;
 
+        private OnCompleteListener mCompleteListener;
+
         public Builder(Context context) {
             super(context);
 
@@ -73,10 +76,30 @@ public final class UpdateDialog {
             mProgressView = findViewById(R.id.pb_update_progress);
             mUpdateView = findViewById(R.id.tv_update_update);
             mCloseView = findViewById(R.id.tv_update_close);
+            tvUpdateTitle = findViewById(R.id.tv_update_title);
             setOnClickListener(mUpdateView, mCloseView);
 
             // 让 TextView 支持滚动
             mContentView.setMovementMethod(new ScrollingMovementMethod());
+        }
+
+        public Builder setOnCompleteListener(OnCompleteListener completeListener){
+            this.mCompleteListener = completeListener;
+            return this;
+        }
+
+        public Builder setExistsApkFile(File file){
+            if (file != null && file.exists()){
+                mApkFile = file;
+                mDownloadComplete = true;
+                mUpdateView.setText(R.string.update_status_successful);
+            }
+            return this;
+        }
+
+        public Builder setUpdateTitle(String title){
+            tvUpdateTitle.setText(title);
+            return this;
         }
 
         /**
@@ -300,4 +323,14 @@ public final class UpdateDialog {
             return intent;
         }
     }
+
+
+    /**
+     * 下载完成的监听
+     */
+    public interface OnCompleteListener {
+
+        void onComplete(File file, String url);
+    }
+
 }

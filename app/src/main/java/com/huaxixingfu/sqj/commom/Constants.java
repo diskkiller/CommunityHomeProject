@@ -65,4 +65,8 @@ public class Constants {
     public static String AGREEMENT = "http://192.168.1.31:8086/#/userAgreement";
 
     public static String IS_AGREEMENT = "is_agreement";
+
+    // APP版本更新相关key
+    public static String UPDATE_PATH = "update_path";
+    public static String UPDATE_VERSION = "update_version";
 }

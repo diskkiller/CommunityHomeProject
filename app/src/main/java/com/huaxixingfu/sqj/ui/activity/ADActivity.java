@@ -1,38 +1,33 @@
 package com.huaxixingfu.sqj.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+import com.diskkiller.base.BaseDialog;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
+import com.diskkiller.http.listener.OnHttpListener;
+import com.huaxixingfu.sqj.BuildConfig;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.ADBean;
+import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.http.api.ADApi;
-import com.huaxixingfu.sqj.http.api.CancleAccountApi;
+import com.huaxixingfu.sqj.http.api.AppVersionApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
+import com.huaxixingfu.sqj.ui.dialog.UpdateDialog;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
-import com.shehuan.niv.NiceImageView;
+
+import java.io.File;
+import java.util.HashMap;
 
 
 public class ADActivity extends AppActivity implements View.OnClickListener {
@@ -84,6 +79,7 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
 
                     @Override
                     public void onSucceed(HttpData<ADBean> data) {
+                        checkUpdate();
                         if(data.getData() != null){
                             adPicUrl = data.getData().appGuideImageUrl;
                             adDetailUrl = data.getData().appGuideUrl;
@@ -114,22 +110,82 @@ public class ADActivity extends AppActivity implements View.OnClickListener {
                             };
                             mDownTimer.start();
                             //注意，如果点击进入广告内容activity，中断mDownTimer的计时，防止首页打开
-                        }else{
-                            jumpAct();
                         }
                     }
 
                     @Override
                     public void onFail(Exception e) {
-                        super.onFail(e);
-                        if(SPManager.instance(getContext()).isLogin())
-                            startActivity(new Intent(getContext(), HomeActivity.class));
-                        else
-                            startActivity(new Intent(getContext(), LoginActivity.class));
-                        finish();
+                        jumpAct();
                     }
                 });
     }
+
+    private void checkUpdate(){
+        HashMap<String, Object> map= new HashMap<>();
+        map.put("appVersionNum", BuildConfig.VERSION_CODE);
+        EasyHttp.post(this)
+                .api(new AppVersionApi())
+                .json(map)
+                .request(new OnHttpListener<HttpData<AppVersionApi.Bean>>() {
+                    @Override
+                    public void onSucceed(HttpData<AppVersionApi.Bean> result) {
+                        if (result.getData() != null){
+                            if (mDownTimer != null){
+                                mDownTimer.cancel();
+                            }
+                            showUpdateDialog(result.getData());
+                        }else {
+                            SPManager.instance(getContext()).deleteKey(Constants.UPDATE_PATH);
+                            SPManager.instance(getContext()).deleteKey(Constants.UPDATE_VERSION);
+                            if (mDownTimer == null){
+                                jumpAct();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        if (mDownTimer == null){
+                            jumpAct();
+                        }
+                    }
+                });
+    }
+
+    private void showUpdateDialog(AppVersionApi.Bean data){
+        String savePath = SPManager.instance(this).getString(Constants.UPDATE_PATH);
+        String saveVersion = SPManager.instance(this).getString(Constants.UPDATE_VERSION);
+        File file = null;
+        if (!TextUtils.isEmpty(saveVersion) && saveVersion.equals(data.appVersionNum)){
+            if (!TextUtils.isEmpty(savePath)){
+                file = new File(savePath);
+            }
+        }
+
+        new UpdateDialog.Builder(this)
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .addOnDismissListener(new BaseDialog.OnDismissListener() {
+                    @Override
+                    public void onDismiss(BaseDialog dialog) {
+                        jumpAct();
+                    }
+                })
+                .setUpdateLog(data.appVersionContent)
+                .setVersionName(data.appVersionNum)
+                .setUpdateTitle(data.appVersionTitle)
+                .setForceUpdate(data.appVersionUpdateFlag != 0)
+                .setOnCompleteListener(new UpdateDialog.OnCompleteListener() {
+                    @Override
+                    public void onComplete(File file, String url) {
+                        SPManager.instance(getContext()).put(Constants.UPDATE_VERSION, data.appVersionNum);
+                        SPManager.instance(getContext()).put(Constants.UPDATE_PATH, file.getAbsolutePath());
+                    }
+                })
+                .setExistsApkFile(file)
+                .show();
+    }
+
 
     private void jumpAct(){
         if(SPManager.instance(getContext()).isLogin())

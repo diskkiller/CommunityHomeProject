@@ -424,6 +424,10 @@ public class API {
     public static final String PUSH_TOKEN_BIND = MAIN_URL + "sggl/mobile/user/v1.0/third/tpns/bind";
 
 
+    /**
+     * 版本升级
+     */
+    public static final String APP_VERSION_CHECK = MAIN_URL + "sggl/mobile/home/v1.0/app/android";
 
 
 }
