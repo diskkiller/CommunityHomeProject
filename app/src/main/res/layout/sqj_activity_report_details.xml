@@ -268,6 +268,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_result_title"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="15dp"
+            android:paddingRight="15dp"
             tools:text="后台编辑的处理方式或者说明处理结果的内容"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
