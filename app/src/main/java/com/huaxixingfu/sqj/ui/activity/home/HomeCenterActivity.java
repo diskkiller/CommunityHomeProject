@@ -88,6 +88,8 @@ public class HomeCenterActivity extends AppActivity{
         newsColumnCode = getString(IntentKey.CODE);
         sysBarId = getInt(IntentKey.ID);
         setTitle(sysBarTitle);
+        tv_title.setText(sysBarTitle+"群");
+        tv_content.setText(sysBarTitle+"内容");
 
     }
 
