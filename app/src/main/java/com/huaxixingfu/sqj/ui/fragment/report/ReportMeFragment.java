@@ -34,8 +34,7 @@ import java.util.List;
  */
 
 public class ReportMeFragment extends AppFragment<MyReportActivity>
-        implements OnRefreshLoadMoreListener,
-        BaseAdapter.OnItemClickListener{
+        implements OnRefreshLoadMoreListener{
 
     private ReportMyAdapter adapter;
 
@@ -64,7 +63,6 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
         mRecyclerView = findViewById(R.id.rv_list);
 
         adapter = new ReportMyAdapter(getActivity());
-        adapter.setOnItemClickListener(this);
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -119,13 +117,6 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
                         super.onFail(e);
                     }
                 });
-    }
-
-
-    @Override
-    public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-//        ReportListNewsApi.Bean.VContentReport model = adapter.getItem(position);
-//        ReportSubmitDetailsActivity.start(getAttachActivity(),model.appReportId,false);
     }
 
     @Override

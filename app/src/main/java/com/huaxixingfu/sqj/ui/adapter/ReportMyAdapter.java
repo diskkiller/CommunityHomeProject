@@ -73,7 +73,6 @@ public final class ReportMyAdapter extends AppAdapter<ReportListNewsApi.Bean.VCo
                     itemHint.setVisibility(View.VISIBLE);
                     break;
                 default:
-
             }
 
             getItemView().setOnClickListener(view->{

@@ -250,6 +250,12 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
         switch (view.getId()){
             case R.id.right_icon:
                 startActivity(new Intent(getActivity(), SystemNotesListActivity.class));
+
+                /*User user = new User();
+                user.setId("123");
+
+                // 跳转到聊天界面
+                MessageActivity.show(getContext(), user);*/
                 break;
 
         }
