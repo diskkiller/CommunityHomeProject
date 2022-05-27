@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.diskkiller.base.BaseDialog;
 import com.diskkiller.base.FragmentPagerAdapter;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.OnHttpListener;
 import com.gyf.immersionbar.ImmersionBar;
+import com.huaxixingfu.sqj.BuildConfig;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.app.AppApplication;
@@ -21,6 +23,7 @@ import com.huaxixingfu.sqj.app.AppFragment;
 import com.huaxixingfu.sqj.bean.PersonDataBean;
 import com.huaxixingfu.sqj.bean.UserData;
 import com.huaxixingfu.sqj.commom.Constants;
+import com.huaxixingfu.sqj.http.api.AppVersionApi;
 import com.huaxixingfu.sqj.http.api.PushTokenBind;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.manager.ActivityManager;
@@ -31,6 +34,7 @@ import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
 import com.huaxixingfu.sqj.ui.adapter.NavigationAdapter;
 import com.huaxixingfu.sqj.ui.dialog.MessageDialog;
+import com.huaxixingfu.sqj.ui.dialog.UpdateDialog;
 import com.huaxixingfu.sqj.ui.fragment.FragmentHome;
 import com.huaxixingfu.sqj.ui.fragment.FragmentLife;
 import com.huaxixingfu.sqj.ui.fragment.FragmentMsgList;
@@ -43,6 +47,7 @@ import com.tencent.android.tpush.XGPushManager;
 import com.tencent.liteav.debug.GenerateTestUserSig;
 import com.tencent.qcloud.tuicore.TUILogin;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -126,6 +131,8 @@ public final class HomeActivity extends AppActivity
         if (SPManager.instance(getContext()).isLogin()){
             publishPushToken();
         }
+
+        checkUpdate();
     }
 
     private void publishPushToken(){
@@ -159,6 +166,62 @@ public final class HomeActivity extends AppActivity
             }
         });
     }
+
+
+    private void checkUpdate(){
+        HashMap<String, Object> map= new HashMap<>();
+        map.put("appVersionNum", BuildConfig.VERSION_CODE);
+        EasyHttp.post(this)
+                .api(new AppVersionApi())
+                .json(map)
+                .request(new OnHttpListener<HttpData<AppVersionApi.Bean>>() {
+                    @Override
+                    public void onSucceed(HttpData<AppVersionApi.Bean> result) {
+                        if (result.getData() != null){
+                            showUpdateDialog(result.getData());
+                        }else {
+                            SPManager.instance(getContext()).deleteKey(Constants.UPDATE_PATH);
+                            SPManager.instance(getContext()).deleteKey(Constants.UPDATE_VERSION);
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+
+                    }
+                });
+    }
+
+    private void showUpdateDialog(AppVersionApi.Bean data){
+        String savePath = SPManager.instance(this).getString(Constants.UPDATE_PATH);
+        String saveVersion = SPManager.instance(this).getString(Constants.UPDATE_VERSION);
+        File file = null;
+        if (!TextUtils.isEmpty(saveVersion) && saveVersion.equals(data.appVersionNum)){
+            if (!TextUtils.isEmpty(savePath)){
+                file = new File(savePath);
+            }
+        }
+
+        new UpdateDialog.Builder(this)
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .setUpdateLog(data.appVersionContent)
+                .setVersionName(data.appVersionNum)
+                .setUpdateTitle(data.appVersionTitle)
+                .setForceUpdate(data.appVersionUpdateFlag != 0)
+                .setOnCompleteListener(new UpdateDialog.OnCompleteListener() {
+                    @Override
+                    public void onComplete(File file, String url) {
+                        SPManager.instance(getContext()).put(Constants.UPDATE_VERSION, data.appVersionNum);
+                        SPManager.instance(getContext()).put(Constants.UPDATE_PATH, file.getAbsolutePath());
+                    }
+                })
+                .setExistsApkFile(file)
+                .show();
+    }
+
+
+
 
     private void initIM() {
         if (SPManager.instance(getActivity()).isLogin()) {
