@@ -124,8 +124,8 @@ public class ReportMeFragment extends AppFragment<MyReportActivity>
 
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-        ReportListNewsApi.Bean.VContentReport model = adapter.getItem(position);
-        ReportSubmitDetailsActivity.start(getAttachActivity(),model.appReportId,false);
+//        ReportListNewsApi.Bean.VContentReport model = adapter.getItem(position);
+//        ReportSubmitDetailsActivity.start(getAttachActivity(),model.appReportId,false);
     }
 
     @Override

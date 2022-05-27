@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.diskkiller.base.BaseActivity;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
 import com.huaxixingfu.sqj.http.api.HomeCloumnContentNewsApi;
 import com.huaxixingfu.sqj.http.api.ReportListNewsApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
+import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitDetailsActivity;
 
 /**
  *    desc   : 我的举报
@@ -55,14 +57,16 @@ public final class ReportMyAdapter extends AppAdapter<ReportListNewsApi.Bean.VCo
             //            0-待处理 1-举报成功 2-举报驳回
             switch (bean.appReportStatus){
                 case STATE_WILL_DO_0 :
-                    itemState.setText(R.string.report_act_will_do);
+//                    itemState.setText(R.string.report_act_will_do);
+                    itemState.setText(bean.appReportStatusName);
                     itemState.setTextColor(getColor(R.color.color_ff999999));
                     itemContent.setVisibility(View.INVISIBLE);
 //                    itemHint.setVisibility(View.INVISIBLE);
                     break;
                 case STATE_DONE_OK_1 :
                 case STATE_DONE_NOT_2 :
-                    itemState.setText(R.string.report_act_done);
+//                    itemState.setText(R.string.report_act_done);
+                    itemState.setText(bean.appReportStatusName);
                     itemState.setTextColor(getColor(R.color.main));
                     itemContent.setText(bean.appExamineDesc);
                     itemContent.setVisibility(View.VISIBLE);
@@ -71,6 +75,11 @@ public final class ReportMyAdapter extends AppAdapter<ReportListNewsApi.Bean.VCo
                 default:
 
             }
+
+            getItemView().setOnClickListener(view->{
+
+                ReportSubmitDetailsActivity.start((BaseActivity) getContext(),bean.appReportId,false);
+            });
         }
     }
 }

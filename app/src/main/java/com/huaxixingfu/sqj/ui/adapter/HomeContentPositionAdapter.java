@@ -80,6 +80,9 @@ public final class HomeContentPositionAdapter extends AppAdapter<BarListApi.Bean
         @Override
         public void onBindView(int position) {
             BarListApi.Bean bean = getItem(position);
+            if(bean == null){
+                return;
+            }
             String url = bean.sysBarImageUrl;
             itemText.setText(bean.sysBarTitle);
             if(StringUtils.isNotEmpty(url)){
@@ -89,7 +92,6 @@ public final class HomeContentPositionAdapter extends AppAdapter<BarListApi.Bean
                         .centerCrop()
                         .into(itemImg);
             }
-
             getItemView().setOnClickListener(view->{
 
                 if(bean.isLoginFlag && !SPManager.instance(getContext()).isLogin()){
