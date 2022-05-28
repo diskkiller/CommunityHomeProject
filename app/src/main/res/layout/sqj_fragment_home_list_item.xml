@@ -9,30 +9,30 @@
     android:layout_marginVertical="10dp">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recycler"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
 
-    <View
-        android:background="@color/color_fff8f8f8"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_10"/>
+<!--    <View-->
+<!--        android:background="@color/color_fff8f8f8"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/dp_10"/>-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recycler2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
 
-    <View
-        android:background="@color/color_fff8f8f8"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_10"/>
+<!--    <View-->
+<!--        android:background="@color/color_fff8f8f8"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/dp_10"/>-->
 
-    <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recycler3"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--    android:id="@+id/recycler3"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"/>-->
 
 
 </LinearLayout>

@@ -6,15 +6,29 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.diskkiller.base.BaseActivity;
+import com.diskkiller.base.BaseDialog;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
+import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
+import com.huaxixingfu.sqj.app.AppApplication;
 import com.huaxixingfu.sqj.bean.HomeCenterBean;
+import com.huaxixingfu.sqj.bean.PersonDataBean;
+import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.commom.IntentKey;
+import com.huaxixingfu.sqj.commom.SysBarType;
+import com.huaxixingfu.sqj.http.api.BarListApi;
 import com.huaxixingfu.sqj.http.api.HomeCenterApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.ui.activity.me.PersonalDataActivity;
+import com.huaxixingfu.sqj.ui.activity.msg.ResidentListActivity;
+import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
+import com.huaxixingfu.sqj.ui.activity.position.HallActivity;
 import com.huaxixingfu.sqj.ui.activity.position.news.SimpleNewListActivity;
+import com.huaxixingfu.sqj.ui.dialog.MessageDialog;
+import com.huaxixingfu.sqj.utils.SPManager;
+import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,15 +39,17 @@ import java.util.Map;
 
 public class HomeCenterActivity extends AppActivity{
 
-    private TextView tv_day_count,tv_total_count,tv_title,tv_content;
+    private TextView tv_day_count,tv_total_count,tv_title,tv_content, tv_sub_content, tv_sub_title;
 
     private HomeCenterBean homeCenterBean;
 
     private LinearLayout ll_center_group,ll_center_content;
 
-    private String sysBarTitle,newsColumnCode;
+//    private String sysBarTitle,newsColumnCode;
 
-    private int sysBarId;
+//    private int sysBarId;
+
+    private BarListApi.Bean data;
 
     public static void start(BaseActivity activity, String sysBarTitle,String newsColumnCode,int sysBarId,  HomeCenterGroupListActivity.OnFinishResultListener listener) {
         Intent intent = new Intent(activity, HomeCenterActivity.class);
@@ -50,6 +66,12 @@ public class HomeCenterActivity extends AppActivity{
                 listener.onFail();
             }
         });
+    }
+
+    public static void start(BaseActivity activity, BarListApi.Bean data){
+        Intent intent = new Intent(activity, HomeCenterActivity.class);
+        intent.putExtra(IntentKey.OBJECT, data);
+        activity.startActivity(intent);
     }
 
     public void finishForResult(String date) {
@@ -78,19 +100,24 @@ public class HomeCenterActivity extends AppActivity{
         tv_day_count = findViewById(R.id.tv_day_count);
         tv_total_count = findViewById(R.id.tv_total_count);
         tv_title = findViewById(R.id.tv_title);
+        tv_sub_content = findViewById(R.id.tv_sub_content);
+        tv_sub_title = findViewById(R.id.tv_sub_title);
         tv_content = findViewById(R.id.tv_content);
         ll_center_group = findViewById(R.id.ll_center_group);
         ll_center_content = findViewById(R.id.ll_center_content);
 
         setOnClickListener(R.id.ll_center_group,R.id.ll_center_content);
-
-        sysBarTitle = getString(IntentKey.TITLE);
-        newsColumnCode = getString(IntentKey.CODE);
-        sysBarId = getInt(IntentKey.ID);
-        setTitle(sysBarTitle);
-        tv_title.setText(sysBarTitle+"群");
-        tv_content.setText(sysBarTitle+"内容");
-
+        data = getSerializable(IntentKey.OBJECT);
+//        sysBarTitle = getString(IntentKey.TITLE);
+//        newsColumnCode = getString(IntentKey.CODE);
+//        sysBarId = getInt(IntentKey.ID);
+        setTitle(data.sysBarTitle);
+        tv_title.setText(data.sysBarTitle+"群");
+        tv_content.setText(data.sysBarTitle+"内容");
+        if (!"DANGJIANZHONGXIN".equals(data.sysBarCode)){
+            tv_sub_title.setVisibility(View.INVISIBLE);
+            tv_sub_content.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -99,7 +126,7 @@ public class HomeCenterActivity extends AppActivity{
      */
     protected void initData(){
         Map<String,Object> map = new HashMap();
-        map.put("sysBarId",sysBarId);
+        map.put("sysBarId",data.sysBarId);
         EasyHttp.post(this)
                 .api(new HomeCenterApi())
                 .json(map)
@@ -111,6 +138,10 @@ public class HomeCenterActivity extends AppActivity{
                             homeCenterBean = data.getData();
                             tv_day_count.setText(homeCenterBean.sysBarAccessDayNum+"");
                             tv_total_count.setText(homeCenterBean.sysBarAccessTotalNum+"");
+                            if (homeCenterBean.chatRoomVOList == null || homeCenterBean.chatRoomVOList.size() < 1){
+                                ll_center_group.setVisibility(View.GONE);
+                            }
+
                         }
                     }
 
@@ -125,10 +156,123 @@ public class HomeCenterActivity extends AppActivity{
     public void onClick(View view) {
         int id = view.getId();
         if(id == R.id.ll_center_group){
-            HomeCenterGroupListActivity.start(HomeCenterActivity.this,homeCenterBean.chatRoomVOList,null);
+            if(SPManager.instance(AppApplication.getInstances()).
+                    getModel(Constants.USERINFO, PersonDataBean.class).
+                    getUserResidentCertStatus() == 2){
+                HomeCenterGroupListActivity.start(HomeCenterActivity.this,homeCenterBean.chatRoomVOList,null);
+            }else{
+                new MessageDialog.Builder(getContext())
+                        .setTitle("温馨提示")
+                        .setMessage("请完成居民认证后再去操作")
+                        .setCancelable(false)
+                        .setListener(new MessageDialog.OnListener() {
+                            @Override
+                            public void onConfirm(BaseDialog dialog) {
+                                startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+                            }
+
+                            @Override
+                            public void onCancel(BaseDialog dialog) {
+
+                            }
+                        })
+                        .show();
+
+            }
         }else if(id == R.id.ll_center_content){
-            SimpleNewListActivity.start((BaseActivity) getContext(),sysBarTitle,newsColumnCode);
+            routerJump(data);
         }
 
     }
+
+
+
+    /**
+     * 调整类型： sys_bar_type 类型：
+     *      * THIS_SYS (0, "本系统"),
+     *      * EXTERNAL_LINKS(1, "外部链接"),
+     *      * APP(2, "app应用"),  //没有使用
+     *      * NEWS(3, "新闻"),
+     *      * NOTICE(4, "公告"),  //没有使用
+     *      * FUNCTIONS_TO_DEVELOPED(5, "待开发功能"),
+     *      * PAGE_TO_DEVELOPED(6, "待开发页面"),
+     */
+    private void routerJump(BarListApi.Bean bean){
+        switch(bean.sysBarType){
+            case SysBarType.NATIVE:
+                nativeFoward(bean.sysBarUrl);
+                break;
+            case SysBarType.H5:
+                if(StringUtils.isNotEmpty(bean.sysBarUrl)){
+                    BrowserActivity.start(getContext(),bean.sysBarUrl,bean.sysBarPosition);
+                }else {
+                    ToastUtils.show("sysBarUrl is null");
+                }
+                break;
+            case SysBarType.NATIVE_APP:
+                ToastUtils.show("暂未使用");
+                break;
+            case SysBarType.NEWS:
+                SimpleNewListActivity.start((BaseActivity) getContext(),bean.sysBarTitle,bean.sysBarCode);
+                break;
+            case SysBarType.NOTICE:
+                ToastUtils.show("暂未使用");
+
+                break;
+            case SysBarType.FUNCTIONS_TO_DEVELOPED:
+                ToastUtils.show("待开发功能");
+
+                break;
+            case SysBarType.PAGE_TO_DEVELOPED:
+                ToastUtils.show("待开发页面");
+
+                break;
+        }
+
+    }
+
+
+    private void  nativeFoward(String switchtext){
+        switch (switchtext){
+            case "CommunityHome://home-officehall"://   办事大厅
+                getContext().startActivity(new Intent(getContext(), HallActivity.class));
+                break;
+            case "CommunityHome://home-epidemicdynamic"://  疫情防控
+                BrowserActivity.start(getContext(),"https://news.qq.com/zt2020/page/feiyan.htm#/?ADTAG=chunyun2021","疫情防控");
+                break;
+            case "CommunityHome://home-socialworker"://    社工在线
+                if(SPManager.instance(AppApplication.getInstances()).
+                        getModel(Constants.USERINFO, PersonDataBean.class).
+                        getUserResidentCertStatus() == 2){
+                    getContext().startActivity(new Intent(getContext(), ResidentListActivity.class));
+                }else{
+                    new MessageDialog.Builder(getContext())
+                            .setTitle("温馨提示")
+                            .setMessage("请完成居民认证后再去操作")
+                            .setCancelable(false)
+                            .setListener(new MessageDialog.OnListener() {
+                                @Override
+                                public void onConfirm(BaseDialog dialog) {
+                                    startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+                                }
+
+                                @Override
+                                public void onCancel(BaseDialog dialog) {
+
+                                }
+                            })
+                            .show();
+
+                }
+
+                break;
+
+            default:
+
+        }
+
+
+    }
+
+
 }

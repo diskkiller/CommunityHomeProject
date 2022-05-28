@@ -2,6 +2,8 @@ package com.huaxixingfu.sqj.http.api;
 
 import com.diskkiller.http.config.IRequestApi;
 
+import java.io.Serializable;
+
 /**
  *    author : diskkiller
  *    desc   : 导航栏
@@ -13,7 +15,7 @@ public final class BarListApi implements IRequestApi {
         return API.BAR_LIST;
     }
 
-    public final static class Bean {
+    public final static class Bean implements Serializable {
 //        public int sysBarType;
 //        public long appGuideId;
 //        public String sysBarTitle;
