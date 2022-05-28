@@ -107,7 +107,7 @@ public class HomeCenterActivity extends AppActivity{
         ll_center_content = findViewById(R.id.ll_center_content);
 
         setOnClickListener(R.id.ll_center_group,R.id.ll_center_content);
-        data = getSerializable(IntentKey.OBJECT);
+        data = getParcelable(IntentKey.OBJECT);
 //        sysBarTitle = getString(IntentKey.TITLE);
 //        newsColumnCode = getString(IntentKey.CODE);
 //        sysBarId = getInt(IntentKey.ID);
