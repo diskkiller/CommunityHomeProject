@@ -430,7 +430,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
 
-        <activity android:name="com.huaxixingfu.sqj.push.activity.OpenPushActivity">
+        <activity android:name="com.huaxixingfu.sqj.push.activity.OpenPushActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
