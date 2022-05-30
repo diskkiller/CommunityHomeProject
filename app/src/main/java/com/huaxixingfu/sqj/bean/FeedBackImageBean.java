@@ -8,5 +8,6 @@ public class FeedBackImageBean {
     public int defualt = TYPE_DEFUALT;
     public String imageUrl;
     public String imageUrlHttp;
+    public String httpHost;
     public boolean del = true;
 }

@@ -225,8 +225,9 @@ public class FeedbackActivity extends AppActivity{
                                 if(data.getData() != null){
                                     UpdateImageApi.Bean model = data.getData();
                                     if(StringUtils.isNotEmpty(model.httpHost) && StringUtils.isNotEmpty(model.imageUri)){
-                                        String  imageUri = model.httpHost + model.imageUri;
-                                        feedBackImageBean.imageUrlHttp = imageUri;
+
+                                        feedBackImageBean.httpHost = model.httpHost ;
+                                        feedBackImageBean.imageUrlHttp = model.imageUri;
                                         feedBackImageBean.defualt =  FeedBackImageBean.TYPE_IMAGE_HTTP;
                                         loadUrl --;
                                         uploadFile();

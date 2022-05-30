@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.diskkiller.base.BaseActivity;
@@ -36,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -318,17 +320,8 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
                         public void onSucceed(HttpData<List<List<BarListApi.Bean>>> data) {
                             if(data != null && data.getData() != null){
                                 List<List<BarListApi.Bean>> lists = data.getData();
-                                if (lists.size() > 0){
-                                    RecyclerView recycler = findViewById(R.id.recycler);
-                                    initRv(recycler, lists.get(0));
-                                }
-                                if (lists.size() > 1){
-                                    RecyclerView recycler2 = findViewById(R.id.recycler2);
-                                    initRv(recycler2, lists.get(1));
-                                }
-                                if (lists.size() > 2){
-                                    RecyclerView recycler3 = findViewById(R.id.recycler3);
-                                    initRv(recycler3, lists.get(2));
+                                for (int i = 0; i < lists.size(); i++) {
+                                    initRv(lists.get(i), i, lists.size());
                                 }
                             }
                         }
@@ -341,23 +334,30 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
         }
 
 
-        public void initRv(RecyclerView recycler, List<BarListApi.Bean> list){
-//            RecyclerView recycler = findViewById(R.id.recycler);
+        public void initRv(List<BarListApi.Bean> list, int index, int size){
+            RecyclerView recyclerView = new RecyclerView(getContext());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            recyclerView.setLayoutParams(params);
+            ViewGroup itemView = (ViewGroup) getItemView();
+            if (index == 0){
+                itemView.removeAllViews();
+            }
+            itemView.addView(recyclerView);
+            if (index < size-1){
+                View view = new View(getContext());
+                LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        (int) getContext().getResources().getDimension(R.dimen.dp_10));
+                view.setLayoutParams(params2);
+                view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_fff8f8f8));
+                itemView.addView(view);
+            }
+
             HomeContentPositionAdapter adapter = new HomeContentPositionAdapter(getContext(),lifecycleOwner,listener);
             adapter.setData(list);
-//            adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-//                    HomeContentNewsApi.Bean.VContentNew model = adapter.getData().get(position);
-//                    if(model != null && StringUtils.isNotEmpty(model.newsUrl)){
-//                        BrowserActivity.start(getActivity(),model.newsUrl);
-//                    }
-//                }
-//
-//            });
             LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),4);
-            recycler.setLayoutManager(linearLayoutManager);
-            recycler.setAdapter(adapter);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(adapter);
         }
 
 

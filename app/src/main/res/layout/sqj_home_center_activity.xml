@@ -182,6 +182,7 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/tv_sub_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="关注党建动态  传播党建理论"
@@ -252,6 +253,7 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/tv_sub_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="强化党建宣传政治引领"

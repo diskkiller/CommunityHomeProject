@@ -78,13 +78,13 @@ android {
                 abiFilters 'armeabi-v7a', 'arm64-v8a'
             }
 
-            buildConfigField('String', 'HOST_URL', '"' + TEST_HOST_URL + '"')
-            buildConfigField('String', 'HOST_WEBSOCKET_URL', '"' + TEST_HOST_WEBSOCKET_URL + '"')
-            buildConfigField('String', 'HOST_PIC_FILE_URL', '"' + TEST_HOST_PIC_FILE_URL + '"')
+//            buildConfigField('String', 'HOST_URL', '"' + TEST_HOST_URL + '"')
+//            buildConfigField('String', 'HOST_WEBSOCKET_URL', '"' + TEST_HOST_WEBSOCKET_URL + '"')
+//            buildConfigField('String', 'HOST_PIC_FILE_URL', '"' + TEST_HOST_PIC_FILE_URL + '"')
 
-           /* buildConfigField('String', 'HOST_URL', '"' + HOST_URL + '"')
+            buildConfigField('String', 'HOST_URL', '"' + HOST_URL + '"')
             buildConfigField('String', 'HOST_WEBSOCKET_URL', '"' + HOST_WEBSOCKET_URL + '"')
-            buildConfigField('String', 'HOST_PIC_FILE_URL', '"' + HOST_PIC_FILE_URL + '"')*/
+            buildConfigField('String', 'HOST_PIC_FILE_URL', '"' + HOST_PIC_FILE_URL + '"')
 
         }
 
