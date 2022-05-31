@@ -11,21 +11,15 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.diskkiller.base.BaseAdapter;
-import com.diskkiller.base.BaseDialog;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
-import com.diskkiller.widget.layout.WrapRecyclerView;
 import com.google.gson.Gson;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.SingleClick;
@@ -44,19 +38,13 @@ import com.huaxixingfu.sqj.push.manager.WebSocketManager;
 import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.CreatGroupActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.MailListActivity;
-import com.huaxixingfu.sqj.ui.activity.msg.MsgActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.MsgMissionListActivity;
-import com.huaxixingfu.sqj.ui.activity.msg.MsgNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.SearchFriendActivity;
-import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.TempMessageActivity;
 import com.huaxixingfu.sqj.ui.adapter.MsgListAdapter;
-import com.huaxixingfu.sqj.ui.dialog.InputDialog;
 import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.SPManager;
-import com.huaxixingfu.sqj.utils.StringUtils;
 
-import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
@@ -64,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import okio.ByteString;
@@ -272,6 +261,15 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
             }
         }
         // 4. 按照会话 lastMessage 的 systemTime 对 UI 会话列表做排序并更新界面
+        Iterator<Conersation> it = msgList.iterator();
+        while (it.hasNext()) {
+            Conersation s = it.next();
+            if (s.chatBody == null) {
+                it.remove();
+            }
+        }
+
+
         if (needSort) {
             LogUtil.i("WebSocketManager", "按照会话 lastMessage 的 systemTime 对 UI 会话列表做排序并更新界面---");
             Collections.sort(msgList, new Comparator<Conersation>() {
