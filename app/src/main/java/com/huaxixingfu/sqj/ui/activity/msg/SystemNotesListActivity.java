@@ -1,13 +1,7 @@
 package com.huaxixingfu.sqj.ui.activity.msg;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -18,22 +12,22 @@ import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.VNotes;
 import com.huaxixingfu.sqj.bean.VNotiesData;
-import com.huaxixingfu.sqj.http.api.ApplyFriendApi;
-import com.huaxixingfu.sqj.http.api.MsgNotesListEditeApi;
-import com.huaxixingfu.sqj.http.api.SysNotesListApi;
+import com.huaxixingfu.sqj.http.api.HomeSysNotesListApi;
 import com.huaxixingfu.sqj.http.api.SysNotesUpdateApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
-import com.huaxixingfu.sqj.ui.adapter.MsgNotesAdapter;
 import com.huaxixingfu.sqj.ui.adapter.SystemNotesAdapter;
 import com.huaxixingfu.sqj.utils.StringUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 作者：lblbh on 2022/4/30 20:38
@@ -84,7 +78,7 @@ public class SystemNotesListActivity extends AppActivity implements OnRefreshLoa
         map.put("page",page);
         map.put("id","");
         EasyHttp.post(this)
-                .api(new SysNotesListApi())
+                .api(new HomeSysNotesListApi())
                 .json(map)
                 .request(new HttpCallback<HttpData<VNotiesData>>(this) {
 

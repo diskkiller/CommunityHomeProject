@@ -14,10 +14,7 @@ import com.diskkiller.http.listener.OnHttpListener;
 import com.gongwen.marqueen.SimpleMarqueeView;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
-import com.huaxixingfu.sqj.app.AppApplication;
-import com.huaxixingfu.sqj.bean.PersonDataBean;
 import com.huaxixingfu.sqj.bean.VBanner;
-import com.huaxixingfu.sqj.commom.Constants;
 import com.huaxixingfu.sqj.http.api.BannerApi;
 import com.huaxixingfu.sqj.http.api.BarListApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
@@ -29,7 +26,6 @@ import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
 import com.huaxixingfu.sqj.ui.activity.position.news.SimpleNewListActivity;
 import com.huaxixingfu.sqj.ui.fragment.HomeSimpleMF;
 import com.huaxixingfu.sqj.utils.LogUtil;
-import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
@@ -216,16 +212,7 @@ public final class HomeContentNewsAdapter extends AppAdapter<HomeContentNewsApi.
 
         @Override
         public void onBindView(int position) {
-            boolean login = SPManager.instance(getContext()).isLogin();
-            PersonDataBean model = SPManager.instance(AppApplication.getInstances())
-                    .getModel(Constants.USERINFO, PersonDataBean.class);
-            boolean resident = model != null && model.getUserResidentCertStatus() == 2;
-
-            if (login && resident){
-                updateNotify(true);
-            }else {
-                updateNotify(false);
-            }
+            initNotesList();
         }
 
 
