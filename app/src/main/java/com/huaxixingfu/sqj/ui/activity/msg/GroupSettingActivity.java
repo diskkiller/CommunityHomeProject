@@ -35,6 +35,7 @@ import com.huaxixingfu.sqj.ui.activity.me.report.ReportContentListActivity;
 import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitActivity;
 import com.huaxixingfu.sqj.ui.adapter.GroupMemberAdapter;
 import com.huaxixingfu.sqj.ui.dialog.InputDialog;
+import com.huaxixingfu.sqj.utils.SPManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,10 +50,11 @@ public class GroupSettingActivity extends AppActivity {
     private ArrayList<String> testMoreData = new ArrayList<>();
     private ArrayList<GroupMemberBean> memberBeans = new ArrayList<>();
     private ArrayList<GroupMemberBean> lessMemberBeans = new ArrayList<>();
-    private TextView tx_more;
+    private TextView tx_more,tv_logout_group;
     private long targetUid;
     private boolean isOwner;
     private SettingBar sb_group_name,sb_group_my_nickname,sb_group_transfer;
+    private String userNickName;
 
     public static void start(BaseActivity activity, long targetUid, OnFinishResultListener listener) {
         Intent intent = new Intent(activity, GroupSettingActivity.class);
@@ -62,16 +64,17 @@ public class GroupSettingActivity extends AppActivity {
                 return;
             }
             if (resultCode == RESULT_OK) {
-                listener.onSucceed(data.getStringExtra(IntentKey.STRING_DATE));
+                listener.onSucceed(data.getStringExtra(IntentKey.STRING_DATE),data.getBooleanExtra(IntentKey.LOGOUT_GROUP,false));
             } else {
                 listener.onFail();
             }
         });
     }
 
-    public void finishForResult(String date) {
+    public void finishForResult(String date,boolean isLogout) {
         setResult(RESULT_OK, new Intent()
-                .putExtra(IntentKey.STRING_DATE, date));
+                .putExtra(IntentKey.STRING_DATE, date)
+                .putExtra(IntentKey.LOGOUT_GROUP,isLogout));
         finish();
     }
 
@@ -80,7 +83,7 @@ public class GroupSettingActivity extends AppActivity {
      */
     public interface OnFinishResultListener {
 
-        void onSucceed(String data);
+        void onSucceed(String data,boolean isLogout);
 
         default void onFail() {}
     }
@@ -98,7 +101,9 @@ public class GroupSettingActivity extends AppActivity {
         sb_group_name = findViewById(R.id.sb_group_name);
         sb_group_my_nickname = findViewById(R.id.sb_group_my_nickname);
         sb_group_transfer = findViewById(R.id.sb_group_transfer);
-        setOnClickListener(R.id.tx_more,R.id.sb_group_name,R.id.sb_group_notice,R.id.sb_group_transfer,R.id.sb_group_my_nickname,R.id.sb_chat_report);
+        tv_logout_group = findViewById(R.id.tv_logout_group);
+        setOnClickListener(R.id.tx_more,R.id.sb_group_name,R.id.sb_group_notice,
+                R.id.sb_group_transfer,R.id.sb_group_my_nickname,R.id.sb_chat_report,R.id.tv_logout_group);
         initRV();
     }
 
@@ -128,8 +133,10 @@ public class GroupSettingActivity extends AppActivity {
                             GroupDetailBean groupDetailBean = data.getData();
 
                             isOwner = groupDetailBean.getIsChatGroupUserId();
+                            tv_logout_group.setVisibility(View.GONE);
                             if(!isOwner){
                                 sb_group_transfer.setVisibility(View.GONE);
+                                tv_logout_group.setVisibility(View.VISIBLE);
                             }
                             getGroupMemerDetail();
                         /*
@@ -221,6 +228,12 @@ public class GroupSettingActivity extends AppActivity {
                                 if(memberBeans.get(i).isChatGroupUserId){
                                     owner = memberBeans.get(i);
                                     memberBeans.remove(i);
+                                    break;
+                                }
+                            }
+                            for(int i = 0; i<memberBeans.size() ; i++){
+                                if((memberBeans.get(i).userId+"").equals(SPManager.instance(getApplicationContext()).getUserId()+"")){
+                                    userNickName = memberBeans.get(i).userNickName;
                                     break;
                                 }
                             }
@@ -319,7 +332,8 @@ public class GroupSettingActivity extends AppActivity {
                     }else{
                         AddFriendApplyActivity.start(GroupSettingActivity.this,
                                 groupMemberAdapter.getItem(position).userId,
-                                groupMemberAdapter.getItem(position).nickname,
+                                groupMemberAdapter.getItem(position).userName,
+                                groupMemberAdapter.getItem(position).userNickName,
                                 groupMemberAdapter.getItem(position).residentAvatarUrl,null);
                     }
 
@@ -353,6 +367,27 @@ public class GroupSettingActivity extends AppActivity {
                     }
                 });
     }
+    private void logoutGroup(int targetUid, int chatToUserId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("groupId",targetUid);
+        map.put("chatToUserId",chatToUserId);
+        EasyHttp.post(this)
+                .api(new DelGroupMemberApi())
+                .json(map)
+                .request(new HttpCallback<HttpData>(this) {
+
+                    @Override
+                    public void onSucceed(HttpData data) {
+                        toast("退出成功");
+                        finishForResult(targetUid+"",true);
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
+    }
 
 
     @Override
@@ -374,9 +409,10 @@ public class GroupSettingActivity extends AppActivity {
                 toast("不可修改");
                 return;
             }
+            userNickName = userNickName == null?"":userNickName;
             new InputDialog.Builder(getContext())
                     .setTitle("群聊名称设置")
-                    .setContent("")
+                    .setContent(userNickName)
                     .setHint("请输入群聊名称")
                     .setCancelable(false)
                     .setListener(new InputDialog.OnListener() {
@@ -419,6 +455,9 @@ public class GroupSettingActivity extends AppActivity {
         }else if(id == R.id.sb_chat_report){
             ReportSubmitActivity.start(GroupSettingActivity.this,ReportContentListActivity.GROUPSETTING,targetUid);
 
+        }else if(id == R.id.tv_logout_group){
+            logoutGroup(Integer.parseInt(targetUid+""), Integer.parseInt(SPManager.instance(getApplicationContext()).getUserId()+""));
+            //finishForResult(targetUid+"",true);
         }
     }
 

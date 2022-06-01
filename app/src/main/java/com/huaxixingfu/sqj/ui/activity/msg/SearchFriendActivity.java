@@ -115,7 +115,7 @@ public class SearchFriendActivity extends AppActivity {
 
 
         if(id == R.id.tv_see){
-            AddFriendApplyActivity.start(SearchFriendActivity.this,userId,userName,userImgUrl,null);
+            AddFriendApplyActivity.start(SearchFriendActivity.this,userId,userName,"",userImgUrl,null);
         }
     }
 

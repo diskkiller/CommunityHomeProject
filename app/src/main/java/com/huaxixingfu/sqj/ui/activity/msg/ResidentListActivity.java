@@ -101,9 +101,9 @@ public class ResidentListActivity extends AppActivity implements
         /*ChatSettingActivity.start(ResidentListActivity.this,mAdapter.getData().get(position).getUserId(),
                 mAdapter.getData().get(position).getResidentNickName(),null);*/
 
-        TempMessageActivity.show(getContext(),mAdapter.getData().get(position).getUserId(),
+        TempMessageActivity.show(ResidentListActivity.this,mAdapter.getData().get(position).getUserId(),
                 mAdapter.getData().get(position).getUserId()+"",
-                mAdapter.getData().get(position).getResidentNickName(),false);
+                mAdapter.getData().get(position).getResidentNickName(),false,null);
 
     }
 

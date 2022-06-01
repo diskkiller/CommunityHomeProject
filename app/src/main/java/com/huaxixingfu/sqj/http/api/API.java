@@ -359,6 +359,12 @@ public class API {
     public static final String CHAT_GROUP_FRIEND_DEL = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/del";
 
     /**
+     * 退群
+     */
+    public static final String CHAT_GROUP_LOGOUT = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/friend/del";
+
+
+    /**
      * 修改群昵称
      */
     public static final String CHAT_GROUP_CHANGE_NICKNAME = MAIN_URL + "sggl/mobile/chat/group/v1.0/group/update/nice";

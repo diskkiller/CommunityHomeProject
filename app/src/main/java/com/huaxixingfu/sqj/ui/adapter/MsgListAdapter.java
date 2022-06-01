@@ -53,7 +53,7 @@ public final class MsgListAdapter extends myAppAdapter<Conersation> {
         }*/
 
         GlideApp.with(getContext())
-                .load(BuildConfig.HOST_PIC_FILE_URL+bean.chatBody.extras.avatarUrl)
+                .load(BuildConfig.HOST_PIC_FILE_URL+bean.avatarUrl)
                 .into(niv_avater);
 
     }

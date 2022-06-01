@@ -27,10 +27,11 @@ public class AddFriendApplyActivity extends AppActivity {
     TextView tv_nickname,contentNum;
     long userId;
 
-    public static void start(BaseActivity activity, long id, String name, String image,OnFinishResultListener listener) {
+    public static void start(BaseActivity activity, long id, String name,String nikename, String image,OnFinishResultListener listener) {
         Intent intent = new Intent(activity, AddFriendApplyActivity.class);
         intent.putExtra(IntentKey.ID, id);
         intent.putExtra(IntentKey.NAME, name);
+        intent.putExtra(IntentKey.NICKNAME, nikename);
         intent.putExtra(IntentKey.IMAGE, image);
         activity.startActivityForResult(intent, (resultCode, data) -> {
             if (listener == null) {
@@ -86,8 +87,11 @@ public class AddFriendApplyActivity extends AppActivity {
         GlideApp.with(getContext())
                 .load(getString(IntentKey.IMAGE))
                 .into(niv_avater);
-        if(StringUtils.isNotEmpty(getString(IntentKey.NAME)))
+        if(StringUtils.isNotEmpty(getString(IntentKey.NICKNAME)))
+            tv_nickname.setText(getString(IntentKey.NICKNAME));
+        else{
             tv_nickname.setText(getString(IntentKey.NAME));
+        }
 
     }
 

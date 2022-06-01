@@ -40,6 +40,8 @@ public final class IntentKey {
 
     public static final String STRING_DATE = "string_date";
 
+    public static final String LOGOUT_GROUP = "logout_group";
+
     public static final String STRING_LIST = "string_list";
 
     public static final String OBJECT_LIST = "object_list";

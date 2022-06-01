@@ -218,19 +218,19 @@ public class TimeUtils {
      * @param dateStr  yyyy-MM-dd HH:mm:ss
      * @return
      */
-//    public static String formatDate(String dateStr) {
-//
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//        Date date;
-//        try {
-//            date = sdf.parse(dateStr);
-//        } catch (ParseException e) {
-//            date = new Date();
-//            e.printStackTrace();
-//        }
-//        String needStr = sdf.format(date);
-//        return needStr;
-//    }
+    public static String formatDate(String dateStr) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date;
+        try {
+            date = sdf.parse(dateStr);
+        } catch (ParseException e) {
+            date = new Date();
+            e.printStackTrace();
+        }
+        String needStr = sdf.format(date);
+        return needStr;
+    }
 
     /**
      * @param dateStr

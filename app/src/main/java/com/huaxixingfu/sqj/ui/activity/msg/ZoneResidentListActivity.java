@@ -134,12 +134,12 @@ public class ZoneResidentListActivity extends AppActivity implements View.OnClic
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
                 //toast(residentZoneListAdapter.getData().get(position).residentName);
                 if(residentZoneListAdapter.getData().get(position).isFriend){
-                    TempMessageActivity.show(getContext(),residentZoneListAdapter.getData().get(position).userId,
+                    TempMessageActivity.show(ZoneResidentListActivity.this,residentZoneListAdapter.getData().get(position).userId,
                             residentZoneListAdapter.getData().get(position).userId+"",
-                            residentZoneListAdapter.getData().get(position).nickName,false);
+                            residentZoneListAdapter.getData().get(position).nickName,false,null);
                 }else{
                     AddFriendApplyActivity.start(ZoneResidentListActivity.this,residentZoneListAdapter.getData().get(position).userId
-                            ,residentZoneListAdapter.getData().get(position).nickName,
+                            ,residentZoneListAdapter.getData().get(position).nickName,"",
                             residentZoneListAdapter.getData().get(position).avatar,null);
 
                 }

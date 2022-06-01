@@ -242,6 +242,13 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
                     tv_renwu_content.setText("暂无新的任务消息");
                 }
                 continue;
+            }else if(conv.sessionId.equals("n-3")){
+                if(conv.unreadMsgNum > 0){
+                    tv_right_red.setVisibility(View.VISIBLE);
+                }else{
+                    tv_right_red.setVisibility(View.GONE);
+                }
+                continue;
             }
 
             boolean isExit = false;
@@ -381,8 +388,24 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
              */
             msgListAdapter.notifyItemChanged(position + 1);
             // 跳转到聊天界面
-            TempMessageActivity.show(getContext(),targetUid,
-                    conersation.sessionId,  conersation.nickName,isGroup);
+            TempMessageActivity.show(getAttachActivity(), targetUid,
+                    conersation.sessionId, conersation.nickName, isGroup, new TempMessageActivity.OnFinishResultListener() {
+                        @Override
+                        public void onSucceed(String data, boolean isLogout) {
+                            if(isLogout){
+                                LogUtil.d("diskkiller","TempMessageActivity group_logout==="+ data);
+                                Iterator<Conersation> it = msgList.iterator();
+                                while (it.hasNext()) {
+                                    Conersation s = it.next();
+                                    if (s.chatBody != null && (s.chatBody.groupId+"").equals(data)) {
+                                        it.remove();
+                                    }
+                                }
+
+                                msgListAdapter.setList(msgList);
+                            }
+                        }
+                    });
 
             /*MsgActivity.start(getAttachActivity(), targetUid,conersation.sessionId,  conersation.nickName, new MsgActivity.OnFinishResultListener() {
                 @Override

@@ -19,6 +19,7 @@ import com.huaxixingfu.sqj.app.myAppAdapter;
 import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.push.bean.Conersation;
+import com.huaxixingfu.sqj.utils.StringUtils;
 import com.huaxixingfu.sqj.utils.TimeUtils;
 import com.shehuan.niv.NiceImageView;
 

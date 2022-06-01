@@ -242,8 +242,8 @@ public class MyGroupListActivity extends AppActivity {
                 //调用群聊界面
                 int targetUid = creatData.get(position).groupId;
                 String nickName = creatData.get(position).chatGroupNiceName;
-                TempMessageActivity.show(getContext(),targetUid,
-                        targetUid+"",nickName,true);
+                TempMessageActivity.show(MyGroupListActivity.this,targetUid,
+                        targetUid+"",nickName,true,null);
             }
         });
         rv_creat.setAdapter(creatAdapter);
@@ -257,8 +257,8 @@ public class MyGroupListActivity extends AppActivity {
                 //调用群聊界面
                 int targetUid = joinData.get(position).groupId;
                 String nickName = joinData.get(position).chatGroupNiceName;
-                TempMessageActivity.show(getContext(),targetUid,
-                        targetUid+"",nickName,true);
+                TempMessageActivity.show(MyGroupListActivity.this,targetUid,
+                        targetUid+"",nickName,true,null);
             }
         });
         rv_join.setAdapter(joinAdapter);

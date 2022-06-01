@@ -98,8 +98,8 @@ public class HomeCenterGroupListActivity extends AppActivity {
                     long targetUid = groupData.get(position).chatGroupId;
                     String nickName = groupData.get(position).chatRoomName;
 
-                    TempMessageActivity.show(getContext(),targetUid,
-                            targetUid+"",nickName,true);
+                    TempMessageActivity.show(HomeCenterGroupListActivity.this,targetUid,
+                            targetUid+"",nickName,true,null);
 
                 }
             }

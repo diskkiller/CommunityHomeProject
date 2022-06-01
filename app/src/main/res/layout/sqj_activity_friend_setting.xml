@@ -75,7 +75,7 @@
                     android:id="@+id/tv_friend_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="好友昵称"
+                    android:text="备注："
                     android:textColor="#ff999999"
                     android:textSize="13sp" />
 
@@ -133,6 +133,7 @@
         app:bar_leftText="聊天记录"
         app:bar_rightDrawable="@drawable/arrows_right_ic"
         app:bar_lineVisible="false"
+        android:visibility="gone"
         />
 
 
@@ -144,6 +145,7 @@
         android:layout_marginTop="10dp"
         app:bar_leftText="聊天置顶"
         app:bar_lineVisible="false"
+        android:visibility="gone"
         >
 
         <com.diskkiller.widget.view.SwitchButton
@@ -166,6 +168,7 @@
         android:layout_marginTop="10dp"
         app:bar_leftText="消息免打扰"
         app:bar_lineVisible="false"
+        android:visibility="gone"
         >
 
         <com.diskkiller.widget.view.SwitchButton
@@ -187,6 +190,7 @@
         app:bar_leftText="清空聊天记录"
         app:bar_rightDrawable="@drawable/arrows_right_ic"
         app:bar_lineVisible="false"
+        android:visibility="gone"
         />
 
 

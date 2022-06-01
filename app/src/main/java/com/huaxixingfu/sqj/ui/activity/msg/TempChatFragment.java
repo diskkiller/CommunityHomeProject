@@ -208,8 +208,12 @@ public abstract class TempChatFragment
         if(mIsGroup){
             GroupSettingActivity.start(getAttachActivity(), targetUid, new GroupSettingActivity.OnFinishResultListener() {
                 @Override
-                public void onSucceed(String data) {
+                public void onSucceed(String groupid,boolean isLogout) {
 
+                    if(isLogout){
+                        LogUtil.d("diskkiller","TempMessageActivity group_logout");
+                        ((TempMessageActivity)getAttachActivity()).finishForResult(groupid,isLogout);
+                    }
                 }
             });
         }else{

@@ -23,17 +23,20 @@ import com.huaxixingfu.sqj.http.api.GroupTransferApi;
 import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.api.msg.AddGroupMemberApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.push.bean.Conersation;
 import com.huaxixingfu.sqj.ui.adapter.GroupAddMemberHorAdapter;
 import com.huaxixingfu.sqj.ui.adapter.GroupAddMemberVerAdapter;
 import com.huaxixingfu.sqj.ui.adapter.GroupMemberListVerAdapter;
 import com.huaxixingfu.sqj.utils.GsonUtil;
 import com.huaxixingfu.sqj.utils.LogUtil;
+import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class GroupTransferActivity extends AppActivity{
@@ -107,6 +110,13 @@ public class GroupTransferActivity extends AppActivity{
                         if(data.getData() != null) {
 
                             memberBeans = (ArrayList<GroupMemberBean>) data.getData();
+                            Iterator<GroupMemberBean> it = memberBeans.iterator();
+                            while (it.hasNext()) {
+                                GroupMemberBean s = it.next();
+                                if (s.isChatGroupUserId && (s.userId+"").equals(SPManager.instance(getApplicationContext()).getUserId()+"")) {
+                                    it.remove();
+                                }
+                            }
 
                             groupMemberListVerAdapter.setList(memberBeans);
 

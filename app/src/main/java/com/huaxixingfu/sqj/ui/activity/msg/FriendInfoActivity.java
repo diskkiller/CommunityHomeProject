@@ -151,10 +151,14 @@ public class FriendInfoActivity extends AppActivity {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_chat) {
-            nickName = tv_nickname.getText().toString();
+            if(StringUtils.isNotEmpty(tv_friend_nickname.getText().toString())){
+                nickName = tv_friend_nickname.getText().toString();
+            }else{
+                nickName = tv_nickname.getText().toString();
+            }
             String name = StringUtils.isEmpty(nickName) ? "":nickName;
-            TempMessageActivity.show(getContext(),targetUid,
-                    targetUid+"",name,false);
+            TempMessageActivity.show(FriendInfoActivity.this,targetUid,
+                    targetUid+"",name,false,null);
             finish();
         }else if(id == R.id.sb_edite_friend_rename){
             chatFriendNickname = tv_friend_nickname.getText().toString();

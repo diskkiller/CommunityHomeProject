@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.diskkiller.base.BaseActivity;
 import com.hjq.permissions.Permission;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.Permissions;
@@ -44,18 +45,43 @@ public class TempMessageActivity extends AppActivity {
     /**
      * 通过Session发起聊天
      *
-     * @param context 上下文
+     *
      *
      */
-    public static void show(Context context,long targetUid,String sessionId, String nickName,boolean mIsGroup) {
-        if (context == null)
-            return;
-        Intent intent = new Intent(context, TempMessageActivity.class);
+    public static void show(BaseActivity activity, long targetUid, String sessionId, String nickName, boolean mIsGroup, OnFinishResultListener listener) {
+        Intent intent = new Intent(activity, TempMessageActivity.class);
         intent.putExtra(IntentKey.TARGETUID, targetUid);
         intent.putExtra(IntentKey.SESSIONID, sessionId);
         intent.putExtra(IntentKey.NICKNAME, nickName);
         intent.putExtra(IntentKey.KEY_IS_GROUP, mIsGroup);
-        context.startActivity(intent);
+        activity.startActivityForResult(intent, (resultCode, data) -> {
+            if (listener == null) {
+                return;
+            }
+            if (resultCode == RESULT_OK) {
+                listener.onSucceed(data.getStringExtra(IntentKey.STRING_DATE),data.getBooleanExtra(IntentKey.LOGOUT_GROUP,false));
+            } else {
+                listener.onFail();
+            }
+        });
+    }
+
+
+    public void finishForResult(String date,boolean isLogout) {
+        setResult(RESULT_OK, new Intent()
+                .putExtra(IntentKey.STRING_DATE, date)
+                .putExtra(IntentKey.LOGOUT_GROUP,isLogout));
+        finish();
+    }
+
+    /**
+     * 注册监听
+     */
+    public interface OnFinishResultListener {
+
+        void onSucceed(String data,boolean isLogout);
+
+        default void onFail() {}
     }
 
 

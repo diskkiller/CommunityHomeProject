@@ -200,9 +200,7 @@ public class ChatSettingActivity extends AppActivity {
             tv_nickname.setText(data.userNickName);
             if(StringUtils.isNotEmpty(data.chatFriendNiceName)){
                 tv_friend_nickname.setText(data.chatFriendNiceName);
-            }else{
-                tv_friend_nickname.setText(data.userNickName);
-            }
+            }else
 
             if(StringUtils.isNotEmpty(data.zoneRoomAddr)){
                 tv_address.setText(data.zoneRoomAddr);

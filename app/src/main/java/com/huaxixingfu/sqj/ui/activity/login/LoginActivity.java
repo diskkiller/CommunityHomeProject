@@ -149,6 +149,7 @@ public class LoginActivity extends AppActivity{
 
                             EasyConfig.getInstance().addHeader("Authorization", model.token);
                             SPManager.instance(getContext()).saveUserPhone(account);
+                            SPManager.instance(getContext()).saveUserId(model.userId);
 
                             // 进行内存优化，销毁所有界面
                             ActivityManager.getInstance().finishAllActivities();

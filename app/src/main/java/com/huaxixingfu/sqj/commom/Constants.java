@@ -36,6 +36,7 @@ public class Constants {
     public static String sp_name = "killerAppSP";//sp名字";
     public static String USERINFO = "user_info";
     public static final String USERINFO_PHONE = "userinfo_phone";
+    public static final String USER_ID = "user_id";
 
     /**
      * 默认一页数据大小 默认一页10条

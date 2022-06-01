@@ -81,6 +81,7 @@
                 app:bar_leftText="群文件"
                 app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_lineVisible="false"
+                android:visibility="gone"
                 />
             <com.diskkiller.widget.layout.SettingBar
                 android:id="@+id/sb_group_his"
@@ -90,6 +91,7 @@
                 app:bar_leftText="聊天记录"
                 app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_lineVisible="false"
+                android:visibility="gone"
                 />
 
             <com.diskkiller.widget.layout.SettingBar
@@ -99,6 +101,7 @@
                 android:layout_marginTop="10dp"
                 app:bar_leftText="聊天置顶"
                 app:bar_lineVisible="false"
+                android:visibility="gone"
                 >
 
                 <com.diskkiller.widget.view.SwitchButton
@@ -118,6 +121,7 @@
                 android:layout_marginTop="10dp"
                 app:bar_leftText="消息免打扰"
                 app:bar_lineVisible="false"
+                android:visibility="gone"
                 >
 
                 <com.diskkiller.widget.view.SwitchButton
@@ -160,6 +164,7 @@
                 app:bar_leftText="清空聊天记录"
                 app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_lineVisible="false"
+                android:visibility="gone"
                 />
 
 
@@ -172,6 +177,24 @@
                 app:bar_rightDrawable="@drawable/arrows_right_ic"
                 app:bar_lineVisible="false"
                 />
+
+
+            <TextView
+                android:id="@+id/tv_logout_group"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="@dimen/dp_22"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/shape_r5_white_bg"
+                android:backgroundTint="@color/main"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="退出群聊"
+                android:textColor="#ffffffff"
+                android:textSize="17sp" />
 
 
         </LinearLayout>

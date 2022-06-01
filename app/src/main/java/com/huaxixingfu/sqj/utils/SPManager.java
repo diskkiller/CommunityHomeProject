@@ -144,6 +144,13 @@ public class SPManager {
         return getString(Constants.USERINFO_PHONE);
     }
 
+    public void saveUserId(long userid) {
+        put(Constants.USER_ID, userid);
+    }
+    public long getUserId() {
+        return getLong(Constants.USER_ID);
+    }
+
     public void savePrivate(String url) {
         put(Constants.PRIVATE_KEY, url);
     }

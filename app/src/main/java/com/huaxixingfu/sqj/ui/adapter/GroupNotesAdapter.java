@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.bean.VGroupNotes;
+import com.huaxixingfu.sqj.utils.TimeUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,9 +42,9 @@ public class GroupNotesAdapter extends BaseQuickAdapter<VGroupNotes, BaseViewHol
 
 
         itemContent.setText(model.chatGroupNoticeContent);
-        itemTime.setText(model.createdAt);
+        itemTime.setText(TimeUtils.formatDate(model.createdAt));
 
-        baseViewHolder.setGone(R.id.item_tips,!isOwner);
+        //baseViewHolder.setGone(R.id.item_tips,!isOwner);
         baseViewHolder.setGone(R.id.item_del,!isOwner);
 
     }

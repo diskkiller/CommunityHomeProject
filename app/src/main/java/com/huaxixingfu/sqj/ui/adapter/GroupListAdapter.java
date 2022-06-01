@@ -46,7 +46,7 @@ public final class GroupListAdapter extends BaseQuickAdapter<GroupListBean,BaseV
             baseViewHolder.setGone(R.id.ll_apply,true);
         }
 
-        String [] urls = contactsListBean.userAvatarUrl.toArray(new String[]{});;
+        /*String [] urls = contactsListBean.userAvatarUrl.toArray(new String[]{});;
 
         CombineBitmap.init(getContext())
                 .setLayoutManager(new WechatLayoutManager()) // 必选， 设置图片的组合形式，支持WechatLayoutManager、DingLayoutManager
@@ -59,14 +59,14 @@ public final class GroupListAdapter extends BaseQuickAdapter<GroupListBean,BaseV
                 //.setResourceIds() // 要加载的图片资源id数组
                 .setImageView(niv_avater) // 直接设置要显示图片的ImageView
                 // 设置“子图片”的点击事件，需使用setImageView()，index和图片资源数组的索引对应
-                /*.setOnSubItemClickListener(new OnSubItemClickListener() {
+                *//*.setOnSubItemClickListener(new OnSubItemClickListener() {
                     @Override
                     public void onSubItemClick(int index) {
 
                     }
-                })*/
+                })*//*
                 // 加载进度的回调函数，若是不使用setImageView()方法，可在onComplete()完成最终图片的显示
-                /*.setProgressListener(new ProgressListener() {
+                *//*.setProgressListener(new ProgressListener() {
                     @Override
                     public void onStart() {
 
@@ -76,12 +76,12 @@ public final class GroupListAdapter extends BaseQuickAdapter<GroupListBean,BaseV
                     public void onComplete(Bitmap bitmap) {
 
                     }
-                })*/
-                .build();
+                })*//*
+                .build();*/
 
-        /*GlideApp.with(getContext())
-                .load(contactsListBean.userAvatarUrl)
-                .into(niv_avater);*/
+        GlideApp.with(getContext())
+                .load(contactsListBean.avatar)
+                .into(niv_avater);
     }
 
     public void setLayoutManager(LinearLayoutManager mLayoutManager) {

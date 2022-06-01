@@ -50,7 +50,11 @@ public final class GroupMemberAdapter extends BaseQuickAdapter<GroupMemberBean,B
             baseViewHolder.setText(R.id.tv_title,"删除成员");
             baseViewHolder.setGone(R.id.badge_delete,true);
         }else{
-            baseViewHolder.setGone(R.id.badge_delete,!isMinus);
+            if(conersation.isChatGroupUserId){
+                baseViewHolder.setGone(R.id.badge_delete,true);
+            }else{
+                baseViewHolder.setGone(R.id.badge_delete,!isMinus);
+            }
             baseViewHolder.setText(R.id.tv_title,conersation.userNickName);
             GlideApp.with(getContext())
                     .load(conersation.residentAvatarUrl)

@@ -11,8 +11,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.bean.GroupMemberBean;
+import com.huaxixingfu.sqj.commom.IntentKey;
 import com.huaxixingfu.sqj.http.api.MailListApi;
 import com.huaxixingfu.sqj.http.glide.GlideApp;
+import com.huaxixingfu.sqj.utils.StringUtils;
 import com.shehuan.niv.NiceImageView;
 
 import java.util.List;
@@ -34,7 +36,11 @@ public final class GroupMemberListVerAdapter extends BaseQuickAdapter<GroupMembe
     @Override
     protected void convert(@NonNull BaseViewHolder baseViewHolder, GroupMemberBean contactsListBean) {
 
-        baseViewHolder.setText(R.id.tv_nickname, contactsListBean.nickname);
+        if(StringUtils.isNotEmpty(contactsListBean.userNickName))
+            baseViewHolder.setText(R.id.tv_nickname, contactsListBean.userNickName);
+        else{
+            baseViewHolder.setText(R.id.tv_nickname, contactsListBean.userName);
+        }
         boolean isSelect = contactsListBean.isSelect;
         ImageView iv_select = baseViewHolder.getView(R.id.iv_select);
         if (isSelect) {

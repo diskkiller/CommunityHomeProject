@@ -51,6 +51,7 @@ public final class MailListApi implements IRequestApi {
         public int chatToUserId;
         public String chatFriendNiceName;
         public String userNickName;
+        public String userName;
         public String chatFriendRemark;
         public String userAvatarUrl;
         public String zoneRoomAddr;
