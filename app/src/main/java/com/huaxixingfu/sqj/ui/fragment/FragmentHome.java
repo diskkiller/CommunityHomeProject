@@ -5,10 +5,6 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.diskkiller.base.BaseAdapter;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
@@ -21,10 +17,9 @@ import com.huaxixingfu.sqj.http.api.GetResidentInitApi;
 import com.huaxixingfu.sqj.http.api.HomeContentNewsApi;
 import com.huaxixingfu.sqj.http.api.PersonalDataApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
-import com.huaxixingfu.sqj.ui.activity.home.HomeCenterActivity;
+import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.SystemNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.other.BrowserActivity;
-import com.huaxixingfu.sqj.ui.activity.HomeActivity;
 import com.huaxixingfu.sqj.ui.adapter.HomeContentNewsAdapter;
 import com.huaxixingfu.sqj.utils.SPManager;
 import com.huaxixingfu.sqj.utils.StringUtils;
@@ -35,6 +30,10 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FragmentHome extends AppFragment<HomeActivity>  {
 
@@ -105,9 +104,6 @@ public class FragmentHome extends AppFragment<HomeActivity>  {
                                     //2认证通过
                                     ((TextView)findViewById(R.id.tv_title)).setText(data.zoneName);
                                     (findViewById(R.id.left_icon)).setVisibility(View.VISIBLE);
-                                    if(adapter != null){
-                                        adapter.updateNotify(true);
-                                    }
                                 }
                             }
                         }
