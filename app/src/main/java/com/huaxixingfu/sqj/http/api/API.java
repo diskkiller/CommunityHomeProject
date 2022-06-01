@@ -434,5 +434,10 @@ public class API {
      */
     public static final String APP_VERSION_CHECK = MAIN_URL + "sggl/mobile/home/v1.0/app/android";
 
+    /**
+     * 首页  右上角  系统通知列表接口
+     */
+    public static final String HOME_SYSTEM_NOTIES_LIST = MAIN_URL + "sggl/mobile/home/v1.0/sys/inform/page";
+
 
 }

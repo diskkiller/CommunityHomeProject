@@ -1,42 +1,34 @@
 package com.huaxixingfu.sqj.ui.activity.me.report;
 
 
-import static com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter.STATE_DONE_NOT_2;
-import static com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter.STATE_DONE_OK_1;
-import static com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter.STATE_WILL_DO_0;
-
 import android.content.Intent;
-import android.os.Handler;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
-
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.diskkiller.base.BaseActivity;
 import com.diskkiller.http.EasyHttp;
 import com.diskkiller.http.listener.HttpCallback;
-import com.hjq.toast.ToastUtils;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.aop.CheckNet;
 import com.huaxixingfu.sqj.aop.SingleClick;
 import com.huaxixingfu.sqj.app.AppActivity;
 import com.huaxixingfu.sqj.bean.FeedBackImageBean;
-import com.huaxixingfu.sqj.bean.VSucess;
-import com.huaxixingfu.sqj.databinding.SqjActivityReportDetailsBinding;
 import com.huaxixingfu.sqj.http.api.ReportDetailsNewsApi;
-import com.huaxixingfu.sqj.http.api.ReportSubmitApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
-import com.huaxixingfu.sqj.ui.activity.me.FeedbackActivity;
 import com.huaxixingfu.sqj.ui.adapter.FeedBackImageAdapter;
 import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter.STATE_DONE_NOT_2;
+import static com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter.STATE_DONE_OK_1;
+import static com.huaxixingfu.sqj.ui.adapter.ReportMyAdapter.STATE_WILL_DO_0;
 
 /**
  *  举报 详情 或者 提交结果页
@@ -155,6 +147,8 @@ public class ReportSubmitDetailsActivity extends AppActivity{
         ll_result_line = findViewById(R.id.ll_result_line);
         ll_result_content = findViewById(R.id.ll_result_content);
         ll_result_state = findViewById(R.id.ll_result_state);
+        tv_report_result.setMovementMethod(ScrollingMovementMethod.getInstance());
+
 
 
 
