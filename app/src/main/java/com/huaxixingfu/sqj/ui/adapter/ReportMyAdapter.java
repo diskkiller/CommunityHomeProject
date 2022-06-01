@@ -3,18 +3,15 @@ package com.huaxixingfu.sqj.ui.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import com.diskkiller.base.BaseActivity;
 import com.huaxixingfu.sqj.R;
 import com.huaxixingfu.sqj.app.AppAdapter;
-import com.huaxixingfu.sqj.http.api.HomeCloumnContentNewsApi;
 import com.huaxixingfu.sqj.http.api.ReportListNewsApi;
-import com.huaxixingfu.sqj.http.glide.GlideApp;
 import com.huaxixingfu.sqj.ui.activity.me.report.ReportSubmitDetailsActivity;
+
+import androidx.annotation.NonNull;
 
 /**
  *    desc   : 我的举报
@@ -61,7 +58,7 @@ public final class ReportMyAdapter extends AppAdapter<ReportListNewsApi.Bean.VCo
                     itemState.setText(bean.appReportStatusName);
                     itemState.setTextColor(getColor(R.color.color_ff999999));
                     itemContent.setVisibility(View.INVISIBLE);
-//                    itemHint.setVisibility(View.INVISIBLE);
+                    itemHint.setText("等待官方处理");
                     break;
                 case STATE_DONE_OK_1 :
                 case STATE_DONE_NOT_2 :
@@ -70,7 +67,7 @@ public final class ReportMyAdapter extends AppAdapter<ReportListNewsApi.Bean.VCo
                     itemState.setTextColor(getColor(R.color.main));
                     itemContent.setText(bean.appExamineDesc);
                     itemContent.setVisibility(View.VISIBLE);
-                    itemHint.setVisibility(View.VISIBLE);
+                    itemHint.setText("处理结果");
                     break;
                 default:
             }
