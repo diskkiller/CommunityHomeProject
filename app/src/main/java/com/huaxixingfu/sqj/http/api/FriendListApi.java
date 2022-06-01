@@ -27,5 +27,22 @@ public final class FriendListApi implements IRequestApi {
         public String userAvatarUrl;
         public String zoneRoomAddr;
         public String chatFriendApplyRemark;
+
+        @Override
+        public String toString() {
+            return "Bean{" +
+                    "userId=" + userId +
+                    ", userType=" + userType +
+                    ", chatUserId=" + chatUserId +
+                    ", chatFriendApplyId=" + chatFriendApplyId +
+                    ", userUid='" + userUid + '\'' +
+                    ", userName='" + userName + '\'' +
+                    ", userNickName='" + userNickName + '\'' +
+                    ", userSignName='" + userSignName + '\'' +
+                    ", userAvatarUrl='" + userAvatarUrl + '\'' +
+                    ", zoneRoomAddr='" + zoneRoomAddr + '\'' +
+                    ", chatFriendApplyRemark='" + chatFriendApplyRemark + '\'' +
+                    '}';
+        }
     }
 }

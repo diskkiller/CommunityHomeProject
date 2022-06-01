@@ -71,6 +71,10 @@ public class NewFriendsActivity extends AppActivity implements View.OnClickListe
                     @Override
                     public void onSucceed(HttpData<List<FriendListApi.Bean>> data) {
                         if(data.getData() != null){
+                            if(friendAdapter != null && friendAdapter.getData() != null){
+                                friendAdapter.getData().clear();
+                                friendAdapter.notifyDataSetChanged();
+                            }
                             if((null != data.getData()) && (data.getData().size() >0)){
                                 friendAdapter.setData(data.getData());
                             }

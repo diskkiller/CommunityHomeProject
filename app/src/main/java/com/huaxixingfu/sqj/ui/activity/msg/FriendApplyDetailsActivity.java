@@ -17,6 +17,7 @@ import com.huaxixingfu.sqj.http.api.ApplyFriendApi;
 import com.huaxixingfu.sqj.http.api.DeApplyFriendApi;
 import com.huaxixingfu.sqj.http.api.FriendListApi;
 import com.huaxixingfu.sqj.http.model.HttpData;
+import com.huaxixingfu.sqj.utils.LogUtil;
 import com.huaxixingfu.sqj.utils.StringUtils;
 
 import java.util.HashMap;
@@ -89,6 +90,9 @@ public class FriendApplyDetailsActivity extends AppActivity {
     }
 
     private void setUserData(){
+
+        LogUtil.d("diskkiller","modle====="+model.toString());
+        LogUtil.d("diskkiller","nullChanegEmpty====="+StringUtils.nullChanegEmpty(model.userNickName));
         //用户数据
         Glide.with(niv_avater)
                 .load(model.userAvatarUrl)
