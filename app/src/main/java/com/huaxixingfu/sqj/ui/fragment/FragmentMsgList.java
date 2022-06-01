@@ -39,6 +39,7 @@ import com.huaxixingfu.sqj.ui.activity.login.LoginActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.CreatGroupActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.MailListActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.MsgMissionListActivity;
+import com.huaxixingfu.sqj.ui.activity.msg.MsgNotesListActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.SearchFriendActivity;
 import com.huaxixingfu.sqj.ui.activity.msg.TempMessageActivity;
 import com.huaxixingfu.sqj.ui.adapter.MsgListAdapter;
@@ -103,14 +104,14 @@ public class FragmentMsgList extends TitleBarFragment<AppActivity> implements On
 
         View headerView = View.inflate(getContext(), R.layout.sqj_item_msglist_header, null);
         LinearLayout ll_system = headerView.findViewById(R.id.ll_gonggao);
-//        ll_system.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                tv_gonggao_new.setVisibility(View.GONE);
-//                tv_gonggao_content.setText("暂无新的通知公告");
-//                startActivity(new Intent(getActivity(), MsgNotesListActivity.class));
-//            }
-//        });
+        ll_system.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_gonggao_new.setVisibility(View.GONE);
+                tv_gonggao_content.setText("暂无新的通知公告");
+                startActivity(new Intent(getActivity(), MsgNotesListActivity.class));
+            }
+        });
 
         tv_gonggao_new = headerView.findViewById(R.id.tv_gonggao_new);
         tv_mission_new = headerView.findViewById(R.id.tv_mission_new);

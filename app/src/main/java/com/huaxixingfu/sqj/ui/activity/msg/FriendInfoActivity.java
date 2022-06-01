@@ -135,8 +135,6 @@ public class FriendInfoActivity extends AppActivity {
             tv_nickname.setText(data.userNickName);
             if(StringUtils.isNotEmpty(data.chatFriendNiceName)){
                 tv_friend_nickname.setText(data.chatFriendNiceName);
-            }else{
-                tv_friend_nickname.setText(data.userNickName);
             }
 
             if(StringUtils.isNotEmpty(data.zoneRoomAddr)){
@@ -153,10 +151,13 @@ public class FriendInfoActivity extends AppActivity {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_chat) {
+            nickName = tv_nickname.getText().toString();
+            String name = StringUtils.isEmpty(nickName) ? "":nickName;
             TempMessageActivity.show(getContext(),targetUid,
-                    targetUid+"",nickName,false);
+                    targetUid+"",name,false);
             finish();
         }else if(id == R.id.sb_edite_friend_rename){
+            chatFriendNickname = tv_friend_nickname.getText().toString();
             String name = StringUtils.isEmpty(chatFriendNickname) ? "":chatFriendNickname;
 
             new InputDialog.Builder(getContext())

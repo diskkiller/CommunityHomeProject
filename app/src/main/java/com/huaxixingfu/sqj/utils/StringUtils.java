@@ -447,7 +447,7 @@ public class StringUtils {
      */
     public static String nullChanegEmpty(String  desc){
         String temp = "";
-        if(!isNotEmpty(desc)){
+        if(isNotEmpty(desc)){
             temp = desc;
         }
         return temp;
