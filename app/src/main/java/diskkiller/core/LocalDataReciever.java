@@ -1,0 +1,249 @@
+/*
+ * Copyright (C) 2021  即时通讯网(52im.net) & Jack Jiang.
+ * The MobileIMSDK_TCP (MobileIMSDK v6.x TCP版) Project. 
+ * All rights reserved.
+ * 
+ * > Github地址：https://github.com/JackJiang2011/MobileIMSDK
+ * > 文档地址：  http://www.52im.net/forum-89-1.html
+ * > 技术社区：  http://www.52im.net/
+ * > 技术交流群：215477170 (http://www.52im.net/topic-qqgroup.html)
+ * > 作者公众号：“即时通讯技术圈】”，欢迎关注！
+ * > 联系作者：  http://www.52im.net/thread-2792-1-1.html
+ *  
+ * "即时通讯网(52im.net) - 即时通讯开发者社区!" 推荐开源工程。
+ * 
+ * LocalDataReciever.java at 2021-7-1 15:08:17, code by Jack Jiang.
+ */
+package diskkiller.core;
+
+import android.util.Log;
+
+import com.google.gson.Gson;
+
+
+import java.util.Observable;
+import java.util.Observer;
+
+import diskkiller.ClientCoreSDK;
+import diskkiller.ErrorCode;
+import diskkiller.PErrorResponse;
+import diskkiller.PKickoutInfo;
+import diskkiller.PLoginInfoResponse;
+import diskkiller.ProtocalFactory;
+import diskkiller.ProtocalType;
+import diskkiller.msgBean.Message;
+import diskkiller.msgBean.ResponseMessage;
+import diskkiller.utils.MBThreadPoolExecutor;
+
+public class LocalDataReciever {
+    private final static String TAG = LocalDataReciever.class.getSimpleName();
+    private static LocalDataReciever instance = null;
+
+    public static LocalDataReciever getInstance() {
+        if (instance == null)
+            instance = new LocalDataReciever();
+
+        return instance;
+    }
+
+    private LocalDataReciever() {
+        init();
+    }
+
+    private void init() {
+    }
+
+    public void handleProtocal(final String fullStringOfBody) {
+        MBThreadPoolExecutor.runOnMainThread(() -> handleProtocalImpl(fullStringOfBody));
+    }
+
+    private void handleProtocalImpl(String fullStringOfBody) {
+
+        if (fullStringOfBody == null || fullStringOfBody.length() == 0) {
+            Log.d(TAG, "【IMCORE-TCP】无效的fullStringOfBody（null 或 .length == 0）！");
+            return;
+        }
+
+        try {
+            ResponseMessage jFromServer = new Gson().fromJson(fullStringOfBody, ResponseMessage.class);
+
+            if (jFromServer.data == null) {
+                Log.d(TAG, "【IMCORE-TCP】无效的fullStringOfBody（null 或 .length == 0）！");
+                return;
+            }
+
+            Message jFromServerData = jFromServer.data;
+
+            if (jFromServerData.isQoS()) {
+                if (jFromServerData.getChatType() == ProtocalType.S.FROM_SERVER_TYPE_OF_RESPONSE$LOGIN
+                        && jFromServerData.getCode() != 0) {
+                    if (ClientCoreSDK.DEBUG)
+                        Log.d(TAG, "【IMCORE-TCP】【BugFIX】这是服务端的登陆返回响应包，" +
+                                "且服务端判定登陆失败(即code!=0)，本次无需发送ACK应答包！");
+                }
+                else {
+                    if (QoS4ReciveDaemon.getInstance().hasRecieved(jFromServerData.getFp())) {
+                        if (ClientCoreSDK.DEBUG)
+                            Log.d(TAG, "【IMCORE-TCP】【QoS机制】" + jFromServerData.getFp() + "已经存在于发送列表中，这是重复包，通知应用层收到该包罗！");
+
+                        QoS4ReciveDaemon.getInstance().addRecieved(jFromServerData);
+                        sendRecievedBack(jFromServerData);
+
+                        return;
+                    }
+
+                    QoS4ReciveDaemon.getInstance().addRecieved(jFromServerData);
+                    sendRecievedBack(jFromServerData);
+                }
+            }
+
+            switch (jFromServerData.getChatType()) {
+                case ProtocalType.C.FROM_CLIENT_TYPE_OF_COMMON$DATA: {
+                    onRecievedCommonData(jFromServerData);
+                    break;
+                }
+                case ProtocalType.S.FROM_SERVER_TYPE_OF_RESPONSE$KEEP$ALIVE: {
+                    onServerResponseKeepAlive();
+                    break;
+                }
+                case ProtocalType.C.FROM_CLIENT_TYPE_OF_RECIVED: {
+                    onMessageRecievedACK(jFromServerData);
+                    break;
+                }
+                case ProtocalType.S.FROM_SERVER_TYPE_OF_RESPONSE$LOGIN: {
+                    onServerResponseLogined(jFromServerData);
+                    break;
+                }
+                case ProtocalType.S.FROM_SERVER_TYPE_OF_RESPONSE$FOR$ERROR: {
+                    onServerResponseError(jFromServerData);
+                    break;
+                }
+				case ProtocalType.S.FROM_SERVER_TYPE_OF_KICKOUT: {
+					onKickout(jFromServerData);
+					break;
+				}
+                default:
+                    Log.w(TAG, "【IMCORE-TCP】收到的服务端消息类型：" + jFromServerData.getChatType() + "，但目前该类型客户端不支持解析和处理！");
+                    break;
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "【IMCORE-TCP】处理消息的过程中发生了错误.", e);
+        }
+    }
+
+    protected void onRecievedCommonData(Message jFromServerData) {
+//		Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>收到"+pFromServer.getFrom()+"发过来的消息："+pFromServer.getDataContent()+".["+pFromServer.getTo()+"]");
+        if (ClientCoreSDK.getInstance().getChatMessageEvent() != null) {
+            ClientCoreSDK.getInstance().getChatMessageEvent().onRecieveMessage(
+                    jFromServerData.getFp(), jFromServerData.getFrom(), jFromServerData.getDataContent(), jFromServerData.getChatType());
+        }
+    }
+
+    protected void onServerResponseKeepAlive() {
+        if (ClientCoreSDK.DEBUG)
+            Log.d(TAG, "【IMCORE-TCP】收到服务端回过来的Keep Alive心跳响应包.");
+        KeepAliveDaemon.getInstance().updateGetKeepAliveResponseFromServerTimstamp();
+    }
+
+    protected void onMessageRecievedACK(Message jFromServerData) {
+        String theFingerPrint = jFromServerData.getDataContent();
+        if (ClientCoreSDK.DEBUG)
+            Log.d(TAG, "【IMCORE-TCP】【QoS】收到" + jFromServerData.getFrom() + "发过来的指纹为" + theFingerPrint + "的应答包.");
+
+        if (ClientCoreSDK.getInstance().getMessageQoSEvent() != null)
+            ClientCoreSDK.getInstance().getMessageQoSEvent().messagesBeReceived(theFingerPrint);
+
+        QoS4SendDaemon.getInstance().remove(theFingerPrint);
+    }
+
+    protected void onServerResponseLogined(Message jFromServerData) {
+        PLoginInfoResponse loginInfoRes = ProtocalFactory.parsePLoginInfoResponse(jFromServerData.getDataContent());
+        if (loginInfoRes.getCode() == 0) {
+			if(!ClientCoreSDK.getInstance().isLoginHasInit()) {
+				ClientCoreSDK.getInstance().saveFirstLoginTime(loginInfoRes.getFirstLoginTime());
+			}
+            fireConnectedToServer();
+        } else {
+            Log.d(TAG, "【IMCORE-TCP】登陆验证失败，错误码=" + loginInfoRes.getCode() + "！");
+
+            LocalSocketProvider.getInstance().closeLocalSocket();
+            ClientCoreSDK.getInstance().setConnectedToServer(false);
+        }
+
+        if (ClientCoreSDK.getInstance().getChatBaseEvent() != null) {
+            ClientCoreSDK.getInstance().getChatBaseEvent().onLoginResponse(loginInfoRes.getCode());
+        }
+    }
+
+    protected void onServerResponseError(Message jFromServerData) {
+        PErrorResponse errorRes = ProtocalFactory.parsePErrorResponse(jFromServerData.getDataContent());
+        if (errorRes.getErrorCode() == ErrorCode.ForS.RESPONSE_FOR_UNLOGIN) {
+            ClientCoreSDK.getInstance().setLoginHasInit(false);
+
+            Log.e(TAG, "【IMCORE-TCP】收到服务端的“尚未登陆”的错误消息，心跳线程将停止，请应用层重新登陆.");
+            KeepAliveDaemon.getInstance().stop();
+            AutoReLoginDaemon.getInstance().start(false);
+        }
+
+        if (ClientCoreSDK.getInstance().getChatMessageEvent() != null) {
+            ClientCoreSDK.getInstance().getChatMessageEvent().onErrorResponse(
+                    errorRes.getErrorCode(), errorRes.getErrorMsg());
+        }
+    }
+
+	protected void onKickout(Message jFromServerData)
+	{
+		if (ClientCoreSDK.DEBUG)
+			Log.d(TAG, "【IMCORE-TCP】收到服务端发过来的“被踢”指令.");
+
+		ClientCoreSDK.getInstance().release();
+
+		PKickoutInfo kickoutInfo = ProtocalFactory.parsePKickoutInfo(jFromServerData.getDataContent());
+		if(ClientCoreSDK.getInstance().getChatBaseEvent() != null)
+			ClientCoreSDK.getInstance().getChatBaseEvent().onKickout(kickoutInfo);
+
+		if(ClientCoreSDK.getInstance().getChatBaseEvent() != null)
+			ClientCoreSDK.getInstance().getChatBaseEvent().onLinkClose(-1);
+	}
+
+    protected void fireConnectedToServer() {
+        ClientCoreSDK.getInstance().setLoginHasInit(true);
+        AutoReLoginDaemon.getInstance().stop();
+
+        KeepAliveDaemon.getInstance().setNetworkConnectionLostObserver(new Observer() {
+            @Override
+            public void update(Observable observable, Object data) {
+                fireDisconnectedToServer();
+            }
+        });
+        KeepAliveDaemon.getInstance().start(false);
+
+        QoS4SendDaemon.getInstance().startup(true);
+        QoS4ReciveDaemon.getInstance().startup(true);
+        ClientCoreSDK.getInstance().setConnectedToServer(true);
+    }
+
+    protected void fireDisconnectedToServer() {
+        ClientCoreSDK.getInstance().setConnectedToServer(false);
+//		QoS4SendDaemon.getInstance(context).stop();
+        LocalSocketProvider.getInstance().closeLocalSocket();
+        QoS4ReciveDaemon.getInstance().stop();
+        if(ClientCoreSDK.getInstance().getChatBaseEvent() != null)
+            ClientCoreSDK.getInstance().getChatBaseEvent().onLinkClose(-1);
+        AutoReLoginDaemon.getInstance().start(true);// 建议：此参数可由true改为false，防止服务端重启等情况下，客户端立即重连等
+    }
+
+    private void sendRecievedBack(final Message jFromServerData) {
+        if (jFromServerData.getFp() != null) {
+            new LocalDataSender.SendCommonDataAsync(new Message()) {
+                @Override
+                protected void onPostExecute(Integer code) {
+                    if (ClientCoreSDK.DEBUG)
+                        Log.d(TAG, "【IMCORE-TCP】【QoS】向" + jFromServerData.getFrom() + "发送" + jFromServerData.getFp() + "包的应答包成功,from=" + jFromServerData.getTo() + "！");
+                }
+            }.execute();
+        } else {
+            Log.w(TAG, "【IMCORE-TCP】【QoS】收到" + jFromServerData.getFrom() + "发过来需要QoS的包，但它的指纹码却为null！无法发应答包！");
+        }
+    }
+}
